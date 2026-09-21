@@ -1,12 +1,20 @@
 # ani.pm Frontend + Streaming Gateway
 
-A 100% self-contained local instance of the **ani.pm** Single Page Application (Vite + React 19) extracted with `spa-ripper`, integrated with direct stream resolution and offline catalog resilience.
+> **Note**: This frontend was extracted using our custom **[spa-ripper](https://github.com/greenman9909-cmd/spa-ripper)** tool.
+
+A 100% self-contained local instance of the **ani.pm** Single Page Application (Vite + React 19) extracted using our **[spa-ripper](https://github.com/greenman9909-cmd/spa-ripper)** tool, integrated with direct stream resolution and offline catalog resilience.
+
+---
+
+## ⚡ Extraction with SPA Ripper
+
+This entire production bundle (all route components, Vite dynamic chunks, CSS stylesheets, web fonts, reaction emojis, covers, and high-resolution spotlight assets) was extracted using our **[spa-ripper](https://github.com/greenman9909-cmd/spa-ripper)** tool. The tool traversed JavaScript entrypoints and dynamic import statements to resolve and download all lazy-loaded dependencies offline.
 
 ---
 
 ## Features
 
-- **Extracted Production SPA**: Complete Vite + React 19 frontend bundle (`index.html`, dynamic JS/CSS chunks, fonts, high-res banners, logos, and covers).
+- **Extracted Production SPA**: Complete Vite + React 19 frontend bundle (`index.html`, dynamic JS/CSS chunks, fonts, high-res banners, logos, and covers) extracted via **spa-ripper**.
 - **Zero External Backend Daemons**: Self-contained streaming resolver without third-party heavy dependencies.
 - **Direct Stream Resolution**: Resolves clean Video.js / MegaPlay streams with subtitle selection and quality toggles.
 - **Built-in Offline Catalog Engine**: High-performance catalog fallback with 300+ titles, curated hero spotlight carousel, seasonal schedule, countdowns, and active discussions.
@@ -18,7 +26,7 @@ A 100% self-contained local instance of the **ani.pm** Single Page Application (
 ## Directory Structure
 
 ```
-├── ani.pm_frontend/          # Production SPA bundle
+├── ani.pm_frontend/          # Production SPA bundle extracted using spa-ripper
 │   ├── assets/               # JavaScript chunks, CSS, fonts
 │   ├── banners/              # High-res spotlight banners
 │   ├── logos/                # High-res title logos
