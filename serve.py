@@ -1125,6 +1125,17 @@ class AniPMProxyHandler(SimpleHTTPRequestHandler):
 
 def main():
     server = ThreadingHTTPServer(("0.0.0.0", PORT), AniPMProxyHandler)
+    print("=" * 68)
+    print(r"""
+   █████╗ ███╗   ██╗██╗      ██████╗ ███╗   ███╗
+  ██╔══██╗████╗  ██║██║      ██╔══██╗████╗ ████║
+  ███████║██╔██╗ ██║██║█████╗██████╔╝██╔████╔██║
+  ██╔══██║██║╚██╗██║██║╚════╝██╔═══╝ ██║╚██╔╝██║
+  ██║  ██║██║ ╚████║██║      ██║     ██║ ╚═╝ ██║
+  ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝      ╚═╝     ╚═╝     ╚═╝
+    """)
+    print("  >>> Extracted with SPA-Ripper | Built by Owais (@greenman9909-cmd) <<<")
+    print("=" * 68)
     print(f"[*] Serving ani.pm frontend at http://localhost:{PORT}")
     print(f"[*] Local Catalog: {len(ALL_CATALOG_ITEMS)} titles, {len(SPOTLIGHT_ITEMS)} spotlights")
     print(f"[*] Pure Yoru Streaming Resolver: {YORU_API}")

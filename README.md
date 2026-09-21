@@ -1,66 +1,118 @@
-# ani.pm Frontend + Streaming Gateway
+<div align="center">
 
-> **Note**: This frontend was extracted using our custom **[spa-ripper](https://github.com/greenman9909-cmd/spa-ripper)** tool.
+# ⚡ ani.pm — Local Production SPA ⚡
 
-A 100% self-contained local instance of the **ani.pm** Single Page Application (Vite + React 19) extracted using our **[spa-ripper](https://github.com/greenman9909-cmd/spa-ripper)** tool, integrated with direct stream resolution and offline catalog resilience.
+<p align="center">
+  <b>A 100% self-contained, offline-resilient anime streaming frontend extracted via <a href="https://github.com/greenman9909-cmd/spa-ripper">SPA-Ripper</a>.</b>
+</p>
+
+<p align="center">
+  <a href="https://github.com/greenman9909-cmd/spa-ripper">
+    <img src="https://img.shields.io/badge/Extracted%20By-SPA--Ripper-FF5722?style=for-the-badge&logo=github&logoColor=white" alt="Extracted by SPA-Ripper" />
+  </a>
+  <a href="https://github.com/greenman9909-cmd">
+    <img src="https://img.shields.io/badge/Developer-Owais%20(%40greenman9909--cmd)-181717?style=for-the-badge&logo=github&logoColor=white" alt="Developer Owais" />
+  </a>
+  <img src="https://img.shields.io/badge/Status-Self--Contained%20%26%20Streaming-blueviolet?style=for-the-badge" alt="Status" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React%2019-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React 19" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Python%203.11+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/License-MIT-success?style=flat-square" alt="License" />
+</p>
 
 ---
 
-## ⚡ Extraction with SPA Ripper
+</div>
 
-This entire production bundle (all route components, Vite dynamic chunks, CSS stylesheets, web fonts, reaction emojis, covers, and high-resolution spotlight assets) was extracted using our **[spa-ripper](https://github.com/greenman9909-cmd/spa-ripper)** tool. The tool traversed JavaScript entrypoints and dynamic import statements to resolve and download all lazy-loaded dependencies offline.
+## 🌌 Overview
 
----
+This repository houses the fully captured, production-ready frontend bundle of **ani.pm** (React 19 + Vite), extracted in its entirety using our custom **[spa-ripper](https://github.com/greenman9909-cmd/spa-ripper)** tool. 
 
-## Features
-
-- **Extracted Production SPA**: Complete Vite + React 19 frontend bundle (`index.html`, dynamic JS/CSS chunks, fonts, high-res banners, logos, and covers) extracted via **spa-ripper**.
-- **Zero External Backend Daemons**: Self-contained streaming resolver without third-party heavy dependencies.
-- **Direct Stream Resolution**: Resolves clean Video.js / MegaPlay streams with subtitle selection and quality toggles.
-- **Built-in Offline Catalog Engine**: High-performance catalog fallback with 300+ titles, curated hero spotlight carousel, seasonal schedule, countdowns, and active discussions.
-- **Video Persistence & Resume**: Integrated local bridge that tracks playback timestamps and renders native "Continue watching" modals.
-- **Hero Video Previews**: Cinematic background video previews with reactive audio controls on anime details pages.
+It pairs the ripped SPA with a standalone, zero-dependency streaming gateway that provides direct MegaPlay Video.js playback, an ISP-blocking immune local catalog, hero video previews, and real-time playback persistence.
 
 ---
 
-## Directory Structure
+## 🛠️ Extracted via SPA-Ripper
 
+Modern single-page applications heavily rely on Vite dynamic code splitting and lazy route modules (`import("./assets/Route-*.js")`). Standard scrapers fail with `ChunkLoadError`.
+
+Using **[SPA-Ripper](https://github.com/greenman9909-cmd/spa-ripper)**, we recursively resolved and captured:
+- ✅ **100% of Lazy Chunks**: All route views, modals, settings, and player components
+- ✅ **CSS & Fonts**: Web fonts (Geist, Inter) and deep `@font-face` styles
+- ✅ **High-Res Visual Assets**: 4K spotlight banners, anime title logos, character reactions, and SVG icon sets
+- ✅ **Client Routing & PWA**: Service workers (`sw.js`), web manifest, and fallback routing
+
+---
+
+## ✨ Key Features
+
+| Feature | Description |
+|---|---|
+| 🎬 **Direct MegaPlay Video.js** | Pure stream resolution via Yoru API without bulky third-party daemons or watermarks. |
+| 🛡️ **ISP Blocking Immunity** | High-performance offline catalog engine pre-loaded with 300+ titles, spotlights, and schedules. |
+| 🎞️ **Cinematic Hero Previews** | Live background video preview on anime details pages with reactive un-mute and scroll pause/resume. |
+| ⏱️ **Watch Progress Resume** | Client-side bridge records timestamps to `localStorage` and provides native *"Continue watching"* prompts. |
+| ⚡ **Zero Setup Overhead** | Pure Python 3 stdlib server (`serve.py`) or alternative Node.js runtime (`server.js`). |
+
+---
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/greenman9909-cmd/ani-pm-frontend.git
+cd ani-pm-frontend
 ```
-├── ani.pm_frontend/          # Production SPA bundle extracted using spa-ripper
-│   ├── assets/               # JavaScript chunks, CSS, fonts
-│   ├── banners/              # High-res spotlight banners
-│   ├── logos/                # High-res title logos
-│   ├── glassplayer/          # Player stylesheets
-│   ├── img/                  # Covers and reaction assets
-│   └── index.html            # Main SPA entry point
-├── ARCHITECTURE_AND_INTEGRATION_GUIDE.md  # Deep dive architecture docs
-├── download_frontend.py      # SPA extraction & crawler script
-├── local-bridge.js           # Client-side video tracking & modal bridge
-├── serve.py                  # Unified gateway server (Python 3.11+)
-├── server.js                 # Alternate Node.js gateway server
-└── covers.json               # Catalog cover mappings
-```
 
----
-
-## Quick Start
-
-### Run with Python
-
+### 2. Launch the Streaming Gateway
 ```powershell
 python serve.py
 ```
 
-Access the application in your browser:
-**[http://localhost:8080](http://localhost:8080)**
+### 3. Open in Browser
+Visit **[http://localhost:8080](http://localhost:8080)** to start browsing and streaming.
 
-Health check:
-```powershell
+Verify gateway health:
+```bash
 curl http://localhost:8080/api/local/health
 ```
 
 ---
 
-## Architecture & Technical Details
+## 📂 Project Structure
 
-For comprehensive details on stream extraction, iframe sandbox management, and API endpoints, see [ARCHITECTURE_AND_INTEGRATION_GUIDE.md](ARCHITECTURE_AND_INTEGRATION_GUIDE.md).
+```text
+ani-pm-frontend/
+├── ani.pm_frontend/          # Production SPA bundle extracted with spa-ripper
+│   ├── assets/               # JS chunks, CSS stylesheets, web fonts
+│   ├── banners/              # High-res spotlight banners & 4K originals
+│   ├── logos/                # Transparent anime title logos
+│   ├── glassplayer/          # Player skins & stylesheets
+│   ├── img/                  # Character reaction emojis and covers
+│   └── index.html            # SPA entry point
+├── ARCHITECTURE_AND_INTEGRATION_GUIDE.md  # Detailed technical specifications
+├── download_frontend.py      # Crawler & extraction script
+├── local-bridge.js           # Client-side video hooks & resume modal bridge
+├── serve.py                  # Primary Python streaming gateway & catalog
+├── server.js                 # Alternate Node.js gateway implementation
+├── covers.json               # Local catalog cover cache
+└── README.md                 # Project documentation
+```
+
+---
+
+## 👑 Author & Credits
+
+- **Frontend Extraction & Gateway Engineering**: **[Owais](https://github.com/greenman9909-cmd)** ([@greenman9909-cmd](https://github.com/greenman9909-cmd))
+- **Extraction Toolkit**: **[spa-ripper](https://github.com/greenman9909-cmd/spa-ripper)**
+- **Original Frontend Design**: **ani.pm** (React 19 / Vite)
+
+---
+
+<div align="center">
+  <sub>Built with passion by <a href="https://github.com/greenman9909-cmd">Owais</a>. Released under the MIT License.</sub>
+</div>

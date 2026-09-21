@@ -1,5 +1,14 @@
 (() => {
   'use strict';
+
+  // Branding Banner
+  console.log(
+    '%c ✨ ani.pm local %c Extracted by SPA-Ripper %c Built by Owais (@greenman9909-cmd) ✨ ',
+    'background: #0f172a; color: #818cf8; font-size: 13px; font-weight: 800; padding: 6px 10px; border-radius: 6px 0 0 6px; border: 1px solid #312e81;',
+    'background: #4f46e5; color: #ffffff; font-size: 13px; font-weight: 800; padding: 6px 10px;',
+    'background: #1e1b4b; color: #34d399; font-size: 13px; font-weight: 800; padding: 6px 10px; border-radius: 0 6px 6px 0; border: 1px solid #312e81;'
+  );
+
   const managed = new Map();
   let backup = false;
   let changing = false;
