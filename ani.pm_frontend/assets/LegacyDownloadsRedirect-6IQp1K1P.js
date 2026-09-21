@@ -1,0 +1,1 @@
+import{j as a}from"./query-V7WhSRdC.js";import{l as e}from"./titleDownloadRoute-DMyTiSFa.js";import{b as r,N as t}from"./react-DeiVZVzB.js";function n(){const{search:o}=r();return a.jsx(t,{replace:!0,to:e(o)})}export{n as default};

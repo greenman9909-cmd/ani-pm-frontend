@@ -1,0 +1,1 @@
+function e(n){return n.source==="anilist"?"anilist":"settlar"}function r(n){return`/${e(n)==="anilist"?"ani":"anime"}/${encodeURIComponent(String(n.id))}`}function o(n,t){return n?(n.source==null?"settlar":n.source)===e(t)&&String(n.id)===String(t.id):!1}export{r as c,o as m};
