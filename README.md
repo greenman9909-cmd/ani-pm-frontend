@@ -3,7 +3,7 @@
 # ⚡ ani.pm — Local Production SPA ⚡
 
 <p align="center">
-  <b>A 100% self-contained, offline-resilient anime streaming frontend extracted via <a href="https://github.com/greenman9909-cmd/spa-ripper">SPA-Ripper</a>.</b>
+  <b>Extracted ani.pm React/Vite frontend code, local gateway tooling, and an AML mock-data remix for testing the full streaming-app design.</b>
 </p>
 
 <p align="center">
@@ -27,6 +27,25 @@
 ---
 
 </div>
+
+## 🔗 Code & Previews
+
+| Target | Link | What it is |
+|---|---|---|
+| **Extracted frontend code** | [`ani.pm_frontend/`](https://github.com/greenman9909-cmd/ani-pm-frontend/tree/main/ani.pm_frontend) | The actual SPA-Ripper-extracted React/Vite bundle: routes, lazy chunks, CSS, fonts, banners, logos, player assets and PWA files. |
+| **AML remix code** | [`remix/aml-extracted-frontend`](https://github.com/greenman9909-cmd/ani-pm-frontend/tree/remix/aml-extracted-frontend) | The extracted frontend itself remixed to AML with synthetic catalogue, profile, community, library, settings and player data. |
+| **AML pull request** | [PR #2](https://github.com/greenman9909-cmd/ani-pm-frontend/pull/2) | Review the AML remix diff and verification history. |
+| **Current AML preview** | [Open live preview](https://receiver-wholesale-incidence-connector.trycloudflare.com) | Temporary HTTPS preview of the real extracted frontend running with AML mock data. The tunnel rotates/expires. |
+| **Latest preview pointer** | [`.preview/aml-url.txt`](https://github.com/greenman9909-cmd/ani-pm-frontend/blob/remix/aml-extracted-frontend/.preview/aml-url.txt) | The preview workflow writes its newest temporary URL here. |
+| **God Tree reference** | [Pinned extracted-code reference](https://github.com/greenman9909-cmd/vibe-code-genius/tree/main/references/extracted/ani-pm) | The God Tree's version-pinned streaming-design/code reference for future agents. |
+
+### What to preview
+
+The AML branch preserves the extracted ani.pm design/code path. Useful surfaces include **Home hero**, Browse/Search, Anime Details, Library, Profile, Settings, Community, Leaderboard, Release Schedule, Watch Together and the local mock player.
+
+> The public preview is temporary. For a stable preview, run the branch locally with `npm start` and open `http://localhost:8080`.
+
+---
 
 ## 🌌 Overview
 
