@@ -65,6 +65,12 @@ jobs:
           grep -q "/aml-brand.js" /tmp/index.html
 
           curl -fsSI http://127.0.0.1:4173/assets/Home-CGFASR0W.js | grep -qi "200"
+
+          curl -fsS "http://127.0.0.1:4173/api/anime/spotlight" > /tmp/spotlight.json
+          grep -q "Neon Archive" /tmp/spotlight.json
+          grep -q '"anilistId":189046' /tmp/spotlight.json
+          grep -q '/banners/rezero.jpg' /tmp/spotlight.json
+
           curl -fsS "http://127.0.0.1:4173/api/anime/search?q=Neon" > /tmp/search.json
           grep -q "Neon Archive" /tmp/search.json
 
@@ -88,6 +94,19 @@ jobs:
 
           curl -fsS "http://127.0.0.1:4173/embed/preview" > /tmp/preview.html
           grep -q "AML mock player" /tmp/preview.html
+
+      - name: Verify hero in a real browser
+        run: |
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$BROWSER" ]; then
+            echo "No headless Chrome/Chromium on runner"
+            exit 1
+          fi
+          "$BROWSER" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=8000             --dump-dom http://127.0.0.1:4173/ > /tmp/home-dom.html
+          grep -q "spot-copy" /tmp/home-dom.html
+          grep -q "spot-title" /tmp/home-dom.html
+          grep -q "Neon Archive" /tmp/home-dom.html
+          grep -q "12 Episodes" /tmp/home-dom.html
 
       - name: Stop server
         if: always()
