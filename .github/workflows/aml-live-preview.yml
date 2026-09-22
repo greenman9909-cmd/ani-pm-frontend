@@ -8,6 +8,9 @@ on:
       - remix/aml-extracted-frontend
     paths:
       - ".github/workflows/aml-live-preview.yml"
+      - "server.js"
+      - "package.json"
+      - "ani.pm_frontend/**"
   workflow_dispatch:
 
 jobs:
