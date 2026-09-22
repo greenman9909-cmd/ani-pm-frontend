@@ -1,6 +1,8 @@
 /** pages — God Tree Node 13 operational route map.
- * Routes are owned by the preserved extracted SPA router in index-DQbZxriH.js.
- * This file is evidence/mapping, not a replacement router.
+ * Exact routes are owned by the preserved extracted SPA router in index-DQbZxriH.js.
+ * Watch mode is the existing /anime/:id or /ani/:id route with ?ep=<episode>.
+ * Release Schedule is a dated Home surface with its View All path routed to
+ * /anime?status=NOT_YET_RELEASED&sort=trending; there is no invented /schedule route.
  */
 export const pages = [
   {
@@ -9,13 +11,13 @@ export const pages = [
     "status": "implemented-extracted-route"
   },
   {
-    "path": "/anime",
-    "title": "Browse",
+    "path": "/search",
+    "title": "Search",
     "status": "implemented-extracted-route"
   },
   {
-    "path": "/search",
-    "title": "Search",
+    "path": "/anime",
+    "title": "Browse",
     "status": "implemented-extracted-route"
   },
   {
@@ -24,18 +26,53 @@ export const pages = [
     "status": "implemented-extracted-route"
   },
   {
+    "path": "/anime/:id",
+    "title": "Anime Details / Watch mode with ?ep=",
+    "status": "implemented-extracted-route"
+  },
+  {
+    "path": "/ani/:id",
+    "title": "AniList-backed title route / Watch mode with ?ep=",
+    "status": "implemented-extracted-route"
+  },
+  {
     "path": "/genres",
     "title": "Genres",
     "status": "implemented-extracted-route"
   },
   {
-    "path": "/anime/:id",
-    "title": "Anime Details",
+    "path": "/leaderboard",
+    "title": "Leaderboard",
     "status": "implemented-extracted-route"
   },
   {
-    "path": "/watch/:id",
-    "title": "Watch",
+    "path": "/bluray",
+    "title": "Blu-ray Voting",
+    "status": "implemented-extracted-route"
+  },
+  {
+    "path": "/community",
+    "title": "Community",
+    "status": "implemented-extracted-route"
+  },
+  {
+    "path": "/community/t/:id",
+    "title": "Community Thread",
+    "status": "implemented-extracted-route"
+  },
+  {
+    "path": "/watch-together",
+    "title": "Watch Together",
+    "status": "implemented-extracted-route"
+  },
+  {
+    "path": "/watch-together/:code",
+    "title": "Watch Room",
+    "status": "implemented-extracted-route"
+  },
+  {
+    "path": "/downloads",
+    "title": "Downloads",
     "status": "implemented-extracted-route"
   },
   {
@@ -44,7 +81,7 @@ export const pages = [
     "status": "implemented-extracted-route"
   },
   {
-    "path": "/profile/:username?",
+    "path": "/user/:username",
     "title": "Profile",
     "status": "implemented-extracted-route"
   },
@@ -54,33 +91,8 @@ export const pages = [
     "status": "implemented-extracted-route"
   },
   {
-    "path": "/community",
-    "title": "Community",
-    "status": "implemented-extracted-route"
-  },
-  {
-    "path": "/community/:thread",
-    "title": "Community Thread",
-    "status": "implemented-extracted-route"
-  },
-  {
-    "path": "/leaderboard",
-    "title": "Leaderboard",
-    "status": "implemented-extracted-route"
-  },
-  {
-    "path": "/schedule",
-    "title": "Release Schedule",
-    "status": "implemented-extracted-route"
-  },
-  {
-    "path": "/watch-together",
-    "title": "Watch Together",
-    "status": "implemented-extracted-route"
-  },
-  {
-    "path": "/watch-together/:room",
-    "title": "Watch Room",
+    "path": "/about",
+    "title": "About",
     "status": "implemented-extracted-route"
   },
   {
@@ -98,7 +110,10 @@ export const pages = [
 export const routePolicy = {
   source: "preserved extracted SPA router",
   fallback: "NotFound-CAg2l_3s.js",
+  profile: "/user/:username",
+  watchMode: "/anime/:id?ep=<episode> or /ani/:id?ep=<episode>",
+  releaseSchedule: "Home ReleaseSchedule component + /anime?status=NOT_YET_RELEASED&sort=trending",
   mobile: "same routes, responsive CSS/navigation",
   player: "same-origin mock-player adapter for this build",
-  rule: "Do not replace extracted lazy-route composition with a generic application shell."
+  rule: "Do not invent aliases or replace extracted lazy-route composition with a generic application shell."
 } as const;

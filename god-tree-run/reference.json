@@ -12,21 +12,23 @@
   },
   "routes": [
     "/",
-    "/anime",
     "/search",
+    "/anime",
     "/latest",
-    "/genres",
     "/anime/:id",
-    "/watch/:id",
-    "/library",
-    "/profile/:username?",
-    "/settings",
-    "/community",
-    "/community/:thread",
+    "/ani/:id",
+    "/genres",
     "/leaderboard",
-    "/schedule",
+    "/bluray",
+    "/community",
+    "/community/t/:id",
     "/watch-together",
-    "/watch-together/:room",
+    "/watch-together/:code",
+    "/downloads",
+    "/library",
+    "/user/:username",
+    "/settings",
+    "/about",
     "/terms",
     "/privacy"
   ],
@@ -51,6 +53,10 @@
       "player shell",
       "episode navigation",
       "controls"
+    ],
+    "releaseSchedule": [
+      "Home ReleaseSchedule dated/countdown shelf",
+      "View All -> /anime?status=NOT_YET_RELEASED&sort=trending"
     ]
   },
   "components": [
@@ -139,6 +145,7 @@
   "evidence": [
     "God Tree references/extracted/ani-pm/reference-source.json pins the source repository and commit.",
     "This artifact is historical code/design evidence only; it does not claim current public ani.pm behavior.",
-    "Literal local git clone was unavailable because the session container could not resolve github.com; exact files were read through the connected GitHub repository interface."
+    "Literal local git clone was unavailable because the session container could not resolve github.com; exact files were read through the connected GitHub repository interface.",
+    "Exact router audit found no standalone /schedule or /profile alias; persisted route evidence was corrected to the extracted router."
   ]
 }

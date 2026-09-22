@@ -1170,22 +1170,31 @@ const server = http.createServer(async (req, res) => {
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/watchlist') {
-    const states = ['watching','watching','completed','plan-to-watch','on-hold','dropped','completed','plan-to-watch'];
-    sendJson({ items: AML_ITEMS.slice(0, 8).map((item, i) => ({
-      ...item,
-      status: states[i],
-      progress: [4,2,item.episodeCount,0,5,2,item.episodeCount,0][i] ?? 0,
-      favorite: i === 0 || i === 2 || i === 6,
-      collectionIds: i < 4 ? ['late-night'] : i < 7 ? ['weekend'] : ['rewatch']
-    })) });
+    const states = ['watching','watching','completed','plan','on_hold','dropped','completed','plan'];
+    sendJson({ items: AML_ITEMS.slice(0, 8).map((item, i) => {
+      const titleId = `anime:${item.id}`;
+      return {
+        ...item,
+        id: titleId,
+        titleId,
+        recordId: item.id,
+        anilistId: item.anilistId,
+        cover: item.poster,
+        status: states[i],
+        progress: [4,2,item.episodeCount,0,5,2,item.episodeCount,0][i] ?? 0,
+        favorite: i === 0 || i === 2 || i === 6,
+        addedAt: Date.now() - i * 86400000,
+        collectionIds: i < 4 ? ['late-night'] : i < 7 ? ['weekend'] : ['rewatch']
+      };
+    }) });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/progress') {
-    sendJson({ items: AML_ITEMS.slice(0, 4).map((item, i) => ({ titleId:String(item.id), anilistId:item.id, episode:i+1, progressSeconds:420+(i*180), durationSeconds:1440, updatedAt:new Date(Date.now()-i*3600000).toISOString(), title:item })) });
+    sendJson({ items: AML_ITEMS.slice(0, 4).map((item, i) => ({ titleId:`anime:${item.id}`, anilistId:item.anilistId, episode:i+1, progressSeconds:420+(i*180), durationSeconds:1440, updatedAt:new Date(Date.now()-i*3600000).toISOString(), title:{...item,id:`anime:${item.id}`,cover:item.poster} })) });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/progress/snapshot') {
-    sendJson({ snapshot: AML_ITEMS.slice(0, 4).map((item, i) => ({ titleId:String(item.id), episode:i+1, progress:0.25+(i*0.12) })) });
+    sendJson({ snapshot: AML_ITEMS.slice(0, 4).map((item, i) => ({ titleId:`anime:${item.id}`, episode:i+1, progress:0.25+(i*0.12) })) });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/settings') {
@@ -1193,15 +1202,21 @@ const server = http.createServer(async (req, res) => {
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/collections') {
-    sendJson({ collections:[{id:'late-night',name:'Late Night',count:4},{id:'weekend',name:'Weekend',count:3},{id:'rewatch',name:'Rewatch',count:1},{id:'comfort',name:'Comfort Queue',count:4}] });
+    const collection = (id,name,indexes) => ({ id,name,count:indexes.length,items:indexes.map(i=>{ const item=AML_ITEMS[i]; return { id:`anime:${item.id}`,title:item.title,cover:item.poster,anilistId:item.anilistId,addedAt:Date.now()-i*86400000 }; }) });
+    sendJson({ collections:[
+      collection('late-night','Late Night',[0,1,2,3]),
+      collection('weekend','Weekend',[4,5,6]),
+      collection('rewatch','Rewatch',[2]),
+      collection('comfort','Comfort Queue',[1,4,7,9])
+    ] });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/recent') {
-    sendJson({ recent: AML_ITEMS.slice(0, 7).map((item,i)=>({ ...item, episode:Math.min(item.episodeCount,i+1), progress:0.18+(i*0.09), watchedAt:new Date(Date.now()-i*5400000).toISOString() })) });
+    sendJson({ recent: AML_ITEMS.slice(0, 7).map((item,i)=>({ ...item, id:`anime:${item.id}`, titleId:`anime:${item.id}`, cover:item.poster, anilistId:item.anilistId, episode:Math.min(item.episodeCount,i+1), progress:0.18+(i*0.09), watchedAt:new Date(Date.now()-i*5400000).toISOString() })) });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/title-likes/mine') {
-    sendJson({ items: AML_ITEMS.slice(1,4).map(x=>String(x.id)), total:3 });
+    sendJson({ items: AML_ITEMS.slice(1,4).map((item,i)=>({ titleId:`anime:${item.id}`, title:item.title, native:item.native, cover:item.poster, anilistId:item.anilistId, createdAt:Date.now()-(i+1)*7200000 })), total:3 });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/embed/preview') {

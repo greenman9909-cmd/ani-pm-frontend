@@ -86,6 +86,9 @@ jobs:
 
           curl -fsS "http://127.0.0.1:4173/api/watchlist" > /tmp/watchlist.json
           grep -q "Neon Archive" /tmp/watchlist.json
+          grep -q '"id":"anime:91001"' /tmp/watchlist.json
+          grep -q '"status":"plan"' /tmp/watchlist.json
+          grep -q '"status":"on_hold"' /tmp/watchlist.json
 
           curl -fsS "http://127.0.0.1:4173/api/settings" > /tmp/settings.json
           grep -q '"theme":"dark"' /tmp/settings.json
@@ -121,14 +124,33 @@ jobs:
           grep -q "12 Episodes" /tmp/home-dom.html
           grep -q "/mock-art/neon-archive-wide.svg" /tmp/home-dom.html
 
-          for route in /anime /search /library /profile /settings /community /leaderboard /watch-together; do
-            "$BROWSER" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=6000               --dump-dom "http://127.0.0.1:4173$route" > "/tmp/route-$(echo "$route" | tr '/' '_').html"
+          for route in /anime /search /library /user/mira /settings /community /leaderboard /watch-together; do
+            "$BROWSER" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=7000 \
+              --dump-dom "http://127.0.0.1:4173$route" > "/tmp/route-$(echo "$route" | tr '/' '_').html"
             grep -q 'id="root"' "/tmp/route-$(echo "$route" | tr '/' '_').html"
           done
+
+          grep -q "My Lists" /tmp/route-_library.html
+          grep -q "Mira" /tmp/route-_user_mira.html
+
+          "$BROWSER" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=8000 \
+            --dump-dom "http://127.0.0.1:4173/anime/91001" > /tmp/title-dom.html
+          grep -q "Neon Archive" /tmp/title-dom.html
+          grep -q "anime-details" /tmp/title-dom.html
+
+          "$BROWSER" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=9000 \
+            --dump-dom "http://127.0.0.1:4173/anime/91001?ep=1" > /tmp/watch-dom.html
+          grep -Eq "mock-player|detail-player|watch-" /tmp/watch-dom.html
 
           "$BROWSER" --headless=new --no-sandbox --disable-gpu --window-size=390,844 --virtual-time-budget=7000             --dump-dom http://127.0.0.1:4173/ > /tmp/home-mobile-dom.html
           grep -q "Neon Archive" /tmp/home-mobile-dom.html
           grep -q "top-nav" /tmp/home-mobile-dom.html
+
+          if grep -q "\[Client Error" /tmp/aml-server.log; then
+            echo "Browser client errors detected:"
+            grep "\[Client Error" /tmp/aml-server.log
+            exit 1
+          fi
 
       - name: Stop server
         if: always()

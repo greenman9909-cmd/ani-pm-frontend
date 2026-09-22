@@ -5,26 +5,29 @@
   "tier_stop": 5,
   "routes_include": [
     "/",
-    "/anime",
     "/search",
+    "/anime",
     "/latest",
-    "/genres",
     "/anime/:id",
-    "/watch/:id",
-    "/library",
-    "/profile/:username?",
-    "/settings",
-    "/community",
-    "/community/:thread",
+    "/ani/:id",
+    "/genres",
     "/leaderboard",
-    "/schedule",
+    "/bluray",
+    "/community",
+    "/community/t/:id",
     "/watch-together",
-    "/watch-together/:room",
+    "/watch-together/:code",
+    "/downloads",
+    "/library",
+    "/user/:username",
+    "/settings",
+    "/about",
     "/terms",
     "/privacy"
   ],
   "evidence": [
     "Scope preserves the extracted SPA rather than rebuilding its route/component system.",
-    "Real licensed streaming, persistent production auth/database and third-party integrations are outside this mock-only build and are not fabricated."
+    "Real licensed streaming, persistent production auth/database and third-party integrations are outside this mock-only build and are not fabricated.",
+    "Route audit corrected aspirational aliases: Profile is /user/:username; watch uses title-route ?ep state; Release Schedule is an extracted Home component with an upcoming-browse View All target."
   ]
 }

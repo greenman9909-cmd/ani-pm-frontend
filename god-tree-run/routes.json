@@ -6,13 +6,13 @@
       "status": "implemented-extracted-route"
     },
     {
-      "path": "/anime",
-      "title": "Browse",
+      "path": "/search",
+      "title": "Search",
       "status": "implemented-extracted-route"
     },
     {
-      "path": "/search",
-      "title": "Search",
+      "path": "/anime",
+      "title": "Browse",
       "status": "implemented-extracted-route"
     },
     {
@@ -21,18 +21,53 @@
       "status": "implemented-extracted-route"
     },
     {
+      "path": "/anime/:id",
+      "title": "Anime Details / Watch mode with ?ep=",
+      "status": "implemented-extracted-route"
+    },
+    {
+      "path": "/ani/:id",
+      "title": "AniList-backed title route / Watch mode with ?ep=",
+      "status": "implemented-extracted-route"
+    },
+    {
       "path": "/genres",
       "title": "Genres",
       "status": "implemented-extracted-route"
     },
     {
-      "path": "/anime/:id",
-      "title": "Anime Details",
+      "path": "/leaderboard",
+      "title": "Leaderboard",
       "status": "implemented-extracted-route"
     },
     {
-      "path": "/watch/:id",
-      "title": "Watch",
+      "path": "/bluray",
+      "title": "Blu-ray Voting",
+      "status": "implemented-extracted-route"
+    },
+    {
+      "path": "/community",
+      "title": "Community",
+      "status": "implemented-extracted-route"
+    },
+    {
+      "path": "/community/t/:id",
+      "title": "Community Thread",
+      "status": "implemented-extracted-route"
+    },
+    {
+      "path": "/watch-together",
+      "title": "Watch Together",
+      "status": "implemented-extracted-route"
+    },
+    {
+      "path": "/watch-together/:code",
+      "title": "Watch Room",
+      "status": "implemented-extracted-route"
+    },
+    {
+      "path": "/downloads",
+      "title": "Downloads",
       "status": "implemented-extracted-route"
     },
     {
@@ -41,7 +76,7 @@
       "status": "implemented-extracted-route"
     },
     {
-      "path": "/profile/:username?",
+      "path": "/user/:username",
       "title": "Profile",
       "status": "implemented-extracted-route"
     },
@@ -51,33 +86,8 @@
       "status": "implemented-extracted-route"
     },
     {
-      "path": "/community",
-      "title": "Community",
-      "status": "implemented-extracted-route"
-    },
-    {
-      "path": "/community/:thread",
-      "title": "Community Thread",
-      "status": "implemented-extracted-route"
-    },
-    {
-      "path": "/leaderboard",
-      "title": "Leaderboard",
-      "status": "implemented-extracted-route"
-    },
-    {
-      "path": "/schedule",
-      "title": "Release Schedule",
-      "status": "implemented-extracted-route"
-    },
-    {
-      "path": "/watch-together",
-      "title": "Watch Together",
-      "status": "implemented-extracted-route"
-    },
-    {
-      "path": "/watch-together/:room",
-      "title": "Watch Room",
+      "path": "/about",
+      "title": "About",
       "status": "implemented-extracted-route"
     },
     {

@@ -60,15 +60,15 @@
         "components": []
       },
       {
-        "path": "/anime",
-        "title": "Browse",
-        "purpose": "Browse surface",
-        "components": []
-      },
-      {
         "path": "/search",
         "title": "Search",
         "purpose": "Search surface",
+        "components": []
+      },
+      {
+        "path": "/anime",
+        "title": "Browse",
+        "purpose": "Browse surface",
         "components": []
       },
       {
@@ -78,21 +78,63 @@
         "components": []
       },
       {
+        "path": "/anime/:id",
+        "title": "Anime Details / Watch mode with ?ep=",
+        "purpose": "Anime Details / Watch mode with ?ep= surface",
+        "components": []
+      },
+      {
+        "path": "/ani/:id",
+        "title": "AniList-backed title route / Watch mode with ?ep=",
+        "purpose": "AniList-backed title route / Watch mode with ?ep= surface",
+        "components": []
+      },
+      {
         "path": "/genres",
         "title": "Genres",
         "purpose": "Genres surface",
         "components": []
       },
       {
-        "path": "/anime/:id",
-        "title": "Anime Details",
-        "purpose": "Anime Details surface",
+        "path": "/leaderboard",
+        "title": "Leaderboard",
+        "purpose": "Leaderboard surface",
         "components": []
       },
       {
-        "path": "/watch/:id",
-        "title": "Watch",
-        "purpose": "Watch surface",
+        "path": "/bluray",
+        "title": "Blu-ray Voting",
+        "purpose": "Blu-ray Voting surface",
+        "components": []
+      },
+      {
+        "path": "/community",
+        "title": "Community",
+        "purpose": "Community surface",
+        "components": []
+      },
+      {
+        "path": "/community/t/:id",
+        "title": "Community Thread",
+        "purpose": "Community Thread surface",
+        "components": []
+      },
+      {
+        "path": "/watch-together",
+        "title": "Watch Together",
+        "purpose": "Watch Together surface",
+        "components": []
+      },
+      {
+        "path": "/watch-together/:code",
+        "title": "Watch Room",
+        "purpose": "Watch Room surface",
+        "components": []
+      },
+      {
+        "path": "/downloads",
+        "title": "Downloads",
+        "purpose": "Downloads surface",
         "components": []
       },
       {
@@ -102,7 +144,7 @@
         "components": []
       },
       {
-        "path": "/profile/:username?",
+        "path": "/user/:username",
         "title": "Profile",
         "purpose": "Profile surface",
         "components": []
@@ -114,39 +156,9 @@
         "components": []
       },
       {
-        "path": "/community",
-        "title": "Community",
-        "purpose": "Community surface",
-        "components": []
-      },
-      {
-        "path": "/community/:thread",
-        "title": "Community Thread",
-        "purpose": "Community Thread surface",
-        "components": []
-      },
-      {
-        "path": "/leaderboard",
-        "title": "Leaderboard",
-        "purpose": "Leaderboard surface",
-        "components": []
-      },
-      {
-        "path": "/schedule",
-        "title": "Release Schedule",
-        "purpose": "Release Schedule surface",
-        "components": []
-      },
-      {
-        "path": "/watch-together",
-        "title": "Watch Together",
-        "purpose": "Watch Together surface",
-        "components": []
-      },
-      {
-        "path": "/watch-together/:room",
-        "title": "Watch Room",
-        "purpose": "Watch Room surface",
+        "path": "/about",
+        "title": "About",
+        "purpose": "About surface",
         "components": []
       },
       {
@@ -174,8 +186,8 @@
     "library": [
       "watching",
       "completed",
-      "plan-to-watch",
-      "on-hold",
+      "plan",
+      "on_hold",
       "dropped",
       "favorite"
     ],
@@ -229,6 +241,7 @@
   ],
   "evidence": [
     "Existing server.js is the same-origin fixture/API gateway.",
-    "Extracted React/Vite chunks remain the frontend route/component runtime."
+    "Extracted React/Vite chunks remain the frontend route/component runtime.",
+    "Library adapter uses namespaced string title IDs required by extracted client state helpers."
   ]
 }
