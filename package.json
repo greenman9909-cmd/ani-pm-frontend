@@ -4,6 +4,6 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "check": "node --check server.js && node --check ani.pm_frontend/aml-brand.js"
+    "check": "node --check server.js && node --check ani.pm_frontend/aml-brand.js && node --check ani.pm_frontend/assets/Home-CGFASR0W.js"
   }
 }
