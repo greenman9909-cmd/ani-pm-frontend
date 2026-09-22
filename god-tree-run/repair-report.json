@@ -8,7 +8,8 @@
     "Patched God Tree validate-artifact.py to validate declared .tsx artifacts as text and added tests/test_validate_artifact.py.",
     "Normalized AML Library/watchlist IDs to anime:<id>, mapped statuses to watching/plan/completed/on_hold/dropped, and supplied cover/addedAt fields expected by the extracted Library component.",
     "Corrected persisted route evidence and CI from invented /profile, /watch/:id and /schedule aliases to the exact extracted router and composed ReleaseSchedule/watch surfaces.",
-    "Removed residual AniList CDN media URLs from legacy fixture records; mock runtime now uses local media paths only."
+    "Removed residual AniList CDN media URLs from legacy fixture records; mock runtime now uses local media paths only.",
+    "Hardened headless Chrome CI flags and enabled shell tracing after an opaque browser-process/assertion exit with no client error."
   ],
   "regressions_added": [
     "CI now verifies the actual Home hero DOM and expanded route/mobile surfaces after writes.",
