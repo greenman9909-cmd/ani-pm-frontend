@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "reference_url": "https://ani.pm",
+  "status": "cached-inventory-complete",
+  "acquired_at": "2026-09-22",
+  "mirror_path": "ani.pm_frontend",
+  "pages": [
+    "index.html"
+  ],
+  "stylesheets_count": 26,
+  "chunks_count": 120,
+  "assets": {
+    "images": 64,
+    "fonts": 12,
+    "svgs": 1
+  },
+  "files_total": 227,
+  "total_bytes": 17479101,
+  "note": "SPA shell has one HTML entry; application routes are lazy client-side chunks."
+}
