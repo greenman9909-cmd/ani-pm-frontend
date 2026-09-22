@@ -1,0 +1,9 @@
+{
+  "name": "aml-extracted-frontend-mock",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check ani.pm_frontend/aml-brand.js"
+  }
+}
