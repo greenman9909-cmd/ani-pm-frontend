@@ -1001,14 +1001,22 @@ function resolveLocalAsset(pathname) {
  * swapped to synthetic fixtures for safe UI testing.
  * ========================================================================= */
 const AML_ITEMS = [
-  { id:91001, routeId:getRouteToken(91001), anilistId:189046, malId:null, title:'Neon Archive', romaji:'Neon Archive', native:'ネオン・アーカイブ', poster:'/banners/rezero-p.webp', banner:'/banners/rezero.jpg', year:2026, score:87, format:'TV', type:'TV', episodeCount:12, subCount:12, dubCount:6, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Sci-Fi','Mystery'], studios:['AML Studio'], synopsis:'A synthetic mystery series used to test the extracted AML interface.' },
-  { id:91002, routeId:getRouteToken(91002), anilistId:135865, malId:null, title:'Glass Horizon', romaji:'Glass Horizon', native:'グラス・ホライズン', poster:'/banners/135865.jpg', banner:'/banners/135865.jpg', year:2026, score:84, format:'TV', type:'TV', episodeCount:10, subCount:10, dubCount:10, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Drama','Fantasy'], studios:['Northline'], synopsis:'A fictional fantasy drama for catalogue, search and title-page testing.' },
-  { id:91003, routeId:getRouteToken(91003), anilistId:16498, malId:null, title:'Moonframe', romaji:'Moonframe', native:'ムーンフレーム', poster:'/banners/aot.jpg', banner:'/banners/aot.jpg', year:2025, score:89, format:'MOVIE', type:'MOVIE', episodeCount:1, subCount:1, dubCount:1, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Romance','Sci-Fi'], studios:['Frame Lab'], synopsis:'A fictional feature-film fixture with no external media source.' },
-  { id:91004, routeId:getRouteToken(91004), anilistId:113415, malId:null, title:'Wild Signal', romaji:'Wild Signal', native:'ワイルド・シグナル', poster:'/banners/jjk.jpg', banner:'/banners/jjk.jpg', year:2026, score:81, format:'TV', type:'TV', episodeCount:24, subCount:18, dubCount:12, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Action','Comedy'], studios:['Signal Works'], synopsis:'Synthetic action/comedy metadata for filters and episode lists.' },
-  { id:91005, routeId:getRouteToken(91005), anilistId:187538, malId:null, title:'Quiet Engine', romaji:'Quiet Engine', native:'クワイエット・エンジン', poster:'/banners/187538.jpg', banner:'/banners/187538.jpg', year:2024, score:79, format:'TV', type:'TV', episodeCount:12, subCount:12, dubCount:12, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Drama','Slice of Life'], studios:['Daybreak'], synopsis:'A completed fictional series for library and history states.' },
-  { id:91006, routeId:getRouteToken(91006), anilistId:196187, malId:null, title:'After Image', romaji:'After Image', native:'アフター・イメージ', poster:'/banners/196187.jpg', banner:'/banners/196187.jpg', year:2026, score:83, format:'ONA', type:'ONA', episodeCount:8, subCount:3, dubCount:0, hasSub:true, hasDub:false, sub:true, dub:false, genres:['Thriller','Mystery'], studios:['AML Studio'], synopsis:'A mock upcoming title used for schedule and source-availability states.' },
-  { id:91007, routeId:getRouteToken(91007), anilistId:178789, malId:null, title:'Starfall Radio', romaji:'Starfall Radio', native:'スターフォール・ラジオ', poster:'/banners/rezero-p.webp', banner:'/banners/rezero.jpg', year:2025, score:80, format:'TV', type:'TV', episodeCount:13, subCount:13, dubCount:13, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Music','Drama'], studios:['Radio House'], synopsis:'Synthetic music drama for recommendations and search.' },
-  { id:91008, routeId:getRouteToken(91008), anilistId:185874, malId:null, title:'Mirror District', romaji:'Mirror District', native:'ミラー・ディストリクト', poster:'/banners/rezero-p.webp', banner:'/banners/rezero.jpg', year:2026, score:85, format:'TV', type:'TV', episodeCount:12, subCount:7, dubCount:4, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Mystery','Supernatural'], studios:['Glassworks'], synopsis:'A fake supernatural title used to exercise the original detail components.' }
+  { id:91001, routeId:getRouteToken(91001), anilistId:189046, malId:null, title:"Neon Archive", romaji:"Neon Archive", native:"ネオン・アーカイブ", poster:'/mock-art/neon-archive-poster.svg', banner:'/mock-art/neon-archive-wide.svg', year:2026, score:87, format:"TV", type:"TV", episodeCount:12, subCount:12, dubCount:6, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Sci-Fi","Mystery"], studios:["AML Studio"], synopsis:"A signal archivist uncovers memories encoded inside a citywide broadcast network." },
+  { id:91002, routeId:getRouteToken(91002), anilistId:135865, malId:null, title:"Glass Horizon", romaji:"Glass Horizon", native:"グラス・ホライズン", poster:'/mock-art/glass-horizon-poster.svg', banner:'/mock-art/glass-horizon-wide.svg', year:2026, score:84, format:"TV", type:"TV", episodeCount:10, subCount:10, dubCount:10, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Drama","Fantasy"], studios:["Northline"], synopsis:"Sky couriers cross a crystalline frontier where each horizon reveals a different history." },
+  { id:91003, routeId:getRouteToken(91003), anilistId:16498, malId:null, title:"Moonframe", romaji:"Moonframe", native:"ムーンフレーム", poster:'/mock-art/moonframe-poster.svg', banner:'/mock-art/moonframe-wide.svg', year:2025, score:89, format:"MOVIE", type:"MOVIE", episodeCount:1, subCount:1, dubCount:1, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Romance","Sci-Fi"], studios:["Frame Lab"], synopsis:"Two lunar photographers discover that their film can capture events one night before they happen." },
+  { id:91004, routeId:getRouteToken(91004), anilistId:113415, malId:null, title:"Wild Signal", romaji:"Wild Signal", native:"ワイルド・シグナル", poster:'/mock-art/wild-signal-poster.svg', banner:'/mock-art/wild-signal-wide.svg', year:2026, score:81, format:"TV", type:"TV", episodeCount:24, subCount:18, dubCount:12, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Action","Comedy"], studios:["Signal Works"], synopsis:"A courier crew hunts rogue radio creatures across a neon wilderness." },
+  { id:91005, routeId:getRouteToken(91005), anilistId:187538, malId:null, title:"Quiet Engine", romaji:"Quiet Engine", native:"クワイエット・エンジン", poster:'/mock-art/quiet-engine-poster.svg', banner:'/mock-art/quiet-engine-wide.svg', year:2024, score:79, format:"TV", type:"TV", episodeCount:12, subCount:12, dubCount:12, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Drama","Slice of Life"], studios:["Daybreak"], synopsis:"A retired mech engineer rebuilds a neighborhood workshop and the friendships around it." },
+  { id:91006, routeId:getRouteToken(91006), anilistId:196187, malId:null, title:"After Image", romaji:"After Image", native:"アフター・イメージ", poster:'/mock-art/after-image-poster.svg', banner:'/mock-art/after-image-wide.svg', year:2026, score:83, format:"ONA", type:"ONA", episodeCount:8, subCount:3, dubCount:0, hasSub:true, hasDub:false, sub:true, dub:false, genres:["Thriller","Mystery"], studios:["AML Studio"], synopsis:"Investigators chase crimes that appear first as photographs from the future." },
+  { id:91007, routeId:getRouteToken(91007), anilistId:178789, malId:null, title:"Starfall Radio", romaji:"Starfall Radio", native:"スターフォール・ラジオ", poster:'/mock-art/starfall-radio-poster.svg', banner:'/mock-art/starfall-radio-wide.svg', year:2025, score:80, format:"TV", type:"TV", episodeCount:13, subCount:13, dubCount:13, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Music","Drama"], studios:["Radio House"], synopsis:"A midnight radio band performs songs that guide stranded travelers home." },
+  { id:91008, routeId:getRouteToken(91008), anilistId:185874, malId:null, title:"Mirror District", romaji:"Mirror District", native:"ミラー・ディストリクト", poster:'/mock-art/mirror-district-poster.svg', banner:'/mock-art/mirror-district-wide.svg', year:2026, score:85, format:"TV", type:"TV", episodeCount:12, subCount:7, dubCount:4, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Mystery","Supernatural"], studios:["Glassworks"], synopsis:"Residents of a mirrored city investigate reflections that begin living independent lives." },
+  { id:91009, routeId:getRouteToken(91009), anilistId:91009, malId:null, title:"Paper Comet", romaji:"Paper Comet", native:"ペーパー・コメット", poster:'/mock-art/paper-comet-poster.svg', banner:'/mock-art/paper-comet-wide.svg', year:2023, score:76, format:"MOVIE", type:"MOVIE", episodeCount:1, subCount:1, dubCount:0, hasSub:true, hasDub:false, sub:true, dub:false, genres:["Adventure","Family"], studios:["Folded Sky"], synopsis:"A handmade paper spacecraft carries two siblings across illustrated constellations." },
+  { id:91010, routeId:getRouteToken(91010), anilistId:91010, malId:null, title:"Soft Static", romaji:"Soft Static", native:"ソフト・スタティック", poster:'/mock-art/soft-static-poster.svg', banner:'/mock-art/soft-static-wide.svg', year:2026, score:82, format:"TV", type:"TV", episodeCount:12, subCount:9, dubCount:3, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Romance","Music"], studios:["Low Tide"], synopsis:"College radio hosts fall in love while tracing a mysterious listener who never speaks." },
+  { id:91011, routeId:getRouteToken(91011), anilistId:91011, malId:null, title:"Verdant Zero", romaji:"Verdant Zero", native:"ヴァーダント・ゼロ", poster:'/mock-art/verdant-zero-poster.svg', banner:'/mock-art/verdant-zero-wide.svg', year:2025, score:86, format:"TV", type:"TV", episodeCount:24, subCount:24, dubCount:18, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Action","Sci-Fi"], studios:["Greenline"], synopsis:"Terraforming pilots defend the first orbital forest from a self-replicating machine swarm." },
+  { id:91012, routeId:getRouteToken(91012), anilistId:91012, malId:null, title:"Night Bus 77", romaji:"Night Bus 77", native:"ナイトバス77", poster:'/mock-art/night-bus-77-poster.svg', banner:'/mock-art/night-bus-77-wide.svg', year:2024, score:78, format:"TV", type:"TV", episodeCount:11, subCount:11, dubCount:11, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Comedy","Supernatural"], studios:["Last Stop"], synopsis:"A night-shift driver discovers every passenger is traveling to a place that no longer exists." },
+  { id:91013, routeId:getRouteToken(91013), anilistId:91013, malId:null, title:"Atlas of Rain", romaji:"Atlas of Rain", native:"雨のアトラス", poster:'/mock-art/atlas-of-rain-poster.svg', banner:'/mock-art/atlas-of-rain-wide.svg', year:2026, score:88, format:"TV", type:"TV", episodeCount:12, subCount:5, dubCount:0, hasSub:true, hasDub:false, sub:true, dub:false, genres:["Fantasy","Drama"], studios:["Blue Hour"], synopsis:"Mapmakers chart storms that reshape borders, memories and the people caught between them." },
+  { id:91014, routeId:getRouteToken(91014), anilistId:91014, malId:null, title:"Copper Bloom", romaji:"Copper Bloom", native:"カッパー・ブルーム", poster:'/mock-art/copper-bloom-poster.svg', banner:'/mock-art/copper-bloom-wide.svg', year:2022, score:74, format:"TV", type:"TV", episodeCount:13, subCount:13, dubCount:13, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Slice of Life","Comedy"], studios:["Workshop 9"], synopsis:"A robotics club builds tiny gardeners that slowly transform an abandoned rooftop." },
+  { id:91015, routeId:getRouteToken(91015), anilistId:91015, malId:null, title:"Orbit Canteen", romaji:"Orbit Canteen", native:"オービット食堂", poster:'/mock-art/orbit-canteen-poster.svg', banner:'/mock-art/orbit-canteen-wide.svg', year:2026, score:77, format:"ONA", type:"ONA", episodeCount:10, subCount:6, dubCount:2, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Comedy","Sci-Fi"], studios:["Panorama"], synopsis:"A tiny diner on a freight station serves aliens, pilots and impossible late-night orders." },
+  { id:91016, routeId:getRouteToken(91016), anilistId:91016, malId:null, title:"Winter Protocol", romaji:"Winter Protocol", native:"ウィンター・プロトコル", poster:'/mock-art/winter-protocol-poster.svg', banner:'/mock-art/winter-protocol-wide.svg', year:2025, score:90, format:"TV", type:"TV", episodeCount:12, subCount:12, dubCount:8, hasSub:true, hasDub:true, sub:true, dub:true, genres:["Thriller","Action"], studios:["Northgate"], synopsis:"A rescue team races through an automated polar city after its safety system turns hostile." }
 ];
 
 SPOTLIGHT_ITEMS.splice(0, SPOTLIGHT_ITEMS.length, ...AML_ITEMS.slice(0,6));
@@ -1024,8 +1032,8 @@ for (const item of AML_ITEMS) {
   ROUTE_TO_ID.set(String(item.id), String(item.id));
 }
 
-SCHEDULE_ITEMS.splice(0, SCHEDULE_ITEMS.length, ...AML_ITEMS.slice(0,5).map((item,i)=>({
-  id:item.id, routeId:item.routeId, anilistId:item.id, title:item.title,
+SCHEDULE_ITEMS.splice(0, SCHEDULE_ITEMS.length, ...AML_ITEMS.slice(0,7).map((item,i)=>({
+  id:item.id, routeId:item.routeId, anilistId:item.anilistId, title:item.title,
   poster:item.poster, banner:item.banner,
   airingAt:Math.floor(Date.now()/1000)+(i+1)*86400,
   season:'FALL', year:2026, startDate:{year:2026,month:9,day:23+i}
@@ -1162,7 +1170,14 @@ const server = http.createServer(async (req, res) => {
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/watchlist') {
-    sendJson({ items: AML_ITEMS.slice(0, 5).map((item, i) => ({ ...item, status: i < 2 ? 'watching' : 'plan-to-watch', progress: i === 0 ? 4 : i === 1 ? 2 : 0 })) });
+    const states = ['watching','watching','completed','plan-to-watch','on-hold','dropped','completed','plan-to-watch'];
+    sendJson({ items: AML_ITEMS.slice(0, 8).map((item, i) => ({
+      ...item,
+      status: states[i],
+      progress: [4,2,item.episodeCount,0,5,2,item.episodeCount,0][i] ?? 0,
+      favorite: i === 0 || i === 2 || i === 6,
+      collectionIds: i < 4 ? ['late-night'] : i < 7 ? ['weekend'] : ['rewatch']
+    })) });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/progress') {
@@ -1178,11 +1193,11 @@ const server = http.createServer(async (req, res) => {
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/collections') {
-    sendJson({ collections:[{id:'late-night',name:'Late Night',count:4},{id:'weekend',name:'Weekend',count:5},{id:'rewatch',name:'Rewatch',count:3}] });
+    sendJson({ collections:[{id:'late-night',name:'Late Night',count:4},{id:'weekend',name:'Weekend',count:3},{id:'rewatch',name:'Rewatch',count:1},{id:'comfort',name:'Comfort Queue',count:4}] });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/recent') {
-    sendJson({ recent: AML_ITEMS.slice(0, 5) });
+    sendJson({ recent: AML_ITEMS.slice(0, 7).map((item,i)=>({ ...item, episode:Math.min(item.episodeCount,i+1), progress:0.18+(i*0.09), watchedAt:new Date(Date.now()-i*5400000).toISOString() })) });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/title-likes/mine') {
@@ -2071,15 +2086,7 @@ const server = http.createServer(async (req, res) => {
     if (!matched) matched = SPOTLIGHT_ITEMS[0];
 
     const backdrop = matched.banner || matched.poster;
-    let logo = null;
-    const logoPng = path.join(DIRECTORY, 'logos', `${matched.id}.png`);
-    if (fs.existsSync(logoPng)) {
-      logo = `/logos/${matched.id}.png`;
-    } else {
-      const logoAvif = path.join(DIRECTORY, 'logos', `${matched.id}.avif`);
-      if (fs.existsSync(logoAvif)) logo = `/logos/${matched.id}.avif`;
-    }
-    sendJson({ backdrop, logo });
+    sendJson({ backdrop, logo:null });
     return;
   }
 

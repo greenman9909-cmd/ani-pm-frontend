@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 1000" role="img" aria-label="Neon Archive original mock artwork">
+<rect width="700" height="1000" fill="#121829"/>
+<circle cx="520" cy="230" r="310" fill="#8a7cff" opacity=".22"/>
+<circle cx="120" cy="760" r="260" fill="#55d6be" opacity=".18"/>
+<path d="M-40 810 C 160 650 320 930 760 540" fill="none" stroke="#8a7cff" stroke-width="34" opacity=".3"/>
+<path d="M90 0 L700 680 L700 1000 L510 1000 L0 470 L0 170 Z" fill="#55d6be" opacity=".08"/>
+<g fill="#fff"><text x="54" y="770" font-family="system-ui,sans-serif" font-size="33" opacity=".68" letter-spacing="5">AML ORIGINAL MOCK ART</text>
+<text x="50" y="835" font-family="system-ui,sans-serif" font-size="62" font-weight="800" letter-spacing="-2">Neon Archive</text>
+<text x="54" y="895" font-family="system-ui,sans-serif" font-size="24" opacity=".62">LOCAL FIXTURE • NO EXTERNAL MEDIA</text></g>
+</svg>

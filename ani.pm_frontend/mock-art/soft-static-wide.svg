@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Soft Static original mock artwork">
+<rect width="1600" height="900" fill="#111824"/>
+<circle cx="1240" cy="220" r="440" fill="#78d8ff" opacity=".22"/>
+<circle cx="350" cy="680" r="360" fill="#f2a6ff" opacity=".18"/>
+<path d="M-80 760 C 360 430 640 920 1680 350" fill="none" stroke="#78d8ff" stroke-width="46" opacity=".3"/>
+<path d="M680 0 L1600 0 L1600 900 L1270 900 L430 60 Z" fill="#f2a6ff" opacity=".08"/>
+<g fill="#fff"><text x="90" y="625" font-family="system-ui,sans-serif" font-size="32" opacity=".68" letter-spacing="5">AML ORIGINAL MOCK ART • SYNTHETIC TITLE</text>
+<text x="86" y="700" font-family="system-ui,sans-serif" font-size="82" font-weight="800" letter-spacing="-2">Soft Static</text>
+<text x="90" y="754" font-family="system-ui,sans-serif" font-size="28" opacity=".62">LOCAL FIXTURE • NO EXTERNAL MEDIA</text></g>
+</svg>

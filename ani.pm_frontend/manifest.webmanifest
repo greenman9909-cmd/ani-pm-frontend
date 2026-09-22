@@ -1,18 +1,22 @@
 {
-  "name":"AML",
-  "short_name":"AML",
-  "description": "Stream thousands of anime series and movies in HD — sub & dub.",
+  "name": "AML",
+  "short_name": "AML",
+  "description": "Anime discovery and streaming-interface prototype using synthetic local data.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#1a181d",
   "theme_color": "#1a181d",
-  "categories": ["entertainment"],
+  "categories": [
+    "entertainment"
+  ],
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
-    { "src": "/icon.png", "sizes": "96x96", "type": "image/png", "purpose": "any" }
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ]
 }

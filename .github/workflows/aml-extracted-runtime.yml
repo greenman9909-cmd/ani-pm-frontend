@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - remix/aml-extracted-frontend
+      - build/god-tree-streaming-20260922
   pull_request:
     paths:
       - "server.js"
@@ -69,7 +70,7 @@ jobs:
           curl -fsS "http://127.0.0.1:4173/api/anime/spotlight" > /tmp/spotlight.json
           grep -q "Neon Archive" /tmp/spotlight.json
           grep -q '"anilistId":189046' /tmp/spotlight.json
-          grep -q '/banners/rezero.jpg' /tmp/spotlight.json
+          grep -q '/mock-art/neon-archive-wide.svg' /tmp/spotlight.json
 
           curl -fsS "http://127.0.0.1:4173/api/anime/search?q=Neon" > /tmp/search.json
           grep -q "Neon Archive" /tmp/search.json
@@ -89,6 +90,17 @@ jobs:
           curl -fsS "http://127.0.0.1:4173/api/settings" > /tmp/settings.json
           grep -q '"theme":"dark"' /tmp/settings.json
 
+          curl -fsS "http://127.0.0.1:4173/api/collections" > /tmp/collections.json
+          grep -q '"Comfort Queue"' /tmp/collections.json
+
+          curl -fsS "http://127.0.0.1:4173/api/anime/schedule" > /tmp/schedule.json
+          grep -q "Neon Archive" /tmp/schedule.json
+
+          curl -fsS "http://127.0.0.1:4173/api/leaderboard" > /tmp/leaderboard.json
+          grep -q "AML" /tmp/leaderboard.json || grep -q "mira" /tmp/leaderboard.json
+
+          grep -Rqi "prefers-reduced-motion" ani.pm_frontend/assets/*.css
+
           curl -fsS "http://127.0.0.1:4173/mock-player.html?title=91001&ep=1&channel=sub" > /tmp/player.html
           grep -q "AML mock player" /tmp/player.html
 
@@ -107,6 +119,16 @@ jobs:
           grep -q "spot-title" /tmp/home-dom.html
           grep -q "Neon Archive" /tmp/home-dom.html
           grep -q "12 Episodes" /tmp/home-dom.html
+          grep -q "/mock-art/neon-archive-wide.svg" /tmp/home-dom.html
+
+          for route in /anime /search /library /profile /settings /community /leaderboard /watch-together; do
+            "$BROWSER" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=6000               --dump-dom "http://127.0.0.1:4173$route" > "/tmp/route-$(echo "$route" | tr '/' '_').html"
+            grep -q 'id="root"' "/tmp/route-$(echo "$route" | tr '/' '_').html"
+          done
+
+          "$BROWSER" --headless=new --no-sandbox --disable-gpu --window-size=390,844 --virtual-time-budget=7000             --dump-dom http://127.0.0.1:4173/ > /tmp/home-mobile-dom.html
+          grep -q "Neon Archive" /tmp/home-mobile-dom.html
+          grep -q "top-nav" /tmp/home-mobile-dom.html
 
       - name: Stop server
         if: always()

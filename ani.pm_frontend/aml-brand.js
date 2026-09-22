@@ -53,21 +53,7 @@
     }
   });
   observer.observe(document.documentElement, {subtree:true, childList:true, characterData:true});
-
-  addEventListener('DOMContentLoaded', () => {
-    patchNode(document.body);
-    const badge = document.createElement('div');
-    badge.textContent = 'AML · MOCK DATA';
-    badge.setAttribute('aria-label','AML mock-data build');
-    Object.assign(badge.style,{
-      position:'fixed',right:'14px',bottom:'14px',zIndex:'2147483647',
-      padding:'7px 10px',border:'1px solid rgba(255,255,255,.16)',
-      borderRadius:'999px',background:'rgba(12,12,14,.78)',color:'#fff',
-      font:'600 10px/1 system-ui',letterSpacing:'.08em',backdropFilter:'blur(14px)',
-      pointerEvents:'none'
-    });
-    document.body.appendChild(badge);
-  });
-
-  console.log('%c AML mock-only extracted frontend ', 'background:#111;color:#fff;padding:6px 10px;border-radius:6px;font-weight:700');
+  addEventListener('DOMContentLoaded', () => patchNode(document.body));
+  document.documentElement.dataset.amlMock = 'true';
+  console.log('%c AML mock-only extracted frontend ', 'font-weight:700');
 })();
