@@ -1,0 +1,43 @@
+name: mock-app-verify
+on:
+  push:
+    branches:
+      - mock/yoru-full-surface
+  pull_request:
+    paths:
+      - "mock-app/**"
+      - ".github/workflows/mock-app-verify.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify mock contract
+        run: python mock-app/verify.py
+      - name: Verify inline JavaScript syntax
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          html = Path("mock-app/index.html").read_text()
+          scripts = re.findall(r"<script>([\s\S]*?)</script>", html)
+          Path("/tmp/mock-inline.js").write_text("\n".join(scripts))
+          PY
+          node --check /tmp/mock-inline.js
+      - name: Serve static app
+        run: |
+          python -m http.server 4173 -d mock-app >/tmp/mock-server.log 2>&1 &
+          PID=$!
+          trap "kill $PID" EXIT
+          for i in 1 2 3 4 5; do
+            if curl -fsS http://127.0.0.1:4173/ >/tmp/mock-index.html; then break; fi
+            sleep 1
+          done
+          grep -q "Yoru — mock anime product" /tmp/mock-index.html
