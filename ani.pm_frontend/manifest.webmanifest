@@ -1,6 +1,6 @@
 {
-  "name": "ani.pm — watch anime, subbed & dubbed",
-  "short_name": "ani.pm",
+  "name":"AML",
+  "short_name":"AML",
   "description": "Stream thousands of anime series and movies in HD — sub & dub.",
   "start_url": "/",
   "scope": "/",
