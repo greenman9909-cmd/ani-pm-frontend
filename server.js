@@ -1039,12 +1039,12 @@ SCHEDULE_ITEMS.splice(0, SCHEDULE_ITEMS.length, ...AML_ITEMS.slice(0,7).map((ite
   season:'FALL', year:2026, startDate:{year:2026,month:9,day:23+i}
 })));
 
-Object.assign(USER_ADMIN,{id:'aml-tester',username:'aml_tester',name:'AML Tester',displayName:'AML Tester',avatarUrl:'/icon-192.png',avatarColor:'#ff3b5c',isAdmin:false,isVip:true,level:18});
-Object.assign(USER_SUBARU,{id:'mira',username:'mira',name:'Mira',displayName:'Mira',avatarUrl:'/icon-192.png',avatarColor:'#8b5cf6',isAdmin:false,isVip:false,level:22});
-Object.assign(USER_REM,{id:'kian',username:'kian',name:'Kian',displayName:'Kian',avatarUrl:'/icon-192.png',avatarColor:'#3b82f6',isAdmin:false,isVip:false,level:17});
-Object.assign(USER_EMILIA,{id:'nova',username:'nova',name:'Nova',displayName:'Nova',avatarUrl:'/icon-192.png',avatarColor:'#ec4899',isAdmin:false,isVip:false,level:15});
-Object.assign(USER_JINWOO,{id:'sora',username:'sora',name:'Sora',displayName:'Sora',avatarUrl:'/icon-192.png',avatarColor:'#10b981',isAdmin:false,isVip:false,level:14});
-Object.assign(USER_CHA,{id:'rin',username:'rin',name:'Rin',displayName:'Rin',avatarUrl:'/icon-192.png',avatarColor:'#eab308',isAdmin:false,isVip:false,level:13});
+Object.assign(USER_ADMIN,{id:910001,username:'aml_tester',name:'AML Tester',displayName:'AML Tester',avatarUrl:'/icon-192.png',avatarColor:'#ff3b5c',isAdmin:false,isVip:true,level:18});
+Object.assign(USER_SUBARU,{id:910002,username:'mira',name:'Mira',displayName:'Mira',avatarUrl:'/icon-192.png',avatarColor:'#8b5cf6',isAdmin:false,isVip:false,level:22});
+Object.assign(USER_REM,{id:910003,username:'kian',name:'Kian',displayName:'Kian',avatarUrl:'/icon-192.png',avatarColor:'#3b82f6',isAdmin:false,isVip:false,level:17});
+Object.assign(USER_EMILIA,{id:910004,username:'nova',name:'Nova',displayName:'Nova',avatarUrl:'/icon-192.png',avatarColor:'#ec4899',isAdmin:false,isVip:false,level:15});
+Object.assign(USER_JINWOO,{id:910005,username:'sora',name:'Sora',displayName:'Sora',avatarUrl:'/icon-192.png',avatarColor:'#10b981',isAdmin:false,isVip:false,level:14});
+Object.assign(USER_CHA,{id:910006,username:'rin',name:'Rin',displayName:'Rin',avatarUrl:'/icon-192.png',avatarColor:'#eab308',isAdmin:false,isVip:false,level:13});
 
 COMMUNITY_COMMENTS.splice(0, COMMUNITY_COMMENTS.length,
   {id:'aml-c1',titleId:'91001',title:'Neon Archive',body:'Testing the discussion layout on the extracted frontend.',createdAt:Date.now()-3600000,likes:12,likedByMe:false,dislikes:0,dislikedByMe:false,mine:false,spoiler:false,reactions:[],parentId:null,user:USER_SUBARU},

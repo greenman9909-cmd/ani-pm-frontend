@@ -1,10 +1,16 @@
 {
-  "tools_touched": [],
+  "tools_touched": [
+    "vibe-code-genius/scripts/validate-artifact.py"
+  ],
   "fixes_applied": [
-    "Switched repository reads from the failed local git transport to the connected GitHub repository interface; no God Tree tool code was modified."
+    "Switched repository reads from the failed local git transport to the connected GitHub repository interface; no God Tree tool code was modified.",
+    "Changed AML synthetic authenticated-user IDs from strings to stable positive integers required by the extracted auth/storage protocol.",
+    "Patched God Tree validate-artifact.py to validate declared .tsx artifacts as text and added tests/test_validate_artifact.py."
   ],
   "regressions_added": [
-    "CI now verifies the actual Home hero DOM and expanded route/mobile surfaces after writes."
+    "CI now verifies the actual Home hero DOM and expanded route/mobile surfaces after writes.",
+    "God Tree unit regression proves Node 13 pages.tsx artifacts are accepted by the authoritative validator.",
+    "AML runtime browser gate exercises authenticated routes after the numeric-ID repair."
   ],
   "unfixed": [
     "Session container DNS could not resolve github.com, so literal local git clone and local God Tree CLI execution remained unavailable in this environment."
