@@ -35,6 +35,7 @@ jobs:
               "megaplay.buzz",
               "embed.settlar.io",
               "https://ani.pm",
+              "s4.anilist.co",
           ]
           found = [x for x in forbidden if x in s]
           assert not found, f"production network markers remain: {found}"

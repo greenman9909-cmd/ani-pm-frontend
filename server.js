@@ -172,7 +172,7 @@ const SPOTLIGHT_ITEMS = [
     title: 'DAN DA DAN',
     romaji: 'Dandadan',
     native: 'ダンダダン',
-    poster: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx178789-hNXjKFzUq7mk.jpg',
+    poster: '/icon-192.png',
     banner: '/banners/t/3AXLSxMuqyZt8HyrKKfrcJtkswD.webp',
     year: 2024,
     score: 86,
@@ -197,7 +197,7 @@ const SPOTLIGHT_ITEMS = [
     title: 'Attack on Titan',
     romaji: 'Shingeki no Kyojin',
     native: '進撃の巨人',
-    poster: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx16498-buvcRTBx4NSm.jpg',
+    poster: '/icon-192.png',
     banner: '/banners/aot.jpg',
     year: 2013,
     score: 89,
@@ -222,7 +222,7 @@ const SPOTLIGHT_ITEMS = [
     title: 'Jujutsu Kaisen Season 2',
     romaji: 'Jujutsu Kaisen 2nd Season',
     native: '呪術廻戦 第2期',
-    poster: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx113415-LHBAeoZDIsnF.jpg',
+    poster: '/icon-192.png',
     banner: '/banners/jjk.jpg',
     year: 2023,
     score: 88,
@@ -247,7 +247,7 @@ const SPOTLIGHT_ITEMS = [
     title: 'Bleach: Thousand-Year Blood War - The Conflict',
     romaji: 'Bleach: Sennen Kessen-hen - Soukoku-tan',
     native: 'BLEACH 千年血戦篇-相剋譚-',
-    poster: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx187538-fXVXKYUA3VV6.jpg',
+    poster: '/icon-192.png',
     banner: '/banners/187538.jpg',
     year: 2024,
     score: 87,
@@ -272,7 +272,7 @@ const SPOTLIGHT_ITEMS = [
     title: 'Sakamoto Days',
     romaji: 'Sakamoto Days',
     native: 'SAKAMOTO DAYS',
-    poster: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx196187-0dgFi2CPp3xn.jpg',
+    poster: '/icon-192.png',
     banner: '/banners/196187.jpg',
     year: 2025,
     score: 83,
@@ -425,7 +425,7 @@ const SCHEDULE_ITEMS = [
     routeId: '196187',
     anilistId: 196187,
     title: 'Sakamoto Days',
-    poster: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx196187-0dgFi2CPp3xn.jpg',
+    poster: '/icon-192.png',
     banner: '/banners/196187.jpg',
     airingAt: nowTs + 86400 * 2,
     season: 'WINTER',
@@ -449,7 +449,7 @@ const SCHEDULE_ITEMS = [
     routeId: '185660',
     anilistId: 185660,
     title: 'DAN DA DAN Season 2',
-    poster: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx178789-hNXjKFzUq7mk.jpg',
+    poster: '/icon-192.png',
     banner: '/banners/t/3AXLSxMuqyZt8HyrKKfrcJtkswD.webp',
     airingAt: nowTs + 86400 * 12,
     season: 'SPRING',
@@ -461,7 +461,7 @@ const SCHEDULE_ITEMS = [
     routeId: '178025',
     anilistId: 178025,
     title: 'Gachiakuta',
-    poster: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx178789-hNXjKFzUq7mk.jpg',
+    poster: '/icon-192.png',
     banner: '/banners/t/aXO5vBpGEl2xUfhJtZyLWeLY5ZJ.webp',
     airingAt: nowTs + 86400 * 20,
     season: 'SUMMER',
@@ -517,7 +517,7 @@ const COMMUNITY_COMMENTS = [
     spoiler: false,
     reactions: [{ emoji: 'std:138370-xd', count: 18, mine: false }],
     parentId: null,
-    user: makeUser('okarun', 'okarun', 'Okarun', 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx178789-hNXjKFzUq7mk.jpg', '#10b981', false, false)
+    user: makeUser('okarun', 'okarun', 'Okarun', '/icon-192.png', '#10b981', false, false)
   }
 ];
 
@@ -537,9 +537,9 @@ const USER_REM = makeUser('rem', 'rem', 'Rem', '/img/reactions/rezero/629801-rem
 const USER_EMILIA = makeUser('emilia', 'emilia', 'Emilia', '/banners/rezero-p.webp', '#a855f7', false, false);
 const USER_JINWOO = makeUser('jinwoo', 'jinwoo', 'Sung Jin-Woo', '/img/covers/135865.jpg', '#8b5cf6', false, false);
 const USER_CHA = makeUser('cha', 'cha', 'Cha Hae-In', '/img/covers/135865.jpg', '#eab308', false, false);
-const USER_MOMO = makeUser('momo', 'momo', 'Momo', 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx178789-hNXjKFzUq7mk.jpg', '#ec4899', false, false);
-const USER_OKARUN = makeUser('okarun', 'okarun', 'Okarun', 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx178789-hNXjKFzUq7mk.jpg', '#10b981', false, false);
-const USER_LUFFY = makeUser('luffy', 'luffy', 'Luffy', 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx21-tXMN3Y20PIL9.jpg', '#ef4444', false, true);
+const USER_MOMO = makeUser('momo', 'momo', 'Momo', '/icon-192.png', '#ec4899', false, false);
+const USER_OKARUN = makeUser('okarun', 'okarun', 'Okarun', '/icon-192.png', '#10b981', false, false);
+const USER_LUFFY = makeUser('luffy', 'luffy', 'Luffy', '/icon-192.png', '#ef4444', false, true);
 const USER_ZORO = makeUser('zoro', 'zoro', 'Zoro', '/img/reactions/std/3257-zorolike.png', '#22c55e', false, false);
 const USER_OTAKU = makeUser('guest', 'otaku99', 'Otaku99', '/icon-192.png', '#06b6d4', false, false);
 const USER_NIGHTOWL = makeUser('nightowl', 'nightowl', 'NightOwl', '/icon-192.png', '#64748b', false, false);
@@ -2135,7 +2135,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     // Fallback to active AniList cover
-    const fallback = COVERS_MAP[String(aid)] || 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx151807-it355ZgzquUd.png';
+    const fallback = COVERS_MAP[String(aid)] || '/icon-192.png';
     sendRedirect(fallback);
     return;
   }
@@ -2161,7 +2161,7 @@ const server = http.createServer(async (req, res) => {
 
     if (targetU && targetU.startsWith('http')) {
       if (targetU.includes('bx151807-m1g5OpTaqRtl')) {
-        targetU = 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx151807-it355ZgzquUd.png';
+        targetU = '/icon-192.png';
       }
       sendRedirect(targetU);
       return;
@@ -2190,7 +2190,7 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
-    sendRedirect('https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx151807-it355ZgzquUd.png');
+    sendRedirect('/icon-192.png');
     return;
   }
 

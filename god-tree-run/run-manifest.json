@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "branch": "build/god-tree-streaming-20260922",
   "base_reference_commit": "2f734e7334a9a9e2db6a43c876fe88613687827f",
-  "build_commit": "430f9907003ca9e251339783e568ff560d818940",
+  "build_commit": "b6364181e152a57fd74b237bc58313e16b253f72",
   "nodes": {
     "complete": [
       "01",
@@ -53,6 +53,7 @@
     "God Tree main files/contracts/walkthroughs were read before implementation.",
     "Pinned extracted frontend code was inventoried at its exact commit.",
     "Existing extracted route/component/CSS path was preserved.",
-    "Runtime bug loop normalized Library IDs/statuses to the extracted client contract and corrected route evidence to the exact extracted router."
+    "Runtime bug loop normalized Library IDs/statuses to the extracted client contract and corrected route evidence to the exact extracted router.",
+    "Residual remote fixture media URLs removed; AML mock data/media is now same-origin/local in the gateway source."
   ]
 }

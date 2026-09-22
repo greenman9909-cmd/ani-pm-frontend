@@ -7,14 +7,16 @@
     "Changed AML synthetic authenticated-user IDs from strings to stable positive integers required by the extracted auth/storage protocol.",
     "Patched God Tree validate-artifact.py to validate declared .tsx artifacts as text and added tests/test_validate_artifact.py.",
     "Normalized AML Library/watchlist IDs to anime:<id>, mapped statuses to watching/plan/completed/on_hold/dropped, and supplied cover/addedAt fields expected by the extracted Library component.",
-    "Corrected persisted route evidence and CI from invented /profile, /watch/:id and /schedule aliases to the exact extracted router and composed ReleaseSchedule/watch surfaces."
+    "Corrected persisted route evidence and CI from invented /profile, /watch/:id and /schedule aliases to the exact extracted router and composed ReleaseSchedule/watch surfaces.",
+    "Removed residual AniList CDN media URLs from legacy fixture records; mock runtime now uses local media paths only."
   ],
   "regressions_added": [
     "CI now verifies the actual Home hero DOM and expanded route/mobile surfaces after writes.",
     "God Tree unit regression proves Node 13 pages.tsx artifacts are accepted by the authoritative validator.",
     "AML runtime browser gate exercises authenticated routes after the numeric-ID repair.",
     "Runtime CI asserts namespace Library IDs and native status enums.",
-    "Headless browser verifies /library, /user/mira, /anime/91001 and /anime/91001?ep=1, then fails if any [Client Error] is logged."
+    "Headless browser verifies /library, /user/mira, /anime/91001 and /anime/91001?ep=1, then fails if any [Client Error] is logged.",
+    "Mock-only source boundary fails if s4.anilist.co reappears in server.js."
   ],
   "unfixed": [
     "Session container DNS could not resolve github.com, so literal local git clone and local God Tree CLI execution remained unavailable in this environment."
