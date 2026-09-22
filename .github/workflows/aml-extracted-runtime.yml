@@ -1,0 +1,115 @@
+name: aml-extracted-runtime
+on:
+  push:
+    branches:
+      - remix/aml-extracted-frontend
+  pull_request:
+    paths:
+      - "server.js"
+      - "local-bridge.js"
+      - "package.json"
+      - "ani.pm_frontend/**"
+      - ".github/workflows/aml-extracted-runtime.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Syntax check
+        run: npm run check
+
+      - name: Assert mock-only source boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s = Path("server.js").read_text(encoding="utf-8")
+          forbidden = [
+              "anivexaapi-aniko2.hf.space",
+              "graphql.anilist.co",
+              "megaplay.buzz",
+              "embed.settlar.io",
+              "https://ani.pm",
+          ]
+          found = [x for x in forbidden if x in s]
+          assert not found, f"production network markers remain: {found}"
+          assert "const MOCK_ONLY = true" in s
+          assert "const AML_ITEMS = [" in s
+          assert "/mock-player.html?title=" in s
+          print("PASS mock-only source boundary")
+          PY
+
+      - name: Boot extracted SPA gateway
+        run: |
+          PORT=4173 node server.js >/tmp/aml-server.log 2>&1 &
+          echo $! >/tmp/aml-server.pid
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:4173/api/local/health >/tmp/health.json; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/aml-server.log
+          exit 1
+
+      - name: Verify extracted frontend and AML fixtures
+        run: |
+          set -eux
+          curl -fsS http://127.0.0.1:4173/ > /tmp/index.html
+          grep -q "AML" /tmp/index.html
+          grep -q "/assets/index-DQbZxriH.js" /tmp/index.html
+          grep -q "/aml-brand.js" /tmp/index.html
+
+          curl -fsSI http://127.0.0.1:4173/assets/Home-CGFASR0W.js | grep -qi "200"
+
+          curl -fsS "http://127.0.0.1:4173/api/anime/spotlight" > /tmp/spotlight.json
+          grep -q "Neon Archive" /tmp/spotlight.json
+          grep -q '"anilistId":189046' /tmp/spotlight.json
+          grep -q '/banners/rezero.jpg' /tmp/spotlight.json
+
+          curl -fsS "http://127.0.0.1:4173/api/anime/search?q=Neon" > /tmp/search.json
+          grep -q "Neon Archive" /tmp/search.json
+
+          curl -fsS "http://127.0.0.1:4173/api/anime/series/91001" > /tmp/title.json
+          grep -q "Neon Archive" /tmp/title.json
+
+          curl -fsS "http://127.0.0.1:4173/api/profile/mira" > /tmp/profile.json
+          grep -q '"username":"mira"' /tmp/profile.json
+
+          curl -fsS "http://127.0.0.1:4173/api/auth/me" > /tmp/auth.json
+          grep -q "AML Tester" /tmp/auth.json
+
+          curl -fsS "http://127.0.0.1:4173/api/watchlist" > /tmp/watchlist.json
+          grep -q "Neon Archive" /tmp/watchlist.json
+
+          curl -fsS "http://127.0.0.1:4173/api/settings" > /tmp/settings.json
+          grep -q '"theme":"dark"' /tmp/settings.json
+
+          curl -fsS "http://127.0.0.1:4173/mock-player.html?title=91001&ep=1&channel=sub" > /tmp/player.html
+          grep -q "AML mock player" /tmp/player.html
+
+          curl -fsS "http://127.0.0.1:4173/embed/preview" > /tmp/preview.html
+          grep -q "AML mock player" /tmp/preview.html
+
+      - name: Verify hero in a real browser
+        run: |
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$BROWSER" ]; then
+            echo "No headless Chrome/Chromium on runner"
+            exit 1
+          fi
+          "$BROWSER" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=8000             --dump-dom http://127.0.0.1:4173/ > /tmp/home-dom.html
+          grep -q "spot-copy" /tmp/home-dom.html
+          grep -q "spot-title" /tmp/home-dom.html
+          grep -q "Neon Archive" /tmp/home-dom.html
+          grep -q "12 Episodes" /tmp/home-dom.html
+
+      - name: Stop server
+        if: always()
+        run: |
+          kill "$(cat /tmp/aml-server.pid)" 2>/dev/null || true
+          cat /tmp/aml-server.log || true

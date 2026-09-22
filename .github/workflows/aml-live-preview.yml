@@ -1,0 +1,86 @@
+name: aml-live-preview
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - remix/aml-extracted-frontend
+    paths:
+      - ".github/workflows/aml-live-preview.yml"
+      - "server.js"
+      - "package.json"
+      - "ani.pm_frontend/**"
+  workflow_dispatch:
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Start AML gateway
+        run: |
+          PORT=4173 node server.js >/tmp/aml-preview-server.log 2>&1 &
+          echo $! >/tmp/aml-preview-server.pid
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:4173/api/local/health >/dev/null; then
+              echo "Gateway ready"
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/aml-preview-server.log
+          exit 1
+
+      - name: Install Cloudflare tunnel
+        run: |
+          curl -L --fail --retry 3 \
+            https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 \
+            -o /tmp/cloudflared
+          chmod +x /tmp/cloudflared
+          /tmp/cloudflared --version
+
+      - name: Publish temporary preview
+        run: |
+          set -o pipefail
+          /tmp/cloudflared tunnel --no-autoupdate --url http://127.0.0.1:4173 2>&1 | tee /tmp/cloudflared.log &
+          echo $! >/tmp/cloudflared.pid
+
+          URL=""
+          for i in $(seq 1 40); do
+            URL=$(grep -Eo 'https://[-a-z0-9]+\.trycloudflare\.com' /tmp/cloudflared.log | head -n1 || true)
+            if [ -n "$URL" ]; then
+              break
+            fi
+            sleep 1
+          done
+
+          if [ -z "$URL" ]; then
+            cat /tmp/cloudflared.log
+            exit 1
+          fi
+
+          echo "AML_PREVIEW_URL=$URL"
+          echo "Preview: $URL"
+
+          mkdir -p .preview
+          printf '%s\n' "$URL" > .preview/aml-url.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .preview/aml-url.txt
+          git commit -m "Update temporary AML preview URL"
+          git push origin HEAD:remix/aml-extracted-frontend
+
+          curl -fsS "http://127.0.0.1:4173/api/anime/search?q=Neon" | grep -q "Neon Archive"
+          curl -fsS "http://127.0.0.1:4173/" | grep -q "AML"
+
+          echo "Local AML verified. Public tunnel is ready: $URL"
+          while kill -0 "$(cat /tmp/cloudflared.pid)" 2>/dev/null; do
+            sleep 20
+          done
