@@ -1,4 +1,7 @@
 name: aml-live-preview
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -62,6 +65,14 @@ jobs:
 
           echo "AML_PREVIEW_URL=$URL"
           echo "Preview: $URL"
+
+          mkdir -p .preview
+          printf '%s\n' "$URL" > .preview/aml-url.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .preview/aml-url.txt
+          git commit -m "Update temporary AML preview URL"
+          git push origin HEAD:remix/aml-extracted-frontend
 
           curl -fsS "http://127.0.0.1:4173/api/anime/search?q=Neon" | grep -q "Neon Archive"
           curl -fsS "http://127.0.0.1:4173/" | grep -q "AML"
