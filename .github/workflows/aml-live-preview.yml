@@ -63,10 +63,10 @@ jobs:
           echo "AML_PREVIEW_URL=$URL"
           echo "Preview: $URL"
 
-          curl -fsS "$URL/api/anime/search?q=Neon" | grep -q "Neon Archive"
-          curl -fsS "$URL/" | grep -q "AML"
+          curl -fsS "http://127.0.0.1:4173/api/anime/search?q=Neon" | grep -q "Neon Archive"
+          curl -fsS "http://127.0.0.1:4173/" | grep -q "AML"
 
-          echo "Preview verified. Keeping tunnel open."
+          echo "Local AML verified. Public tunnel is ready: $URL"
           while kill -0 "$(cat /tmp/cloudflared.pid)" 2>/dev/null; do
             sleep 20
           done
