@@ -1,8 +1,8 @@
 /**
- * High-performance, self-contained Node.js gateway server for ani.pm frontend.
- * Powered directly by pure Yoru streaming (https://anivexaapi-aniko2.hf.space).
- * Zero external backend daemons (no ReAnime, no port 8000).
- * Built with native Node.js async HTTP, zero npm dependencies.
+ * AML mock-only gateway for the SPA-Ripper-extracted ani.pm frontend.
+ * Preserves the extracted frontend and its API response shapes while serving
+ * synthetic catalogue, profile, community, library, settings and playback data.
+ * No production anime API or streaming service is contacted in MOCK_ONLY mode.
  */
 
 import http from 'node:http';
@@ -18,7 +18,7 @@ const PORT = parseInt(process.env.PORT || '8080', 10);
 const DIRECTORY = path.join(__dirname, 'ani.pm_frontend');
 const MOCK_ONLY = true;
 const PRODUCT_NAME = 'AML';
-const YORU_API = 'https://anivexaapi-aniko2.hf.space';
+const YORU_API = null; // production resolver disabled in AML mock-only mode
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -708,80 +708,8 @@ const CHAT_MESSAGES = [
 ];
 
 // Helper: Query AniList GraphQL in real-time for any anime
-async function fetchAniListAnime(ident) {
-  const isNum = /^[0-9]+$/.test(String(ident).trim());
-  const query = `
-    query ($id: Int, $search: String) {
-      Media(id: $id, search: $search, type: ANIME) {
-        id
-        idMal
-        title { english romaji native }
-        description
-        coverImage { extraLarge large medium }
-        bannerImage
-        seasonYear
-        episodes
-        averageScore
-        format
-        genres
-        studios { nodes { name } }
-      }
-    }
-  `;
-  const variables = isNum ? { id: parseInt(ident, 10) } : { search: String(ident) };
-  try {
-    const res = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query, variables }),
-      signal: AbortSignal.timeout(6000)
-    });
-    if (res.ok) {
-      const data = await res.json();
-      const m = data?.data?.Media;
-      if (m) {
-        const aid = m.id;
-        const eps = m.episodes || 12;
-        const fmt = (m.format || 'TV').toUpperCase();
-        const token = getRouteToken(aid);
-        const obj = {
-          id: aid,
-          routeId: token,
-          anilistId: aid,
-          malId: m.idMal,
-          title: m.title?.english || m.title?.romaji || m.title?.native || `Anime ${aid}`,
-          romaji: m.title?.romaji || m.title?.english,
-          native: m.title?.native,
-          poster: m.coverImage?.large || m.coverImage?.medium,
-          banner: m.bannerImage || m.coverImage?.large,
-          year: m.seasonYear || 2024,
-          score: m.averageScore ? Math.round(m.averageScore / 10 * 10) : 80,
-          format: fmt,
-          type: fmt,
-          episodeCount: eps,
-          subCount: eps,
-          dubCount: eps,
-          hasSub: true,
-          hasDub: true,
-          sub: true,
-          dub: true,
-          genres: m.genres || ['Action'],
-          studios: Array.isArray(m.studios?.nodes) ? m.studios.nodes.map(s => s.name) : [],
-          synopsis: m.description || ''
-        };
-        CATALOG_MAP.set(String(aid), obj);
-        CATALOG_MAP.set(String(ident), obj);
-        CATALOG_MAP.set(token, obj);
-        ROUTE_TO_ID.set(token, String(aid));
-        ROUTE_TO_ID.set(String(aid), token);
-        ROUTE_TO_ID.set(String(ident), String(aid));
-        ALL_CATALOG_ITEMS.push(obj);
-        return obj;
-      }
-    }
-  } catch (err) {
-    console.error(`[AniList Fetch] Error fetching for ${ident}:`, err.message);
-  }
+async function fetchAniListAnime(_ident) {
+  // Deliberately disabled: AML branch is synthetic-data-only.
   return null;
 }
 
@@ -1068,152 +996,11 @@ function resolveLocalAsset(pathname) {
 
 // Pure Yoru Streaming Resolver (Priority for clean MegaPlay s-2 Video.js streams)
 async function resolveStream(anilistId, ep = '1', channel = 'sub') {
-  const cacheKey = `${anilistId}:${channel}:${ep}`;
-  const now = Date.now();
-  if (STREAM_CACHE.has(cacheKey)) {
-    const entry = STREAM_CACHE.get(cacheKey);
-    if (now - entry.ts < 10 * 60 * 1000) {
-      return entry.url;
-    }
-  }
-
-  try {
-    const yoruUrl = `${YORU_API}/api/watch/${anilistId}/${channel}/${ep}`;
-    console.log(`[Yoru Resolver] Querying ${yoruUrl}`);
-    const res = await fetch(yoruUrl, { signal: AbortSignal.timeout(8000) });
-    if (res.ok) {
-      const data = await res.json();
-      const allStreams = [];
-      for (const k of ['ssub', 'sdub', 'streams']) {
-        if (data[k]?.streams && Array.isArray(data[k].streams)) {
-          for (const s of data[k].streams) {
-            if (s.url && s.url.startsWith('https://')) {
-              allStreams.push(s.url);
-            }
-          }
-        }
-      }
-
-      // Priority 1: MegaPlay VideoJS s-2 stream
-      const vjs_s2 = allStreams.find(u => u.includes('megaplay.buzz/videojs/stream/s-2/'));
-      if (vjs_s2) {
-        STREAM_CACHE.set(cacheKey, { ts: now, url: vjs_s2 });
-        return vjs_s2;
-      }
-
-      // Priority 2: MegaPlay regular s-2 stream
-      const s2 = allStreams.find(u => u.includes('megaplay.buzz/stream/s-2/'));
-      if (s2) {
-        STREAM_CACHE.set(cacheKey, { ts: now, url: s2 });
-        return s2;
-      }
-
-      // Priority 3: any videojs stream
-      const any_vjs = allStreams.find(u => u.includes('megaplay.buzz/videojs/'));
-      if (any_vjs) {
-        STREAM_CACHE.set(cacheKey, { ts: now, url: any_vjs });
-        return any_vjs;
-      }
-
-      // Priority 4: any non-ani stream (stream/ani/ often 404s on MegaPlay)
-      const non_ani = allStreams.find(u => !u.includes('/stream/ani/'));
-      if (non_ani) {
-        STREAM_CACHE.set(cacheKey, { ts: now, url: non_ani });
-        return non_ani;
-      }
-
-      if (allStreams.length > 0) {
-        STREAM_CACHE.set(cacheKey, { ts: now, url: allStreams[0] });
-        return allStreams[0];
-      }
-    }
-  } catch (err) {
-    console.error(`[Yoru Resolver] Error fetching stream: ${err.message}`);
-  }
-
-  // Guaranteed fallback
-  return `https://megaplay.buzz/videojs/stream/s-2/${ep}/${channel}`;
+  const safeEp = encodeURIComponent(String(ep || '1'));
+  const safeChannel = encodeURIComponent(channel === 'dub' ? 'dub' : 'sub');
+  const safeTitle = encodeURIComponent(String(anilistId || 'mock'));
+  return `/mock-player.html?title=${safeTitle}&ep=${safeEp}&channel=${safeChannel}`;
 }
-
-
-/* =========================================================================
- * AML MOCK-ONLY FIXTURES
- * Keep the original SPA bundle and response shapes; replace production data.
- * ========================================================================= */
-const AML_ITEMS = [
-  { id: 91001, routeId: getRouteToken(91001), anilistId: 91001, malId: null, title: 'Neon Archive', romaji: 'Neon Archive', native: 'ネオン・アーカイブ', poster: '/banners/rezero-p.webp', banner: '/banners/rezero.jpg', year: 2026, score: 87, format: 'TV', type: 'TV', episodeCount: 12, subCount: 12, dubCount: 6, hasSub: true, hasDub: true, sub: true, dub: true, genres: ['Sci-Fi','Mystery'], studios: ['AML Studio'], synopsis: 'A synthetic mystery series used to test the extracted AML interface.' },
-  { id: 91002, routeId: getRouteToken(91002), anilistId: 91002, malId: null, title: 'Glass Horizon', romaji: 'Glass Horizon', native: 'グラス・ホライズン', poster: '/banners/135865.jpg', banner: '/banners/135865.jpg', year: 2026, score: 84, format: 'TV', type: 'TV', episodeCount: 10, subCount: 10, dubCount: 10, hasSub: true, hasDub: true, sub: true, dub: true, genres: ['Drama','Fantasy'], studios: ['Northline'], synopsis: 'A fictional fantasy drama for catalogue, search and title-page testing.' },
-  { id: 91003, routeId: getRouteToken(91003), anilistId: 91003, malId: null, title: 'Moonframe', romaji: 'Moonframe', native: 'ムーンフレーム', poster: '/banners/aot.jpg', banner: '/banners/aot.jpg', year: 2025, score: 89, format: 'MOVIE', type: 'MOVIE', episodeCount: 1, subCount: 1, dubCount: 1, hasSub: true, hasDub: true, sub: true, dub: true, genres: ['Romance','Sci-Fi'], studios: ['Frame Lab'], synopsis: 'A fictional feature film fixture with no external media source.' },
-  { id: 91004, routeId: getRouteToken(91004), anilistId: 91004, malId: null, title: 'Wild Signal', romaji: 'Wild Signal', native: 'ワイルド・シグナル', poster: '/banners/jjk.jpg', banner: '/banners/jjk.jpg', year: 2026, score: 81, format: 'TV', type: 'TV', episodeCount: 24, subCount: 18, dubCount: 12, hasSub: true, hasDub: true, sub: true, dub: true, genres: ['Action','Comedy'], studios: ['Signal Works'], synopsis: 'Synthetic action/comedy metadata for filters and episode lists.' },
-  { id: 91005, routeId: getRouteToken(91005), anilistId: 91005, malId: null, title: 'Quiet Engine', romaji: 'Quiet Engine', native: 'クワイエット・エンジン', poster: '/banners/187538.jpg', banner: '/banners/187538.jpg', year: 2024, score: 79, format: 'TV', type: 'TV', episodeCount: 12, subCount: 12, dubCount: 12, hasSub: true, hasDub: true, sub: true, dub: true, genres: ['Drama','Slice of Life'], studios: ['Daybreak'], synopsis: 'A completed fictional series for library and history states.' },
-  { id: 91006, routeId: getRouteToken(91006), anilistId: 91006, malId: null, title: 'After Image', romaji: 'After Image', native: 'アフター・イメージ', poster: '/banners/196187.jpg', banner: '/banners/196187.jpg', year: 2026, score: 83, format: 'ONA', type: 'ONA', episodeCount: 8, subCount: 3, dubCount: 0, hasSub: true, hasDub: false, sub: true, dub: false, genres: ['Thriller','Mystery'], studios: ['AML Studio'], synopsis: 'A mock upcoming title used for schedule and source-availability states.' },
-  { id: 91007, routeId: getRouteToken(91007), anilistId: 91007, malId: null, title: 'Starfall Radio', romaji: 'Starfall Radio', native: 'スターフォール・ラジオ', poster: '/banners/rezero-p.webp', banner: '/banners/rezero.jpg', year: 2025, score: 80, format: 'TV', type: 'TV', episodeCount: 13, subCount: 13, dubCount: 13, hasSub: true, hasDub: true, sub: true, dub: true, genres: ['Music','Drama'], studios: ['Radio House'], synopsis: 'Synthetic music drama for recommendations and search.' },
-  { id: 91008, routeId: getRouteToken(91008), anilistId: 91008, malId: null, title: 'Mirror District', romaji: 'Mirror District', native: 'ミラー・ディストリクト', poster: '/banners/t/3AXLSxMuqyZt8HyrKKfrcJtkswD.webp', banner: '/banners/t/3AXLSxMuqyZt8HyrKKfrcJtkswD.webp', year: 2026, score: 85, format: 'TV', type: 'TV', episodeCount: 12, subCount: 7, dubCount: 4, hasSub: true, hasDub: true, sub: true, dub: true, genres: ['Mystery','Supernatural'], studios: ['Glassworks'], synopsis: 'A fake supernatural title used to exercise the original ani.pm detail components.' }
-];
-
-SPOTLIGHT_ITEMS.splice(0, SPOTLIGHT_ITEMS.length, ...AML_ITEMS.slice(0, 6));
-ALL_CATALOG_ITEMS.splice(0, ALL_CATALOG_ITEMS.length, ...AML_ITEMS);
-CATALOG_MAP.clear();
-SEEN_IDS.clear();
-ROUTE_TO_ID.clear();
-for (const item of AML_ITEMS) {
-  SEEN_IDS.add(item.id);
-  SEEN_IDS.add(String(item.id));
-  CATALOG_MAP.set(String(item.id), item);
-  CATALOG_MAP.set(String(item.routeId), item);
-  ROUTE_TO_ID.set(String(item.routeId), String(item.id));
-  ROUTE_TO_ID.set(String(item.id), String(item.id));
-}
-
-SCHEDULE_ITEMS.splice(0, SCHEDULE_ITEMS.length,
-  ...AML_ITEMS.slice(0, 5).map((item, i) => ({
-    id: item.id, routeId: item.routeId, anilistId: item.id, title: item.title,
-    poster: item.poster, banner: item.banner, airingAt: Math.floor(Date.now()/1000) + (i + 1) * 86400,
-    season: 'FALL', year: 2026, startDate: { year: 2026, month: 9, day: 23 + i }
-  }))
-);
-
-Object.assign(USER_ADMIN, { id:'aml-tester', username:'aml_tester', name:'AML Tester', displayName:'AML Tester', avatarUrl:'/icon-192.png', avatarColor:'#ff3b5c', isAdmin:false, isVip:true, level:18 });
-Object.assign(USER_SUBARU, { id:'mira', username:'mira', name:'Mira', displayName:'Mira', avatarUrl:'/icon-192.png', avatarColor:'#8b5cf6', isAdmin:false, isVip:false, level:22 });
-Object.assign(USER_REM, { id:'kian', username:'kian', name:'Kian', displayName:'Kian', avatarUrl:'/icon-192.png', avatarColor:'#3b82f6', isAdmin:false, isVip:false, level:17 });
-Object.assign(USER_EMILIA, { id:'nova', username:'nova', name:'Nova', displayName:'Nova', avatarUrl:'/icon-192.png', avatarColor:'#ec4899', isAdmin:false, isVip:false, level:15 });
-Object.assign(USER_JINWOO, { id:'sora', username:'sora', name:'Sora', displayName:'Sora', avatarUrl:'/icon-192.png', avatarColor:'#10b981', isAdmin:false, isVip:false, level:14 });
-Object.assign(USER_CHA, { id:'rin', username:'rin', name:'Rin', displayName:'Rin', avatarUrl:'/icon-192.png', avatarColor:'#eab308', isAdmin:false, isVip:false, level:13 });
-
-COMMUNITY_COMMENTS.splice(0, COMMUNITY_COMMENTS.length,
-  { id:'aml-c1', titleId:'91001', title:'Neon Archive', body:'Testing the discussion layout on the extracted frontend.', createdAt:Date.now()-3600000, likes:12, likedByMe:false, dislikes:0, dislikedByMe:false, mine:false, spoiler:false, reactions:[], parentId:null, user:USER_SUBARU },
-  { id:'aml-c2', titleId:'91002', title:'Glass Horizon', body:'The mock profile and search states are working here.', createdAt:Date.now()-7200000, likes:8, likedByMe:false, dislikes:0, dislikedByMe:false, mine:false, spoiler:false, reactions:[], parentId:null, user:USER_REM }
-);
-
-FORUM_CATEGORIES.splice(0, FORUM_CATEGORIES.length,
-  { id:'general', name:'General', description:'AML mock community discussion', threads:2, posts:6 },
-  { id:'anime', name:'Anime', description:'Synthetic title and episode discussion', threads:2, posts:8 },
-  { id:'bugs', name:'Testing', description:'UI and state testing notes', threads:1, posts:2 },
-  { id:'suggestions', name:'Ideas', description:'Mock product feedback', threads:1, posts:3 }
-);
-
-FORUM_THREADS.splice(0, FORUM_THREADS.length,
-  { id:1, title:'Welcome to the AML mock community', category:'general', excerpt:'This thread is synthetic and exists to test the extracted forum UI.', pinned:true, locked:false, replies:4, author:USER_ADMIN, createdAt:new Date(Date.now()-86400000*3).toISOString(), lastPostAt:new Date(Date.now()-3600000).toISOString(), lastPoster:USER_SUBARU },
-  { id:2, title:'Neon Archive — episode discussion', category:'anime', excerpt:'Mock episode discussion content.', pinned:true, locked:false, replies:8, author:USER_SUBARU, createdAt:new Date(Date.now()-86400000*2).toISOString(), lastPostAt:new Date(Date.now()-1800000).toISOString(), lastPoster:USER_REM },
-  { id:3, title:'Search and profile test cases', category:'bugs', excerpt:'Use this thread to exercise search/profile/community states.', pinned:false, locked:false, replies:3, author:USER_EMILIA, createdAt:new Date(Date.now()-86400000).toISOString(), lastPostAt:new Date().toISOString(), lastPoster:USER_ADMIN }
-);
-
-FORUM_POSTS.clear();
-FORUM_POSTS.set(1, [
-  { id:1, body:'Welcome to AML. This is local mock data rendered by the original extracted frontend.', author:USER_ADMIN, createdAt:new Date(Date.now()-86400000*3).toISOString(), canDelete:false },
-  { id:2, body:'Testing replies and profile navigation.', author:USER_SUBARU, createdAt:new Date(Date.now()-7200000).toISOString(), canDelete:false }
-]);
-FORUM_POSTS.set(2, [
-  { id:1, body:'Episode one fixture discussion.', author:USER_SUBARU, createdAt:new Date(Date.now()-3600000).toISOString(), canDelete:false }
-]);
-
-CHAT_MESSAGES.splice(0, CHAT_MESSAGES.length,
-  { id:1, body:'Welcome to AML mock chat.', user:USER_ADMIN, createdAt:new Date(Date.now()-3600000*3).toISOString() },
-  { id:2, body:'Testing the original community component with fake users.', user:USER_SUBARU, createdAt:new Date(Date.now()-3600000).toISOString() },
-  { id:3, body:'Search, library and profiles are all local fixtures.', user:USER_REM, createdAt:new Date(Date.now()-1200000).toISOString() }
-);
-
-console.log('[AML] mock-only fixture mode enabled:', ALL_CATALOG_ITEMS.length, 'titles');
 
 // Create HTTP server
 const server = http.createServer(async (req, res) => {
@@ -2024,7 +1811,7 @@ const server = http.createServer(async (req, res) => {
     sendJson({
       user: {
         ...matchedUser,
-        bio: 'Anime enthusiast and ani.pm member.',
+        bio: 'AML mock profile for interface testing.',
         createdAt: new Date(Date.now() - 86400000 * 90).toISOString()
       },
       stats: {
