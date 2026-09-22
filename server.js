@@ -994,7 +994,76 @@ function resolveLocalAsset(pathname) {
   return null;
 }
 
-// Pure Yoru Streaming Resolver (Priority for clean MegaPlay s-2 Video.js streams)
+
+/* =========================================================================
+ * AML MOCK-ONLY FIXTURES
+ * The SPA-Ripper-extracted frontend remains unchanged; only its data layer is
+ * swapped to synthetic fixtures for safe UI testing.
+ * ========================================================================= */
+const AML_ITEMS = [
+  { id:91001, routeId:getRouteToken(91001), anilistId:91001, malId:null, title:'Neon Archive', romaji:'Neon Archive', native:'ネオン・アーカイブ', poster:'/banners/rezero-p.webp', banner:'/banners/rezero.jpg', year:2026, score:87, format:'TV', type:'TV', episodeCount:12, subCount:12, dubCount:6, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Sci-Fi','Mystery'], studios:['AML Studio'], synopsis:'A synthetic mystery series used to test the extracted AML interface.' },
+  { id:91002, routeId:getRouteToken(91002), anilistId:91002, malId:null, title:'Glass Horizon', romaji:'Glass Horizon', native:'グラス・ホライズン', poster:'/banners/135865.jpg', banner:'/banners/135865.jpg', year:2026, score:84, format:'TV', type:'TV', episodeCount:10, subCount:10, dubCount:10, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Drama','Fantasy'], studios:['Northline'], synopsis:'A fictional fantasy drama for catalogue, search and title-page testing.' },
+  { id:91003, routeId:getRouteToken(91003), anilistId:91003, malId:null, title:'Moonframe', romaji:'Moonframe', native:'ムーンフレーム', poster:'/banners/aot.jpg', banner:'/banners/aot.jpg', year:2025, score:89, format:'MOVIE', type:'MOVIE', episodeCount:1, subCount:1, dubCount:1, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Romance','Sci-Fi'], studios:['Frame Lab'], synopsis:'A fictional feature-film fixture with no external media source.' },
+  { id:91004, routeId:getRouteToken(91004), anilistId:91004, malId:null, title:'Wild Signal', romaji:'Wild Signal', native:'ワイルド・シグナル', poster:'/banners/jjk.jpg', banner:'/banners/jjk.jpg', year:2026, score:81, format:'TV', type:'TV', episodeCount:24, subCount:18, dubCount:12, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Action','Comedy'], studios:['Signal Works'], synopsis:'Synthetic action/comedy metadata for filters and episode lists.' },
+  { id:91005, routeId:getRouteToken(91005), anilistId:91005, malId:null, title:'Quiet Engine', romaji:'Quiet Engine', native:'クワイエット・エンジン', poster:'/banners/187538.jpg', banner:'/banners/187538.jpg', year:2024, score:79, format:'TV', type:'TV', episodeCount:12, subCount:12, dubCount:12, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Drama','Slice of Life'], studios:['Daybreak'], synopsis:'A completed fictional series for library and history states.' },
+  { id:91006, routeId:getRouteToken(91006), anilistId:91006, malId:null, title:'After Image', romaji:'After Image', native:'アフター・イメージ', poster:'/banners/196187.jpg', banner:'/banners/196187.jpg', year:2026, score:83, format:'ONA', type:'ONA', episodeCount:8, subCount:3, dubCount:0, hasSub:true, hasDub:false, sub:true, dub:false, genres:['Thriller','Mystery'], studios:['AML Studio'], synopsis:'A mock upcoming title used for schedule and source-availability states.' },
+  { id:91007, routeId:getRouteToken(91007), anilistId:91007, malId:null, title:'Starfall Radio', romaji:'Starfall Radio', native:'スターフォール・ラジオ', poster:'/banners/rezero-p.webp', banner:'/banners/rezero.jpg', year:2025, score:80, format:'TV', type:'TV', episodeCount:13, subCount:13, dubCount:13, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Music','Drama'], studios:['Radio House'], synopsis:'Synthetic music drama for recommendations and search.' },
+  { id:91008, routeId:getRouteToken(91008), anilistId:91008, malId:null, title:'Mirror District', romaji:'Mirror District', native:'ミラー・ディストリクト', poster:'/banners/rezero-p.webp', banner:'/banners/rezero.jpg', year:2026, score:85, format:'TV', type:'TV', episodeCount:12, subCount:7, dubCount:4, hasSub:true, hasDub:true, sub:true, dub:true, genres:['Mystery','Supernatural'], studios:['Glassworks'], synopsis:'A fake supernatural title used to exercise the original detail components.' }
+];
+
+SPOTLIGHT_ITEMS.splice(0, SPOTLIGHT_ITEMS.length, ...AML_ITEMS.slice(0,6));
+ALL_CATALOG_ITEMS.splice(0, ALL_CATALOG_ITEMS.length, ...AML_ITEMS);
+CATALOG_MAP.clear();
+SEEN_IDS.clear();
+ROUTE_TO_ID.clear();
+for (const item of AML_ITEMS) {
+  SEEN_IDS.add(item.id); SEEN_IDS.add(String(item.id));
+  CATALOG_MAP.set(String(item.id), item);
+  CATALOG_MAP.set(String(item.routeId), item);
+  ROUTE_TO_ID.set(String(item.routeId), String(item.id));
+  ROUTE_TO_ID.set(String(item.id), String(item.id));
+}
+
+SCHEDULE_ITEMS.splice(0, SCHEDULE_ITEMS.length, ...AML_ITEMS.slice(0,5).map((item,i)=>({
+  id:item.id, routeId:item.routeId, anilistId:item.id, title:item.title,
+  poster:item.poster, banner:item.banner,
+  airingAt:Math.floor(Date.now()/1000)+(i+1)*86400,
+  season:'FALL', year:2026, startDate:{year:2026,month:9,day:23+i}
+})));
+
+Object.assign(USER_ADMIN,{id:'aml-tester',username:'aml_tester',name:'AML Tester',displayName:'AML Tester',avatarUrl:'/icon-192.png',avatarColor:'#ff3b5c',isAdmin:false,isVip:true,level:18});
+Object.assign(USER_SUBARU,{id:'mira',username:'mira',name:'Mira',displayName:'Mira',avatarUrl:'/icon-192.png',avatarColor:'#8b5cf6',isAdmin:false,isVip:false,level:22});
+Object.assign(USER_REM,{id:'kian',username:'kian',name:'Kian',displayName:'Kian',avatarUrl:'/icon-192.png',avatarColor:'#3b82f6',isAdmin:false,isVip:false,level:17});
+Object.assign(USER_EMILIA,{id:'nova',username:'nova',name:'Nova',displayName:'Nova',avatarUrl:'/icon-192.png',avatarColor:'#ec4899',isAdmin:false,isVip:false,level:15});
+Object.assign(USER_JINWOO,{id:'sora',username:'sora',name:'Sora',displayName:'Sora',avatarUrl:'/icon-192.png',avatarColor:'#10b981',isAdmin:false,isVip:false,level:14});
+Object.assign(USER_CHA,{id:'rin',username:'rin',name:'Rin',displayName:'Rin',avatarUrl:'/icon-192.png',avatarColor:'#eab308',isAdmin:false,isVip:false,level:13});
+
+COMMUNITY_COMMENTS.splice(0, COMMUNITY_COMMENTS.length,
+  {id:'aml-c1',titleId:'91001',title:'Neon Archive',body:'Testing the discussion layout on the extracted frontend.',createdAt:Date.now()-3600000,likes:12,likedByMe:false,dislikes:0,dislikedByMe:false,mine:false,spoiler:false,reactions:[],parentId:null,user:USER_SUBARU},
+  {id:'aml-c2',titleId:'91002',title:'Glass Horizon',body:'The mock profile and search states are working here.',createdAt:Date.now()-7200000,likes:8,likedByMe:false,dislikes:0,dislikedByMe:false,mine:false,spoiler:false,reactions:[],parentId:null,user:USER_REM}
+);
+FORUM_CATEGORIES.splice(0,FORUM_CATEGORIES.length,
+  {id:'general',name:'General',description:'AML mock community discussion',threads:2,posts:6},
+  {id:'anime',name:'Anime',description:'Synthetic title and episode discussion',threads:2,posts:8},
+  {id:'bugs',name:'Testing',description:'UI and state testing notes',threads:1,posts:2},
+  {id:'suggestions',name:'Ideas',description:'Mock product feedback',threads:1,posts:3}
+);
+FORUM_THREADS.splice(0,FORUM_THREADS.length,
+  {id:1,title:'Welcome to the AML mock community',category:'general',excerpt:'This thread is synthetic and exists to test the extracted forum UI.',pinned:true,locked:false,replies:4,author:USER_ADMIN,createdAt:new Date(Date.now()-86400000*3).toISOString(),lastPostAt:new Date(Date.now()-3600000).toISOString(),lastPoster:USER_SUBARU},
+  {id:2,title:'Neon Archive — episode discussion',category:'anime',excerpt:'Mock episode discussion content.',pinned:true,locked:false,replies:8,author:USER_SUBARU,createdAt:new Date(Date.now()-86400000*2).toISOString(),lastPostAt:new Date(Date.now()-1800000).toISOString(),lastPoster:USER_REM},
+  {id:3,title:'Search and profile test cases',category:'bugs',excerpt:'Use this thread to exercise search/profile/community states.',pinned:false,locked:false,replies:3,author:USER_EMILIA,createdAt:new Date(Date.now()-86400000).toISOString(),lastPostAt:new Date().toISOString(),lastPoster:USER_ADMIN}
+);
+FORUM_POSTS.clear();
+FORUM_POSTS.set(1,[{id:1,body:'Welcome to AML. This is local mock data rendered by the original extracted frontend.',author:USER_ADMIN,createdAt:new Date(Date.now()-86400000*3).toISOString(),canDelete:false},{id:2,body:'Testing replies and profile navigation.',author:USER_SUBARU,createdAt:new Date(Date.now()-7200000).toISOString(),canDelete:false}]);
+FORUM_POSTS.set(2,[{id:1,body:'Episode one fixture discussion.',author:USER_SUBARU,createdAt:new Date(Date.now()-3600000).toISOString(),canDelete:false}]);
+CHAT_MESSAGES.splice(0,CHAT_MESSAGES.length,
+  {id:1,body:'Welcome to AML mock chat.',user:USER_ADMIN,createdAt:new Date(Date.now()-3600000*3).toISOString()},
+  {id:2,body:'Testing the original community component with fake users.',user:USER_SUBARU,createdAt:new Date(Date.now()-3600000).toISOString()},
+  {id:3,body:'Search, library and profiles are all local fixtures.',user:USER_REM,createdAt:new Date(Date.now()-1200000).toISOString()}
+);
+console.log('[AML] mock-only fixture mode enabled:',ALL_CATALOG_ITEMS.length,'titles');
+
+// AML local mock player resolver
 async function resolveStream(anilistId, ep = '1', channel = 'sub') {
   const safeEp = encodeURIComponent(String(ep || '1'));
   const safeChannel = encodeURIComponent(channel === 'dub' ? 'dub' : 'sub');
@@ -1023,39 +1092,6 @@ const server = http.createServer(async (req, res) => {
   }
 
 
-  // AML high-priority mock state. These routes intentionally shadow the old gateway fallbacks.
-  if (MOCK_ONLY && cleanPath === '/api/auth/me') {
-    sendJson({ ok:true, authenticated:true, user:USER_ADMIN });
-    return;
-  }
-  if (MOCK_ONLY && cleanPath === '/api/watchlist') {
-    sendJson({ items: AML_ITEMS.slice(0, 5).map((item, i) => ({ ...item, status: i < 2 ? 'watching' : 'plan-to-watch', progress: i === 0 ? 4 : i === 1 ? 2 : 0 })) });
-    return;
-  }
-  if (MOCK_ONLY && cleanPath === '/api/progress') {
-    sendJson({ items: AML_ITEMS.slice(0, 4).map((item, i) => ({ titleId:String(item.id), anilistId:item.id, episode:i+1, progressSeconds:420+(i*180), durationSeconds:1440, updatedAt:new Date(Date.now()-i*3600000).toISOString(), title:item })) });
-    return;
-  }
-  if (MOCK_ONLY && cleanPath === '/api/progress/snapshot') {
-    sendJson({ snapshot: AML_ITEMS.slice(0, 4).map((item, i) => ({ titleId:String(item.id), episode:i+1, progress:0.25+(i*0.12) })) });
-    return;
-  }
-  if (MOCK_ONLY && cleanPath === '/api/settings') {
-    sendJson({ settings:{ theme:'dark', glass:true, autoplayNext:true, autoSkipIntro:false, preferredAudio:'sub', captions:{ size:100, background:65 }, notifications:{ episodes:true, replies:true, product:false } } });
-    return;
-  }
-  if (MOCK_ONLY && cleanPath === '/api/collections') {
-    sendJson({ collections:[{id:'late-night',name:'Late Night',count:4},{id:'weekend',name:'Weekend',count:5},{id:'rewatch',name:'Rewatch',count:3}] });
-    return;
-  }
-  if (MOCK_ONLY && cleanPath === '/api/recent') {
-    sendJson({ recent: AML_ITEMS.slice(0, 5) });
-    return;
-  }
-  if (MOCK_ONLY && cleanPath === '/api/title-likes/mine') {
-    sendJson({ items: AML_ITEMS.slice(1,4).map(x=>String(x.id)), total:3 });
-    return;
-  }
 
   if (req.method === 'DELETE') {
     if (cleanPath.startsWith('/api/chat/') || cleanPath.startsWith('/chat/')) {
@@ -1119,6 +1155,44 @@ const server = http.createServer(async (req, res) => {
       res.end('Not Found');
     }
   };
+
+  // AML high-priority mock state. These routes intentionally shadow the old gateway fallbacks.
+  if (MOCK_ONLY && cleanPath === '/api/auth/me') {
+    sendJson({ ok:true, authenticated:true, user:USER_ADMIN });
+    return;
+  }
+  if (MOCK_ONLY && cleanPath === '/api/watchlist') {
+    sendJson({ items: AML_ITEMS.slice(0, 5).map((item, i) => ({ ...item, status: i < 2 ? 'watching' : 'plan-to-watch', progress: i === 0 ? 4 : i === 1 ? 2 : 0 })) });
+    return;
+  }
+  if (MOCK_ONLY && cleanPath === '/api/progress') {
+    sendJson({ items: AML_ITEMS.slice(0, 4).map((item, i) => ({ titleId:String(item.id), anilistId:item.id, episode:i+1, progressSeconds:420+(i*180), durationSeconds:1440, updatedAt:new Date(Date.now()-i*3600000).toISOString(), title:item })) });
+    return;
+  }
+  if (MOCK_ONLY && cleanPath === '/api/progress/snapshot') {
+    sendJson({ snapshot: AML_ITEMS.slice(0, 4).map((item, i) => ({ titleId:String(item.id), episode:i+1, progress:0.25+(i*0.12) })) });
+    return;
+  }
+  if (MOCK_ONLY && cleanPath === '/api/settings') {
+    sendJson({ settings:{ theme:'dark', glass:true, autoplayNext:true, autoSkipIntro:false, preferredAudio:'sub', captions:{ size:100, background:65 }, notifications:{ episodes:true, replies:true, product:false } } });
+    return;
+  }
+  if (MOCK_ONLY && cleanPath === '/api/collections') {
+    sendJson({ collections:[{id:'late-night',name:'Late Night',count:4},{id:'weekend',name:'Weekend',count:5},{id:'rewatch',name:'Rewatch',count:3}] });
+    return;
+  }
+  if (MOCK_ONLY && cleanPath === '/api/recent') {
+    sendJson({ recent: AML_ITEMS.slice(0, 5) });
+    return;
+  }
+  if (MOCK_ONLY && cleanPath === '/api/title-likes/mine') {
+    sendJson({ items: AML_ITEMS.slice(1,4).map(x=>String(x.id)), total:3 });
+    return;
+  }
+  if (MOCK_ONLY && cleanPath === '/embed/preview') {
+    sendFile(path.join(DIRECTORY, 'mock-player.html'));
+    return;
+  }
 
   const handleSettlarSession = async (bodyJson = {}) => {
     let ep = parsedUrl.searchParams.get('ep') || bodyJson.ep || '1';
@@ -1370,7 +1444,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // 2. Embedded preview video proxy with postMessage bridge & scroll-pause
-  if (cleanPath === '/embed/preview') {
+  if (!MOCK_ONLY && cleanPath === '/embed/preview') {
     const target = parsedUrl.searchParams.get('target');
     if (!target || !target.startsWith('http')) {
       res.writeHead(400);
@@ -1382,7 +1456,7 @@ const server = http.createServer(async (req, res) => {
       const response = await fetch(target, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-          'Referer': 'https://megaplay.buzz/'
+          'Referer': 'https://disabled.invalid/'
         },
         signal: AbortSignal.timeout(8000)
       });
@@ -1396,7 +1470,7 @@ const server = http.createServer(async (req, res) => {
       let html = await response.text();
 
       // Inject base tag
-      const baseTag = '<base href="https://megaplay.buzz/videojs/">';
+      const baseTag = '<base href="https://disabled.invalid/videojs/">';
       if (html.includes('<head>')) {
         html = html.replace('<head>', `<head>\n${baseTag}`);
       }
