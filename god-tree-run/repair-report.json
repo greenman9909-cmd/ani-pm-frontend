@@ -10,7 +10,10 @@
     "Corrected persisted route evidence and CI from invented /profile, /watch/:id and /schedule aliases to the exact extracted router and composed ReleaseSchedule/watch surfaces.",
     "Removed residual AniList CDN media URLs from legacy fixture records; mock runtime now uses local media paths only.",
     "Hardened headless Chrome CI flags and enabled shell tracing after an opaque browser-process/assertion exit with no client error.",
-    "Removed legacy bare /settings and /leaderboard API aliases that shadowed extracted SPA page routes; retained /api/settings and /api/leaderboard."
+    "Removed legacy bare /settings and /leaderboard API aliases that shadowed extracted SPA page routes; retained /api/settings and /api/leaderboard.",
+    "Completed authenticated user fixture with a valid createdAt timestamp and account/settings fields required by Settings.",
+    "Flattened leaderboard rows to the extracted component contract (rank, username, name, avatar fields, level, xp).",
+    "Separated synthetic record IDs from extracted opaque route tokens in browser verification; title/watch tests now navigate the real route token."
   ],
   "regressions_added": [
     "CI now verifies the actual Home hero DOM and expanded route/mobile surfaces after writes.",
@@ -19,7 +22,9 @@
     "Runtime CI asserts namespace Library IDs and native status enums.",
     "Headless browser verifies /library, /user/mira, /anime/91001 and /anime/91001?ep=1, then fails if any [Client Error] is logged.",
     "Mock-only source boundary fails if s4.anilist.co reappears in server.js.",
-    "Real-browser route sweep now catches any future API/page path collision for Settings and Leaderboard."
+    "Real-browser route sweep now catches any future API/page path collision for Settings and Leaderboard.",
+    "Leaderboard API gate asserts flattened username/name fields.",
+    "Title and watch browser gates use the generated opaque route token for synthetic title 91001."
   ],
   "unfixed": [
     "Session container DNS could not resolve github.com, so literal local git clone and local God Tree CLI execution remained unavailable in this environment."

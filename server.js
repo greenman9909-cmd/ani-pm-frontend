@@ -1166,7 +1166,20 @@ const server = http.createServer(async (req, res) => {
 
   // AML high-priority mock state. These routes intentionally shadow the old gateway fallbacks.
   if (MOCK_ONLY && cleanPath === '/api/auth/me') {
-    sendJson({ ok:true, authenticated:true, user:USER_ADMIN });
+    sendJson({ ok:true, authenticated:true, user:{
+      ...USER_ADMIN,
+      createdAt:'2026-01-15T12:00:00.000Z',
+      xp:21800,
+      email:'aml.tester@example.invalid',
+      emailVerified:true,
+      passwordState:'none',
+      canAddPasswordWithoutCurrent:true,
+      profilePublic:true,
+      commentsPublic:true,
+      libraryPublic:true,
+      followsPublic:true,
+      profileVersion:1
+    } });
     return;
   }
   if (MOCK_ONLY && cleanPath === '/api/watchlist') {
@@ -2025,12 +2038,14 @@ const server = http.createServer(async (req, res) => {
   }
   if (cleanPath === '/api/leaderboard') {
     const entries = [
-      { rank: 1, user: USER_ADMIN, level: 99, xp: 99990 },
-      { rank: 2, user: USER_SUBARU, level: 45, xp: 45200 },
-      { rank: 3, user: USER_JINWOO, level: 42, xp: 42100 },
-      { rank: 4, user: USER_REM, level: 38, xp: 38500 }
+      { rank: 1, ...USER_SUBARU, level: 22, xp: 28750, kind:'user' },
+      { rank: 2, ...USER_ADMIN, level: 18, xp: 21800, kind:'user' },
+      { rank: 3, ...USER_REM, level: 17, xp: 19620, kind:'user' },
+      { rank: 4, ...USER_EMILIA, level: 15, xp: 16340, kind:'user' },
+      { rank: 5, ...USER_JINWOO, level: 14, xp: 14910, kind:'user' },
+      { rank: 6, ...USER_CHA, level: 13, xp: 13120, kind:'user' }
     ];
-    sendJson({ entries, users: entries });
+    sendJson(entries);
     return;
   }
   if (cleanPath === '/api/notifications' || cleanPath === '/notifications') {

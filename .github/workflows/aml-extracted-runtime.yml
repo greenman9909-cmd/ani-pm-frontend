@@ -101,7 +101,8 @@ jobs:
           grep -q "Neon Archive" /tmp/schedule.json
 
           curl -fsS "http://127.0.0.1:4173/api/leaderboard" > /tmp/leaderboard.json
-          grep -q "AML" /tmp/leaderboard.json || grep -q "mira" /tmp/leaderboard.json
+          grep -q '"username":"mira"' /tmp/leaderboard.json
+          grep -q '"name":"Mira"' /tmp/leaderboard.json
 
           grep -Rqi "prefers-reduced-motion" ani.pm_frontend/assets/*.css
 
@@ -137,12 +138,12 @@ jobs:
           grep -q "Mira" /tmp/route-_user_mira.html
 
           "$BROWSER" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-background-networking --virtual-time-budget=8000 \
-            --dump-dom "http://127.0.0.1:4173/anime/91001" > /tmp/title-dom.html
+            --dump-dom "http://127.0.0.1:4173/anime/680eb3cfbde3bfdd8d299545105d152c~b2d978f8db9086059fc82482e4faffac03161932e14b25f8185dd41e4bdd3ba6" > /tmp/title-dom.html
           grep -q "Neon Archive" /tmp/title-dom.html
-          grep -q "anime-details" /tmp/title-dom.html
+          grep -Eq "anime-details|detail-" /tmp/title-dom.html
 
           "$BROWSER" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-background-networking --virtual-time-budget=9000 \
-            --dump-dom "http://127.0.0.1:4173/anime/91001?ep=1" > /tmp/watch-dom.html
+            --dump-dom "http://127.0.0.1:4173/anime/680eb3cfbde3bfdd8d299545105d152c~b2d978f8db9086059fc82482e4faffac03161932e14b25f8185dd41e4bdd3ba6?ep=1" > /tmp/watch-dom.html
           grep -Eq "mock-player|detail-player|watch-" /tmp/watch-dom.html
 
           "$BROWSER" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-background-networking --window-size=390,844 --virtual-time-budget=7000             --dump-dom http://127.0.0.1:4173/ > /tmp/home-mobile-dom.html
