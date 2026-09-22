@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "mode": "cached",
+  "reference_url": "https://ani.pm",
+  "mirror_path": "ani.pm_frontend",
+  "provenance": {
+    "repository": "greenman9909-cmd/ani-pm-frontend",
+    "branch": "main",
+    "extracted_by": "SPA-Ripper",
+    "evidence": [
+      "README.md identifies the production SPA bundle as SPA-Ripper output",
+      "ani.pm_frontend/ contains the captured Vite/React bundle"
+    ]
+  },
+  "policy": "Reference structure and interaction patterns only. Do not reuse branding, copyrighted artwork, private APIs, or real user data."
+}
