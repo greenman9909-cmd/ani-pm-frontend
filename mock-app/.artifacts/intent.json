@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "status": "complete",
+  "goal": "Recreate the major ani.pm website pages and interaction surfaces under a renamed product for UI testing.",
+  "product_name": "Yoru",
+  "reference_url": "https://ani.pm",
+  "constraints": [
+    "mock data only",
+    "no real user data",
+    "no real authentication",
+    "no streaming backend",
+    "no ani.pm API calls",
+    "no copied anime artwork",
+    "preserve major UX/page structure"
+  ]
+}
