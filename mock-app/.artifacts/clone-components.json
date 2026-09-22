@@ -1,0 +1,397 @@
+{
+  "version": "1.0.0",
+  "status": "complete",
+  "evidence": "Component names inferred from hashed lazy-chunk filenames in the cached SPA-Ripper capture. Source implementation was not copied.",
+  "components": [
+    {
+      "name": "About",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "AdFreeBanner",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "AmbientFrame",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Anime",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "AnimeCard",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "AnimeCardMenu",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "AnimeDetails",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "AnimeTitle",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "AudioAvailabilityTags",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "AuthModal",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "BlurayVoting",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "ChatWidget",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Community",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "CommunityPanels",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "CommunityThread",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "CoverRatingBadge",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Dropdown",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Genres",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "HeroCarousel",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Home",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "KeyboardHelpModal",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "LatestEpisodeCard",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "LatestEpisodes",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Leaderboard",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "LegacyDownloadsRedirect",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Library",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "LibraryButton",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "ManagedDashVideo",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "MediaCarousel",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "NativeVideo",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "NotFound",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "PlayerContextMenu",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "PlayerPauseOverlay",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "PlayerStatsOverlay",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "PlayerTimelinePreview",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Privacy",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Profile",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "ProviderGlyphs",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "ReleaseSchedule",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "ReportModal",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "RequestAnimeDialog",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Search",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "SectionHeader",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Settings",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "SettingsVeil",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "ShowMoreButton",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "SourcePreferencesDialog",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "SourceTechnicalHelpDialog",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "Terms",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "ThumbnailBadge",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "TitleDownloads",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "TrackerMark",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "VideoJsView",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "ViewCount",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchAbout",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchActionRow",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchCastList",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchHistory",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchPlaylistPanel",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchRoom",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchSaveControl",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchStats",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchStatusMenu",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "WatchTogether",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    },
+    {
+      "name": "YtDialog",
+      "inferred_props": [],
+      "used_on_pages": [],
+      "confidence": "filename-evidence"
+    }
+  ]
+}
