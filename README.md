@@ -3,7 +3,7 @@
 # ⚡ ani.pm — Local Production SPA ⚡
 
 <p align="center">
-  <b>A 100% self-contained, offline-resilient anime streaming frontend extracted via <a href="https://github.com/greenman9909-cmd/spa-ripper">SPA-Ripper</a>.</b>
+  <b>Extracted ani.pm React/Vite frontend code remixed to AML with synthetic data for full streaming-app UI testing.</b>
 </p>
 
 <p align="center">
@@ -27,6 +27,20 @@
 ---
 
 </div>
+
+## 🔗 Code & Previews
+
+| Target | Link | What it is |
+|---|---|---|
+| **Original extracted code** | [`main/ani.pm_frontend`](https://github.com/greenman9909-cmd/ani-pm-frontend/tree/main/ani.pm_frontend) | Untouched SPA-Ripper extraction used as the baseline. |
+| **AML remix code** | [this branch](https://github.com/greenman9909-cmd/ani-pm-frontend/tree/remix/aml-extracted-frontend) | The real extracted frontend with AML branding and mock-only data/runtime patches. |
+| **Current preview** | [Open AML](https://receiver-wholesale-incidence-connector.trycloudflare.com) | Temporary live tunnel. |
+| **Latest preview URL** | [`.preview/aml-url.txt`](https://github.com/greenman9909-cmd/ani-pm-frontend/blob/remix/aml-extracted-frontend/.preview/aml-url.txt) | Automatically updated by the preview workflow when a new tunnel starts. |
+| **PR** | [#2](https://github.com/greenman9909-cmd/ani-pm-frontend/pull/2) | Diff, CI and review history. |
+
+The preview preserves the extracted Home hero, shelves, title pages, Search, Library, Profile, Settings, Community, Schedule, Watch Together and player layout. Data is synthetic; the design/code path is the extracted frontend.
+
+---
 
 ## 🌌 Overview
 
