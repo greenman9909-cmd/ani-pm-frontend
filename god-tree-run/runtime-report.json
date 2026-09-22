@@ -1,0 +1,16 @@
+{
+  "status": "pending-ci",
+  "workflow_run_id": 35718888473,
+  "required_dom_checks": [
+    "hero spot-copy",
+    "hero spot-title",
+    "Neon Archive",
+    "episode metadata",
+    "mock artwork URL",
+    "core routes root node",
+    "390x844 mobile home"
+  ],
+  "evidence": [
+    "Headless Chrome --dump-dom executes against the booted server in CI."
+  ]
+}

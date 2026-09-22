@@ -1,0 +1,13 @@
+{
+  "tools_touched": [],
+  "fixes_applied": [
+    "Switched repository reads from the failed local git transport to the connected GitHub repository interface; no God Tree tool code was modified."
+  ],
+  "regressions_added": [
+    "CI now verifies the actual Home hero DOM and expanded route/mobile surfaces after writes."
+  ],
+  "unfixed": [
+    "Session container DNS could not resolve github.com, so literal local git clone and local God Tree CLI execution remained unavailable in this environment."
+  ],
+  "skipped": "Per repair contract, no repository tool was patched because the failure was environment DNS rather than a defect in spa-ripper or the God Tree."
+}

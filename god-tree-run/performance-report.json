@@ -1,0 +1,13 @@
+{
+  "status": "pending-ci",
+  "version": "1.0.0",
+  "checks": [
+    "preserved Vite lazy route chunks",
+    "preload first AML hero artwork only",
+    "responsive hero image component remains in place",
+    "no additional UI framework dependency"
+  ],
+  "evidence": [
+    "Performance verification will use runtime CI/build evidence."
+  ]
+}

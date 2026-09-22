@@ -1,0 +1,51 @@
+name: god-tree-artifact-validate
+on:
+  push:
+    branches:
+      - build/god-tree-streaming-20260922
+    paths:
+      - "god-tree-run/**"
+      - ".github/workflows/god-tree-validate.yml"
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Load authoritative God Tree validator
+        run: |
+          git clone --depth 1 https://github.com/greenman9909-cmd/vibe-code-genius.git /tmp/god-tree
+          python -m pip install --quiet jsonschema
+      - name: Validate declared artifacts
+        run: |
+          set -eux
+          V=/tmp/god-tree/scripts/validate-artifact.py
+          S=/tmp/god-tree/schema
+          python "$V" --node 01 --artifact god-tree-run/intent.json --schema "$S/intent.schema.json"
+          python "$V" --node 01a --artifact god-tree-run/suitability.json --schema "$S/suitability.schema.json"
+          python "$V" --node 01b --artifact god-tree-run/scope.json --schema "$S/scope.schema.json"
+          python "$V" --node 01d --artifact god-tree-run/system.json --schema "$S/system.schema.json"
+          python "$V" --node 02 --artifact god-tree-run/reference.json --schema "$S/reference.schema.json"
+          python "$V" --node 08 --artifact god-tree-run/stack-decision.md --schema "$S/stack-decision.schema.json"
+          python "$V" --node 09 --artifact god-tree-run/routes.json --schema "$S/routes.schema.json"
+          python "$V" --node 10 --artifact god-tree-run/sections.json --schema "$S/sections.schema.json"
+          python "$V" --node 11 --artifact god-tree-run/design-tokens.json --schema "$S/tokens.schema.json"
+          python "$V" --node 11f --artifact god-tree-run/clone-manifest.json --schema "$S/clone-manifest.schema.json"
+          python "$V" --node 11a --artifact god-tree-run/design_system.json --schema "$S/design_system.schema.json"
+          python "$V" --node 11c --artifact god-tree-run/slop-lint.json --schema "$S/slop-lint.schema.json"
+          python "$V" --node 11d --artifact god-tree-run/design-contract.md --schema "$S/design-contract.schema.json"
+          python "$V" --node 11e --artifact god-tree-run/motion-config.json --schema "$S/motion-config.schema.json"
+          python "$V" --node 12 --artifact god-tree-run/components/index.ts --schema "$S/components.schema.json"
+          python "$V" --node 13 --artifact god-tree-run/pages/index.tsx --schema "$S/pages.schema.json"
+          python "$V" --node 14 --artifact god-tree-run/data-hooks/index.ts --schema "$S/data-hooks.schema.json"
+          python "$V" --node 16 --artifact god-tree-run/state-model.md --schema "$S/state-model.schema.json"
+          python "$V" --node 12b --artifact god-tree-run/static-report.json --schema "$S/static-report.schema.json"
+          python "$V" --node 13a --artifact god-tree-run/consistency-report.json --schema "$S/consistency-report.schema.json"
+          python "$V" --node 16a --artifact god-tree-run/runtime-report.json --schema "$S/runtime-report.schema.json"
+          python "$V" --node 20a --artifact god-tree-run/production_checklist.json --schema "$S/production_checklist.schema.json"
+          python "$V" --node 20b --artifact god-tree-run/performance-report.json --schema "$S/performance-report.schema.json"
+          python "$V" --node 24 --artifact god-tree-run/build-report.json --schema "$S/build-report.schema.json"
+          python "$V" --node 23b --artifact god-tree-run/ship-report.json --schema "$S/ship-report.schema.json"
+          python "$V" --node 25 --artifact god-tree-run/repair-report.json --schema "$S/repair-report.schema.json"

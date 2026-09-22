@@ -1,0 +1,8 @@
+{
+  "status": "pending",
+  "version": "1.0.0",
+  "evidence": [
+    "Mock-only network boundary enforced in source and browser fetch wrapper.",
+    "Persistent auth/database and licensed media are intentionally absent; this build is production-quality UI/runtime prototype, not a production streaming backend."
+  ]
+}

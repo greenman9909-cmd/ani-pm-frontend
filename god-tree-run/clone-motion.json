@@ -1,0 +1,38 @@
+{
+  "keyframes": [
+    {
+      "name": "shrineHalo",
+      "source": "assets/index-D13MCA0g.css"
+    },
+    {
+      "name": "routeFade",
+      "source": "assets/index-D13MCA0g.css"
+    },
+    {
+      "name": "cw-soften-edge",
+      "source": "assets/Home-kYMl_wSU.css"
+    },
+    {
+      "name": "portable-carousel-hold",
+      "source": "assets/MediaCarousel-CRpKoJDO.css"
+    }
+  ],
+  "transitions": [
+    {
+      "property": "spot-track transform",
+      "duration": ".7s",
+      "easing": "cubic-bezier(.25,.1,.25,1)"
+    },
+    {
+      "property": "continue-watching transform",
+      "duration": ".62s",
+      "easing": "cubic-bezier(.16,1,.3,1)"
+    }
+  ],
+  "easings": [
+    "cubic-bezier(.22,1,.36,1)",
+    "cubic-bezier(.16,1,.3,1)",
+    "cubic-bezier(.25,.1,.25,1)"
+  ],
+  "reduced_motion": "Explicit @media (prefers-reduced-motion: reduce) rules are present in global, Home, MediaCarousel and glassList CSS."
+}

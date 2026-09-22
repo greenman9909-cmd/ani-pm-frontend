@@ -1,0 +1,532 @@
+{
+  "components": [
+    {
+      "name": "About-C-lZHqCo",
+      "source": "assets/About-C-lZHqCo.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "AdFreeBanner",
+      "source": "assets/AdFreeBanner-D8T70lEj.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "AmbientFrame",
+      "source": "assets/AmbientFrame-KOVdyK9e.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Anime",
+      "source": "assets/Anime-Dy5oUVfz.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "AnimeCard",
+      "source": "assets/AnimeCard-7vp7TjMF.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "AnimeCardMenu",
+      "source": "assets/AnimeCardMenu-BjrbCyj8.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "AnimeDetails-Cbtev-sg",
+      "source": "assets/AnimeDetails-Cbtev-sg.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "AnimeTitle",
+      "source": "assets/AnimeTitle-CbYWL0P7.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "AudioAvailabilityTags",
+      "source": "assets/AudioAvailabilityTags-4jJToxiC.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "AuthModal",
+      "source": "assets/AuthModal-Doj0i7l9.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "BlurayVoting",
+      "source": "assets/BlurayVoting-DLjPNXZz.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "ChatWidget-BQTPM-lN",
+      "source": "assets/ChatWidget-BQTPM-lN.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Community",
+      "source": "assets/Community-DH7hDm6p.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "CommunityPanels",
+      "source": "assets/CommunityPanels-ni473LO5.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "CommunityThread",
+      "source": "assets/CommunityThread-GRCRp_ne.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "CoverRatingBadge",
+      "source": "assets/CoverRatingBadge-B5cWqVCk.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Dropdown",
+      "source": "assets/Dropdown-DZnFcU_q.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Genres",
+      "source": "assets/Genres-Cyt9B4aR.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "HeroCarousel",
+      "source": "assets/HeroCarousel-BDv_ijSP.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Home",
+      "source": "assets/Home-CGFASR0W.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "KeyboardHelpModal",
+      "source": "assets/KeyboardHelpModal-BlY5UwkB.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "LatestEpisodeCard-C8cCB_S-",
+      "source": "assets/LatestEpisodeCard-C8cCB_S-.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "LatestEpisodes",
+      "source": "assets/LatestEpisodes-DdadhlH4.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Leaderboard",
+      "source": "assets/Leaderboard-BUOuY75J.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "LegacyDownloadsRedirect",
+      "source": "assets/LegacyDownloadsRedirect-6IQp1K1P.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Library",
+      "source": "assets/Library-ZYaQLPnI.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "LibraryButton",
+      "source": "assets/LibraryButton-DT4ZKuEn.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "ManagedDashVideo",
+      "source": "assets/ManagedDashVideo-zdV1A05n.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "MediaCarousel",
+      "source": "assets/MediaCarousel-cH9cXchW.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "NativeVideo",
+      "source": "assets/NativeVideo-BGmK978W.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "NotFound",
+      "source": "assets/NotFound-CAg2l_3s.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "PlayerContextMenu",
+      "source": "assets/PlayerContextMenu-C10B4JPv.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "PlayerPauseOverlay",
+      "source": "assets/PlayerPauseOverlay-C7lC4KNf.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "PlayerStatsOverlay",
+      "source": "assets/PlayerStatsOverlay-6ZWjT4Us.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "PlayerTimelinePreview",
+      "source": "assets/PlayerTimelinePreview-DIyvFUrG.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Privacy",
+      "source": "assets/Privacy-RyjYB3NK.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Profile",
+      "source": "assets/Profile-CMoU59Rx.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "ProviderGlyphs",
+      "source": "assets/ProviderGlyphs-BsCg9vzy.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "ReleaseSchedule-Bgz-d3sW",
+      "source": "assets/ReleaseSchedule-Bgz-d3sW.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "ReportModal",
+      "source": "assets/ReportModal-BfTussGN.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "RequestAnimeDialog",
+      "source": "assets/RequestAnimeDialog-CfExSV4f.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Search",
+      "source": "assets/Search-2nEGoI9L.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "SectionHeader",
+      "source": "assets/SectionHeader-C8XlpDB1.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Settings",
+      "source": "assets/Settings-CkAqqnh3.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "SettingsVeil",
+      "source": "assets/SettingsVeil-C8kgIt1R.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "ShowMoreButton",
+      "source": "assets/ShowMoreButton-tpkViQKK.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "SourcePreferencesDialog",
+      "source": "assets/SourcePreferencesDialog-bCEB7yU7.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "SourceTechnicalHelpDialog",
+      "source": "assets/SourceTechnicalHelpDialog-DWnLi8TE.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "Terms",
+      "source": "assets/Terms-DybzeW2l.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "ThumbnailBadge",
+      "source": "assets/ThumbnailBadge-Dmw7_1Gf.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "TitleDownloads",
+      "source": "assets/TitleDownloads-DIoE2cYt.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "TrackerMark",
+      "source": "assets/TrackerMark-B3LYvBjY.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "VideoJsView",
+      "source": "assets/VideoJsView-DCT5Mb9g.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "ViewCount-CfKI-v5_",
+      "source": "assets/ViewCount-CfKI-v5_.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchAbout",
+      "source": "assets/WatchAbout-DaghCEzP.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchActionRow",
+      "source": "assets/WatchActionRow-DAl_h9VP.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchCastList",
+      "source": "assets/WatchCastList-BkoibLJ9.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchHistory",
+      "source": "assets/WatchHistory-B4741AcL.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchPlaylistPanel",
+      "source": "assets/WatchPlaylistPanel-DMsP9yOA.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchRoom",
+      "source": "assets/WatchRoom-CG3SvFCv.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchSaveControl",
+      "source": "assets/WatchSaveControl-DALCm3Bz.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchStats",
+      "source": "assets/WatchStats-BBbadYUu.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchStatusMenu",
+      "source": "assets/WatchStatusMenu-jgSsQc44.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchTogether",
+      "source": "assets/WatchTogether-Bai1f7Iv.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "WatchTogether-Dmx0-bD6",
+      "source": "assets/WatchTogether-Dmx0-bD6.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    },
+    {
+      "name": "YtDialog",
+      "source": "assets/YtDialog-CQEKS7MF.js",
+      "inferred_props": [],
+      "used_on_pages": [
+        "SPA route-dependent"
+      ]
+    }
+  ]
+}

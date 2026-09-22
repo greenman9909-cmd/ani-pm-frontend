@@ -1,0 +1,205 @@
+{
+  "components": [
+    {
+      "name": "About-C-lZHqCo"
+    },
+    {
+      "name": "AdFreeBanner"
+    },
+    {
+      "name": "AmbientFrame"
+    },
+    {
+      "name": "Anime"
+    },
+    {
+      "name": "AnimeCard"
+    },
+    {
+      "name": "AnimeCardMenu"
+    },
+    {
+      "name": "AnimeDetails-Cbtev-sg"
+    },
+    {
+      "name": "AnimeTitle"
+    },
+    {
+      "name": "AudioAvailabilityTags"
+    },
+    {
+      "name": "AuthModal"
+    },
+    {
+      "name": "BlurayVoting"
+    },
+    {
+      "name": "ChatWidget-BQTPM-lN"
+    },
+    {
+      "name": "Community"
+    },
+    {
+      "name": "CommunityPanels"
+    },
+    {
+      "name": "CommunityThread"
+    },
+    {
+      "name": "CoverRatingBadge"
+    },
+    {
+      "name": "Dropdown"
+    },
+    {
+      "name": "Genres"
+    },
+    {
+      "name": "HeroCarousel"
+    },
+    {
+      "name": "Home"
+    },
+    {
+      "name": "KeyboardHelpModal"
+    },
+    {
+      "name": "LatestEpisodeCard-C8cCB_S-"
+    },
+    {
+      "name": "LatestEpisodes"
+    },
+    {
+      "name": "Leaderboard"
+    },
+    {
+      "name": "LegacyDownloadsRedirect"
+    },
+    {
+      "name": "Library"
+    },
+    {
+      "name": "LibraryButton"
+    },
+    {
+      "name": "ManagedDashVideo"
+    },
+    {
+      "name": "MediaCarousel"
+    },
+    {
+      "name": "NativeVideo"
+    },
+    {
+      "name": "NotFound"
+    },
+    {
+      "name": "PlayerContextMenu"
+    },
+    {
+      "name": "PlayerPauseOverlay"
+    },
+    {
+      "name": "PlayerStatsOverlay"
+    },
+    {
+      "name": "PlayerTimelinePreview"
+    },
+    {
+      "name": "Privacy"
+    },
+    {
+      "name": "Profile"
+    },
+    {
+      "name": "ProviderGlyphs"
+    },
+    {
+      "name": "ReleaseSchedule-Bgz-d3sW"
+    },
+    {
+      "name": "ReportModal"
+    },
+    {
+      "name": "RequestAnimeDialog"
+    },
+    {
+      "name": "Search"
+    },
+    {
+      "name": "SectionHeader"
+    },
+    {
+      "name": "Settings"
+    },
+    {
+      "name": "SettingsVeil"
+    },
+    {
+      "name": "ShowMoreButton"
+    },
+    {
+      "name": "SourcePreferencesDialog"
+    },
+    {
+      "name": "SourceTechnicalHelpDialog"
+    },
+    {
+      "name": "Terms"
+    },
+    {
+      "name": "ThumbnailBadge"
+    }
+  ],
+  "tokens": {
+    "colors": [
+      "#121214",
+      "#000000",
+      "#ffffff",
+      "rgba(255,255,255,.70)"
+    ],
+    "fonts": [
+      "Geist Variable",
+      "system-ui"
+    ],
+    "spacing": [
+      "2px",
+      "3px",
+      "5px",
+      "14px"
+    ],
+    "radii": [
+      "999px",
+      "component token scale"
+    ],
+    "shadows": [
+      "0 12px 30px -16px rgba(0,0,0,.82)"
+    ],
+    "glass": [
+      "blur(24px)",
+      "saturate(145%)"
+    ],
+    "breakpoints": [
+      "640px",
+      "820px"
+    ]
+  },
+  "keyframes": [
+    {
+      "name": "shrineHalo"
+    },
+    {
+      "name": "routeFade"
+    },
+    {
+      "name": "cw-soften-edge"
+    },
+    {
+      "name": "portable-carousel-hold"
+    }
+  ],
+  "source": "clone-extracted",
+  "evidence": [
+    "Pinned extracted CSS/chunk inventory."
+  ]
+}

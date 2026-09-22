@@ -1,0 +1,57 @@
+{
+  "status": "in-progress",
+  "version": "1.0.0",
+  "branch": "build/god-tree-streaming-20260922",
+  "base_reference_commit": "2f734e7334a9a9e2db6a43c876fe88613687827f",
+  "build_commit": "55be53d7760d5e42c26d18df3696d7cedfe769f8",
+  "nodes": {
+    "complete": [
+      "01",
+      "01a",
+      "01b",
+      "01d",
+      "02",
+      "08",
+      "09",
+      "10",
+      "11",
+      "11f",
+      "11a",
+      "11c",
+      "11d",
+      "11e",
+      "12",
+      "13",
+      "13a",
+      "14",
+      "16"
+    ],
+    "pending_ci": [
+      "12b",
+      "16a",
+      "20a",
+      "20b",
+      "24"
+    ],
+    "intentionally_not_activated": [
+      "07b third-party integrations",
+      "17 database schema",
+      "18 production auth",
+      "18b-18e production security chain",
+      "19a third-party/backend integration suite",
+      "20c external API deployment",
+      "20d production secret hardening",
+      "21 multi-agent merge",
+      "22 diff-merge"
+    ],
+    "pending_final": [
+      "23b",
+      "25"
+    ]
+  },
+  "evidence": [
+    "God Tree main files/contracts/walkthroughs were read before implementation.",
+    "Pinned extracted frontend code was inventoried at its exact commit.",
+    "Existing extracted route/component/CSS path was preserved."
+  ]
+}

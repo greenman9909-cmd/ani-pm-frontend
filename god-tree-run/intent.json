@@ -1,0 +1,21 @@
+{
+  "status": "complete",
+  "version": "1.0.0",
+  "product_name": "AML",
+  "product_type": "anime streaming interface prototype",
+  "target_user": "anime viewers evaluating a media-first discovery, library, community and player experience",
+  "key_flows": [
+    "discover from cinematic home",
+    "browse/filter/search catalogue",
+    "open title details and episodes",
+    "launch local mock player",
+    "manage library/progress",
+    "use profile/settings/community/schedule/watch-together"
+  ],
+  "reference_url": "https://ani.pm",
+  "vibe": "cinematic, dark, media-first, dense metadata, responsive, restrained glass",
+  "evidence": [
+    "User required the God Tree workflow and pinned ani.pm extracted frontend as the authoritative code/design reference.",
+    "Media/data constraint is synthetic or properly authorized; playback is adapter-backed and local mock-only in this build."
+  ]
+}

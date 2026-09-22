@@ -1,0 +1,8 @@
+{
+  "status": "pending",
+  "version": "1.0.0",
+  "evidence": [
+    "Final ship decision awaits runtime CI and deployment verification.",
+    "Real auth/database/licensed playback nodes are intentionally not activated in this mock-only scope."
+  ]
+}

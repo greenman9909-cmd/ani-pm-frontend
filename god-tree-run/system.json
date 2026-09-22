@@ -1,0 +1,234 @@
+{
+  "version": "1.0.0",
+  "status": "complete",
+  "actors": [
+    {
+      "id": "viewer",
+      "role": "viewer",
+      "description": "Browses catalogue, watches mock episodes and manages local library state.",
+      "goals": [
+        "discover",
+        "resume",
+        "organize"
+      ]
+    },
+    {
+      "id": "community-member",
+      "role": "community member",
+      "description": "Reads synthetic discussion, profile and leaderboard surfaces.",
+      "goals": [
+        "discuss",
+        "follow activity"
+      ]
+    }
+  ],
+  "journeys": [
+    {
+      "id": "discover-watch",
+      "actor": "viewer",
+      "title": "Discover and watch",
+      "trigger": "Open Home",
+      "steps": [
+        "View cinematic spotlight",
+        "Scan shelves",
+        "Open title",
+        "Select episode",
+        "Open local mock player"
+      ],
+      "outcome": "Playback shell opens without external streaming dependency."
+    },
+    {
+      "id": "library-loop",
+      "actor": "viewer",
+      "title": "Track progress",
+      "trigger": "Open Library",
+      "steps": [
+        "Inspect statuses",
+        "Resume progress",
+        "Open collection",
+        "Review history"
+      ],
+      "outcome": "Synthetic state exercises extracted Library UI."
+    }
+  ],
+  "routes": {
+    "public": [
+      {
+        "path": "/",
+        "title": "Home",
+        "purpose": "Home surface",
+        "components": []
+      },
+      {
+        "path": "/anime",
+        "title": "Browse",
+        "purpose": "Browse surface",
+        "components": []
+      },
+      {
+        "path": "/search",
+        "title": "Search",
+        "purpose": "Search surface",
+        "components": []
+      },
+      {
+        "path": "/latest",
+        "title": "Latest Episodes",
+        "purpose": "Latest Episodes surface",
+        "components": []
+      },
+      {
+        "path": "/genres",
+        "title": "Genres",
+        "purpose": "Genres surface",
+        "components": []
+      },
+      {
+        "path": "/anime/:id",
+        "title": "Anime Details",
+        "purpose": "Anime Details surface",
+        "components": []
+      },
+      {
+        "path": "/watch/:id",
+        "title": "Watch",
+        "purpose": "Watch surface",
+        "components": []
+      },
+      {
+        "path": "/library",
+        "title": "Library",
+        "purpose": "Library surface",
+        "components": []
+      },
+      {
+        "path": "/profile/:username?",
+        "title": "Profile",
+        "purpose": "Profile surface",
+        "components": []
+      },
+      {
+        "path": "/settings",
+        "title": "Settings",
+        "purpose": "Settings surface",
+        "components": []
+      },
+      {
+        "path": "/community",
+        "title": "Community",
+        "purpose": "Community surface",
+        "components": []
+      },
+      {
+        "path": "/community/:thread",
+        "title": "Community Thread",
+        "purpose": "Community Thread surface",
+        "components": []
+      },
+      {
+        "path": "/leaderboard",
+        "title": "Leaderboard",
+        "purpose": "Leaderboard surface",
+        "components": []
+      },
+      {
+        "path": "/schedule",
+        "title": "Release Schedule",
+        "purpose": "Release Schedule surface",
+        "components": []
+      },
+      {
+        "path": "/watch-together",
+        "title": "Watch Together",
+        "purpose": "Watch Together surface",
+        "components": []
+      },
+      {
+        "path": "/watch-together/:room",
+        "title": "Watch Room",
+        "purpose": "Watch Room surface",
+        "components": []
+      },
+      {
+        "path": "/terms",
+        "title": "Terms",
+        "purpose": "Terms surface",
+        "components": []
+      },
+      {
+        "path": "/privacy",
+        "title": "Privacy",
+        "purpose": "Privacy surface",
+        "components": []
+      }
+    ]
+  },
+  "states": {
+    "catalogue": [
+      "loading",
+      "ready",
+      "empty",
+      "error",
+      "offline"
+    ],
+    "library": [
+      "watching",
+      "completed",
+      "plan-to-watch",
+      "on-hold",
+      "dropped",
+      "favorite"
+    ],
+    "player": [
+      "idle",
+      "playing-shell",
+      "theater",
+      "fullscreen",
+      "next-episode"
+    ],
+    "network": "mock-only same-origin"
+  },
+  "entities": [
+    {
+      "name": "Anime",
+      "fields": {
+        "id": "number",
+        "anilistId": "structural artwork identity",
+        "title": "string",
+        "poster": "local SVG",
+        "banner": "local SVG",
+        "episodeCount": "number",
+        "genres": "string[]"
+      }
+    },
+    {
+      "name": "WatchState",
+      "fields": {
+        "status": "enum",
+        "progress": "number",
+        "favorite": "boolean",
+        "collectionIds": "string[]"
+      }
+    },
+    {
+      "name": "Profile",
+      "fields": {
+        "username": "string",
+        "level": "number",
+        "privacy": "mock"
+      }
+    }
+  ],
+  "integrations": [
+    {
+      "name": "MediaSourceAdapter",
+      "type": "local mock adapter",
+      "purpose": "Separates player UI from future licensed/user-provided sources.",
+      "env_vars": []
+    }
+  ],
+  "evidence": [
+    "Existing server.js is the same-origin fixture/API gateway.",
+    "Extracted React/Vite chunks remain the frontend route/component runtime."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "status": "complete",
+  "colors": {
+    "surface": "#121214",
+    "surfaceDeep": "#000000",
+    "text": "#ffffff",
+    "textMuted": "rgba(255,255,255,.70)",
+    "overlay": "rgba(18,18,20,.34)"
+  },
+  "typography": {
+    "primary": "Geist Variable, Geist, system-ui, sans-serif",
+    "system": "system-ui, sans-serif"
+  },
+  "spacing": {
+    "navGap": "2px",
+    "heroInset": "responsive/clamp-derived",
+    "railGap": "component CSS variables"
+  },
+  "radii": {
+    "pill": "999px",
+    "control": "tokenized component radii"
+  },
+  "shadows": {
+    "nav": "0 12px 30px -16px rgba(0,0,0,.82)"
+  },
+  "evidence": [
+    "Values are extracted/reconciled from index-D13MCA0g.css, Home-kYMl_wSU.css and MediaCarousel-CRpKoJDO.css.",
+    "New AML artwork uses no decorative CSS gradients and inherits existing layout tokens."
+  ]
+}

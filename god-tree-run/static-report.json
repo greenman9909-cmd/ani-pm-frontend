@@ -1,0 +1,13 @@
+{
+  "status": "pending-ci",
+  "scope": "Static source verification",
+  "checks": [
+    "mock-only forbidden-host scan",
+    "syntax check server/brand/Home chunk",
+    "reduced-motion CSS present",
+    "original mock-art paths used by AML fixtures"
+  ],
+  "evidence": [
+    "CI workflow aml-extracted-runtime performs these checks."
+  ]
+}

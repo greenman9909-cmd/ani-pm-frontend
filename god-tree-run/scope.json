@@ -1,0 +1,30 @@
+{
+  "status": "complete",
+  "version": "1.0.0",
+  "deliverable": "Production-quality media-first frontend/remix with synthetic catalogue and local mock playback adapter, browser verification, CI gates and deployable Node gateway.",
+  "tier_stop": 5,
+  "routes_include": [
+    "/",
+    "/anime",
+    "/search",
+    "/latest",
+    "/genres",
+    "/anime/:id",
+    "/watch/:id",
+    "/library",
+    "/profile/:username?",
+    "/settings",
+    "/community",
+    "/community/:thread",
+    "/leaderboard",
+    "/schedule",
+    "/watch-together",
+    "/watch-together/:room",
+    "/terms",
+    "/privacy"
+  ],
+  "evidence": [
+    "Scope preserves the extracted SPA rather than rebuilding its route/component system.",
+    "Real licensed streaming, persistent production auth/database and third-party integrations are outside this mock-only build and are not fabricated."
+  ]
+}

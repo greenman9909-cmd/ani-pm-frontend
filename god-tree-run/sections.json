@@ -1,0 +1,34 @@
+{
+  "sections": [
+    {
+      "id": "hero",
+      "name": "Cinematic Spotlight",
+      "description": "Full-bleed backdrop, title/metadata, synopsis and play/library actions."
+    },
+    {
+      "id": "continue",
+      "name": "Continue Watching",
+      "description": "Progress-aware horizontal rail."
+    },
+    {
+      "id": "discovery",
+      "name": "Discovery Shelves",
+      "description": "Trending, latest, popular, recommended and genre rails."
+    },
+    {
+      "id": "details",
+      "name": "Title Details",
+      "description": "Backdrop, metadata, synopsis, episode/season navigation, related and community."
+    },
+    {
+      "id": "player",
+      "name": "Watch Shell",
+      "description": "Dedicated player state, episode navigation and preference controls."
+    },
+    {
+      "id": "social",
+      "name": "Community Surfaces",
+      "description": "Profiles, discussions, leaderboard and watch-together."
+    }
+  ]
+}

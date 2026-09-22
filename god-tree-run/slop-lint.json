@@ -1,0 +1,12 @@
+{
+  "rules_checked": 130,
+  "violations": [],
+  "scope": "New AML overlay/data/art changes evaluated as 5 rule categories across 26 extracted stylesheets; extracted reference CSS itself is preserved evidence and not rewritten to satisfy generator-style rules.",
+  "rules": [
+    "no generated gradient utilities",
+    "no gradient text utilities",
+    "no arbitrary className colors",
+    "no emoji JSX decorations",
+    "no new out-of-scale radii"
+  ]
+}

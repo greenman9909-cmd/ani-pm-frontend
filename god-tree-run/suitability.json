@@ -1,0 +1,10 @@
+{
+  "status": "complete",
+  "version": "1.0.0",
+  "suitability_score": 0.99,
+  "product_category": "streaming/media application",
+  "evidence": [
+    "docs/use-cases.md contains an explicit Streaming/Media App recipe.",
+    "Pinned extracted reference explicitly prioritizes anime/video streaming apps and media-first browsing interfaces."
+  ]
+}
