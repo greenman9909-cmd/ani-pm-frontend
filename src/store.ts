@@ -2,8 +2,8 @@ import { createClient } from '@supabase/supabase-js'
 import type { Anime } from './api'
 import { titleOf } from './api'
 
-const url=import.meta.env.VITE_SUPABASE_URL as string|undefined
-const key=import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string|undefined
+const url=(import.meta.env.VITE_SUPABASE_URL as string|undefined)||'https://jlzxyqlhdnrluocudlxn.supabase.co'
+const key=(import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string|undefined)||'sb_publishable_1gv9foHZ3V6K3nnaSwbFjQ_Vlw7RyUA'
 export const supabaseConfigured=Boolean(url&&key)
 export const supabase=supabaseConfigured?createClient(url!,key!,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}):null
 
