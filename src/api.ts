@@ -106,7 +106,7 @@ function normalize(x:any,a:'sub'|'dub'):PlaybackSource|null{
   const s=x?.source||x?.sources?.find?.((v:any)=>v?.url)||x?.data?.sources?.find?.((v:any)=>v?.url)||x?.data||x
   const url=s?.url||s?.file||s?.src
   if(typeof url!=='string'||!url.startsWith('https://')) return null
-  const kind:/\.m3u8($|\?)/i extends never ? never : PlaybackSource['kind'] = /\.m3u8($|\?)/i.test(url)?'hls':/\.mp4($|\?)/i.test(url)?'mp4':'embed'
+  const kind: PlaybackSource['kind'] = /\.m3u8($|\?)/i.test(url) ? 'hls' : /\.mp4($|\?)/i.test(url) ? 'mp4' : 'embed'
   const tracks=x?.subtitles||x?.tracks||x?.data?.tracks||[]
   return {url,kind,server:s?.server||x?.provider||'resolver',audio:a,subtitles:Array.isArray(tracks)?tracks.filter((t:any)=>t?.url||t?.file).map((t:any)=>({url:t.url||t.file,label:t.label||t.lang||'Subtitle',language:t.language||t.lang})):[]}
 }
