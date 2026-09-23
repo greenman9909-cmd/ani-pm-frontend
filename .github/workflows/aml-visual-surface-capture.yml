@@ -56,31 +56,44 @@ jobs:
           const out = 'visual-captures';
           fs.mkdirSync(out, { recursive: true });
 
-          async function shot(name, path, wait=3500) {
-            await page.goto(base + path, { waitUntil: 'domcontentloaded', timeout: 30000 });
+          async function gotoHome() {
+            await page.goto(base + '/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+            await page.waitForTimeout(3200);
+          }
+          async function spaShot(name, path, wait=3200) {
+            await page.evaluate((p) => {
+              history.pushState({}, '', p);
+              window.dispatchEvent(new PopStateEvent('popstate'));
+            }, path);
             await page.waitForTimeout(wait);
             await page.screenshot({ path: `${out}/${name}.png`, fullPage: true });
             console.log(name, await page.title(), page.url());
           }
 
-          await shot('01-home', '/');
-          await shot('02-browse-anime', '/anime');
-          await shot('03-search', '/search');
-          await shot('04-genres', '/genres');
-          await shot('05-latest', '/latest');
-          await shot('06-anime-details', '/anime/91001');
-          await shot('07-watch-episode-selector', '/ani/91001');
-          await shot('08-library', '/library');
-          await shot('09-profile', '/user/mira');
-          await shot('10-settings', '/settings');
-          await shot('11-community', '/community');
-          await shot('12-leaderboard', '/leaderboard');
-          await shot('13-watch-together', '/watch-together');
-          await shot('14-downloads', '/downloads');
-          await shot('15-about', '/about');
+          await gotoHome();
+          await page.screenshot({ path: `${out}/01-home.png`, fullPage: true });
+          await spaShot('02-browse-anime', '/anime');
+          await spaShot('03-search-empty', '/search');
+          const searchInput = page.locator('input').first();
+          if (await searchInput.count() && await searchInput.isVisible()) {
+            await searchInput.fill('Re:ZERO');
+            await page.waitForTimeout(1800);
+            await page.screenshot({ path: `${out}/03b-search-results.png`, fullPage: true });
+          }
+          await spaShot('04-genres', '/genres');
+          await spaShot('05-latest', '/latest');
+          await spaShot('06-anime-details', '/anime/189046', 4200);
+          await spaShot('07-watch-episode-selector-player', '/ani/189046', 4200);
+          await spaShot('08-library', '/library');
+          await spaShot('09-profile', '/user/mira');
+          await spaShot('10-settings', '/settings', 4200);
+          await spaShot('11-community', '/community');
+          await spaShot('12-leaderboard', '/leaderboard');
+          await spaShot('13-watch-together', '/watch-together');
+          await spaShot('14-downloads', '/downloads');
+          await spaShot('15-about', '/about');
 
-          await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
-          await page.waitForTimeout(2500);
+          await gotoHome();
           const authCandidates = [
             page.getByRole('button', {name:/sign in|log in|account|profile/i}).first(),
             page.locator('button').filter({hasText:/sign in|log in/i}).first()
