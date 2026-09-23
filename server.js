@@ -1664,9 +1664,7 @@ const server = http.createServer(async (req, res) => {
     cleanPath === '/api/anime/catalog' ||
     cleanPath === '/api/recommend/browse' ||
     cleanPath === '/recommend/browse' ||
-    cleanPath === '/api/anime/recommend/browse' ||
-    cleanPath === '/anime/browse' ||
-    cleanPath === '/anime/catalog'
+    cleanPath === '/api/anime/recommend/browse'
   ) {
     sendJson(filterCatalog(parsedUrl.searchParams));
     return;
@@ -1959,7 +1957,7 @@ const server = http.createServer(async (req, res) => {
     sendJson({ collections: [] });
     return;
   }
-  if (cleanPath === '/api/settings' || cleanPath === '/settings') {
+  if (cleanPath === '/api/settings') {
     sendJson({ settings: {} });
     return;
   }
@@ -1989,11 +1987,11 @@ const server = http.createServer(async (req, res) => {
   }
 
   // User Stats & Leaderboard
-  if (cleanPath === '/api/user/stats' || cleanPath === '/user/stats') {
+  if (cleanPath === '/api/user/stats') {
     sendJson({ minutesWatched: 0, episodesWatched: 0, animeCompleted: 0 });
     return;
   }
-  if (cleanPath === '/api/leaderboard' || cleanPath === '/leaderboard') {
+  if (cleanPath === '/api/leaderboard') {
     const entries = [
       { rank: 1, user: USER_ADMIN, level: 99, xp: 99990 },
       { rank: 2, user: USER_SUBARU, level: 45, xp: 45200 },
