@@ -1,1 +1,0 @@
-import{j as r}from"./query-V7WhSRdC.js";const x={outline:"yt-btn--outline",text:"yt-btn--text",inline:"yt-btn--text show-more-button--inline"};function b({variant:t="outline",expanded:o,className:n,type:e="button","aria-expanded":i,...u}){return r.jsx("button",{...u,type:e,"aria-expanded":i??o,className:`yt-btn ${x[t]}${n?` ${n}`:""}`,"data-show-more-button":t})}export{b as S};

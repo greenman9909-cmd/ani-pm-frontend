@@ -1,6 +1,6 @@
-__pycache__/
-*.pyc
-.ani-cache/
+node_modules
+dist
+.env
+.env.local
+.vercel
 .DS_Store
-Thumbs.db
-*.log
