@@ -1,0 +1,129 @@
+name: aml-visual-surface-capture
+
+on:
+  push:
+    branches:
+      - remix/aml-extracted-frontend
+    paths:
+      - ".github/workflows/aml-visual-surface-capture.yml"
+  workflow_dispatch:
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Boot extracted AML frontend
+        run: |
+          PORT=4173 node server.js >/tmp/aml-capture-server.log 2>&1 &
+          echo $! >/tmp/aml-capture-server.pid
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4173/api/local/health >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/aml-capture-server.log
+          exit 1
+
+      - name: Install browser driver
+        run: npm install --no-save playwright-core@1.55.0
+
+      - name: Capture extracted ani.pm surfaces
+        run: |
+          cat > /tmp/capture.mjs <<'JS'
+          import { chromium } from 'playwright-core';
+          import fs from 'node:fs';
+
+          const executablePath =
+            ['/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser']
+              .find(p => fs.existsSync(p));
+          if (!executablePath) throw new Error('Chrome/Chromium not found');
+
+          const browser = await chromium.launch({
+            headless: true,
+            executablePath,
+            args: ['--no-sandbox','--disable-dev-shm-usage']
+          });
+
+          const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
+          const base = 'http://127.0.0.1:4173';
+          const out = 'visual-captures';
+          fs.mkdirSync(out, { recursive: true });
+
+          async function shot(name, path, wait=3500) {
+            await page.goto(base + path, { waitUntil: 'domcontentloaded', timeout: 30000 });
+            await page.waitForTimeout(wait);
+            await page.screenshot({ path: `${out}/${name}.png`, fullPage: true });
+            console.log(name, await page.title(), page.url());
+          }
+
+          await shot('01-home', '/');
+          await shot('02-browse-anime', '/anime');
+          await shot('03-search', '/search');
+          await shot('04-genres', '/genres');
+          await shot('05-latest', '/latest');
+          await shot('06-anime-details', '/anime/91001');
+          await shot('07-watch-episode-selector', '/ani/91001');
+          await shot('08-library', '/library');
+          await shot('09-profile', '/user/mira');
+          await shot('10-settings', '/settings');
+          await shot('11-community', '/community');
+          await shot('12-leaderboard', '/leaderboard');
+          await shot('13-watch-together', '/watch-together');
+          await shot('14-downloads', '/downloads');
+          await shot('15-about', '/about');
+
+          await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
+          await page.waitForTimeout(2500);
+          const authCandidates = [
+            page.getByRole('button', {name:/sign in|log in|account|profile/i}).first(),
+            page.locator('button').filter({hasText:/sign in|log in/i}).first()
+          ];
+          let opened = false;
+          for (const candidate of authCandidates) {
+            try {
+              if (await candidate.count() && await candidate.isVisible()) {
+                await candidate.click();
+                await page.waitForTimeout(900);
+                opened = true;
+                break;
+              }
+            } catch {}
+          }
+          if (!opened) {
+            const buttons = page.locator('button');
+            const n = await buttons.count();
+            for (let i=0;i<n;i++) {
+              const b=buttons.nth(i);
+              const txt=((await b.getAttribute('aria-label'))||'')+' '+((await b.textContent())||'');
+              if (/account|profile|user|login|sign in/i.test(txt)) {
+                try { await b.click(); await page.waitForTimeout(900); opened=true; break; } catch {}
+              }
+            }
+          }
+          await page.screenshot({ path: `${out}/16-auth-modal.png`, fullPage: true });
+          console.log('auth modal attempted', opened);
+
+          await browser.close();
+          JS
+          node /tmp/capture.mjs
+
+      - name: Upload visual captures
+        uses: actions/upload-artifact@v4
+        with:
+          name: ani-pm-extracted-all-surfaces
+          path: visual-captures/*.png
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Stop server
+        if: always()
+        run: |
+          kill "$(cat /tmp/aml-capture-server.pid)" 2>/dev/null || true
+          cat /tmp/aml-capture-server.log || true
