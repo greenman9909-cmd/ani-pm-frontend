@@ -113,7 +113,7 @@
     .wl-pages{background-position:0% 0%!important}.wl-assets{background-position:33.333% 0%!important}.wl-code{background-position:66.666% 0%!important}.wl-links{background-position:100% 0%!important}
     .wl-preview{background-position:0% 100%!important}.wl-metadata{background-position:33.333% 100%!important}.wl-sitemap{background-position:66.666% 100%!important}.wl-export{background-position:100% 100%!important}
 </style>
-</head>
+<link rel="stylesheet" href="/assets/webloom-motion.css"></head>
 <body>
   <header class="site-header"><div class="wrap">
     <nav class="nav">
@@ -148,7 +148,7 @@
           <div class="hero-note"><span>✦</span><span><b>One full capture free.</b> No card. Public pages only.</span></div>
         </div>
 
-        <div class="preview" aria-label="WebLoom app preview">
+        <div class="preview" aria-label="Illustrative WebLoom workspace">
           <div class="window">
             <div class="wtop"><span class="traffic"></span></div>
             <div class="app">
@@ -157,10 +157,10 @@
                 <div class="menu"><span class="active">Overview</span><span>Pages</span><span>Assets</span><span>Files</span><span>Metadata</span><span>Links</span><span>Sitemap</span></div>
               </aside>
               <div class="pane">
-                <div class="panehead"><span class="crumb">example.com · capture complete</span><span class="status">Ready</span></div>
+                <div class="panehead"><span class="crumb">Illustrative workspace · example.com</span><span class="status">Demo</span></div>
                 <div class="browser">
                   <div class="browserbar">https://example.com</div>
-                  <div class="site"><div class="sitecopy"><strong>A cleaner, brighter web.</strong><p>Live preview of the captured public website.</p><button>Explore</button></div></div>
+                  <div class="site"><div class="sitecopy"><strong>A cleaner, brighter web.</strong><p>Illustration only. Your capture displays the actual website.</p><a class="btn" href="/new">Try your own URL →</a></div></div>
                 </div>
                 <div class="summary">
                   <div class="stat"><b>Pages</b><small>Discovered routes</small></div>
@@ -215,12 +215,12 @@
         <div class="story-stage">
           <div class="story-frame" id="storyFrame">
             <div class="story-ui">
-              <div class="story-ui-top"><span class="story-ui-dot"></span></div>
+              <div class="story-ui-top"><span class="story-ui-dot"></span><span>WebLoom / Workflow illustration</span></div>
               <div class="story-ui-body">
                 <div class="story-ui-side"><i></i><i></i><i></i><i></i><i></i></div>
                 <div class="story-ui-main">
-                  <div class="story-ui-browser"></div>
-                  <div class="story-ui-files"><span></span><span></span><span></span></div>
+                  <div class="story-ui-browser"><span>YOUR PUBLIC WEBSITE</span><strong>From URL<br>to organized project.</strong><i></i><i></i><i></i></div>
+                  <div class="story-ui-files"><span>pages /</span><span>assets /</span><span>metadata.json</span><span>sitemap.xml</span></div>
                 </div>
               </div>
             </div>
@@ -290,6 +290,7 @@
     const scrubStory = () => {
       ticking = false;
       if (!story || !frame) return;
+      if(matchMedia("(prefers-reduced-motion: reduce)").matches){storySteps.forEach(el=>el.classList.add("active"));return;}
       const rect = story.getBoundingClientRect();
       const scrollable = Math.max(1, rect.height - innerHeight * .55);
       const p = Math.max(0, Math.min(1, (-rect.top + innerHeight * .18) / scrollable));
@@ -333,5 +334,5 @@
       window.location.href = target;
     });
   </script>
-</body>
+<script src="/assets/webloom-motion.js"></script></body>
 </html>

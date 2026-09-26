@@ -11,7 +11,7 @@ document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.
   const json = async (url, options={}) => {
     const r = await fetch(url, options);
     let d = {};
-    try { d = await r.json(); } catch {}
+    try { d = await r.json(); } catch { throw new Error("The service is unavailable. Please try again later."); }
     if (!r.ok) throw Object.assign(new Error(d.error || "Request failed."), {status:r.status, data:d});
     return d;
   };
@@ -35,14 +35,20 @@ document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.
   const hostOf = url => { try { return new URL(url).hostname; } catch { return url; } };
   const goSignin = () => { location.href = "/signin?next=" + encodeURIComponent(path + location.search); };
 
+  function showError(message, root=document.querySelector('.content') || document.querySelector('main') || document.body){
+    let note=root.querySelector('.service-error');
+    if(!note){note=document.createElement('p');note.className='service-error';note.setAttribute('role','alert');root.prepend(note);}
+    note.textContent=message;
+  }
+  const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   async function hydrateUser(){
     try{
       const d = await json("/api/me");
-      if(!d.authenticated){
+      if(!d.authenticated && !d.guest){
         if(/^\/(dashboard|project|billing|account|settings|admin)/.test(path)) goSignin();
         return null;
       }
-      const u=d.user||{};
+      const u=d.user||{role:"guest",plan:"free",free_capture_used:d.free_capture_used};
       $$(".plan-chip b").forEach(el=>el.textContent=u.role==="owner"?"Owner access":u.plan==="pro"?"Pro plan":"Free plan");
       $$(".plan-chip p").forEach(el=>el.textContent=u.role==="owner"?"Unlimited captures + private tools.":u.plan==="pro"?"Unlimited captures enabled.":u.free_capture_used?"Free capture used.":"One complete capture included.");
       $$(".avatar").forEach(el=>{
@@ -50,10 +56,10 @@ document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.
         el.textContent=(email.slice(0,2)||"WL").toUpperCase();
       });
       if(u.role==="owner" && !$('.side-nav a[href="/admin"]')){
-        $(".side-nav").slice(-1)[0]?.insertAdjacentHTML("beforeend", '<a href="/admin"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg>Owner console</a>');
+        $$(".side-nav").slice(-1)[0]?.insertAdjacentHTML("beforeend", '<a href="/admin"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg>Owner console</a>');
       }
       return u;
-    }catch(e){ return null; }
+    }catch(e){ showError(e.message); return null; }
   }
 
   function authPage(mode){
@@ -81,7 +87,7 @@ document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.
           return;
         }
         const next=new URLSearchParams(location.search).get("next");
-        location.href=next||d.redirect||"/dashboard";
+        location.href=(next && next.startsWith("/") && !next.startsWith("//") && !next.includes("\\"))?next:(d.redirect||"/dashboard");
       }catch(e){
         note.classList.remove("ok");
         note.textContent=e.message;
@@ -114,40 +120,92 @@ document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.
           const row=document.createElement("a");
           row.className="project-row";
           row.href="/project/"+p.id;
-          row.innerHTML='<div class="project-favicon">'+hostOf(p.source_url).slice(0,1).toUpperCase()+'</div><div class="project-row-main"><b>'+hostOf(p.source_url)+'</b><span>'+p.source_url+'</span></div><span class="status-pill '+p.status+'">'+p.status+'</span><span class="project-meta">'+(p.file_count||0)+' files · '+fmtBytes(p.byte_count)+'</span><span class="row-arrow">→</span>';
+          row.innerHTML='<div class="project-favicon">'+escapeHTML(hostOf(p.source_url).slice(0,1).toUpperCase())+'</div><div class="project-row-main"><b>'+escapeHTML(hostOf(p.source_url))+'</b><span>'+escapeHTML(p.source_url)+'</span></div><span class="status-pill '+escapeHTML(p.status)+'">'+escapeHTML(p.status)+'</span><span class="project-meta">'+(p.file_count||0)+' files · '+fmtBytes(p.byte_count)+'</span><span class="row-arrow">→</span>';
           list.appendChild(row);
         });
         if(head) $("p",head).textContent=projects.length+" saved project"+(projects.length===1?"":"s");
       }
-    }catch(e){}
+    }catch(e){ showError(e.message); }
   }
 
   async function projectPage(){
-    if(!path.startsWith("/project")) return;
-    const u=await hydrateUser();
-    if(!u) return;
-    const id=path.split("/")[2];
+    if(!path.startsWith('/project')) return;
+    const id=path.split('/')[2];
     if(!id) return;
-    try{
-      const d=await json("/api/projects/"+id);
-      const p=d.project;
-      $(".badge.gray") && ($(".badge.gray").textContent=p.status);
-      const h=$(".hero-row h1");
-      if(h) h.textContent=hostOf(p.source_url);
-      const desc=$(".hero-row p");
-      if(desc) desc.textContent=p.source_url;
-      const box=$(".preview-box");
-      if(box){
-        if(p.status==="done"){
-          box.innerHTML='<iframe class="project-preview-frame" title="Captured website preview" src="/preview/'+id+'/"></iframe>';
-          const hero=$(".hero-row");
-          hero?.insertAdjacentHTML("beforeend",'<div class="project-actions"><a class="btn" target="_blank" rel="noopener" href="/preview/'+id+'/">Open preview ↗</a><a class="btn primary" href="/api/jobs/'+id+'/download">Download ZIP ↓</a></div>');
-        }else{
-          box.innerHTML='<div class="capture-running"><div class="capture-spinner"></div><h3>'+p.status.charAt(0).toUpperCase()+p.status.slice(1)+' capture</h3><p>WebLoom is building the project. This page updates automatically.</p></div>';
-          setTimeout(()=>location.reload(),3500);
-        }
+    const box=$('.preview-box');
+    const tabs=$$('.project-nav a');
+    box.classList.add('project-panel');
+    box.textContent='Loading capture…';
+    let project;
+    try {
+      ({project}=await json('/api/projects/'+encodeURIComponent(id)));
+      if(!project) throw new Error('Project was not returned by the service.');
+      $('.hero-row h1').textContent=hostOf(project.source_url);
+      $('.hero-row p').textContent=project.source_url;
+      $('.badge.gray').textContent=project.status;
+      if(['failed','error','cancelled','canceled'].includes(project.status)) throw new Error(project.error || 'This capture did not finish. Start a new capture to retry.');
+      if(project.status!=='done' && project.status!=='completed'){
+        box.textContent='Capture status: '+project.status+'. Waiting for the server to finish.';
+        setTimeout(()=>projectPage(),3500);return;
       }
-    }catch(e){}
+    } catch(e){box.textContent='';showError(e.message,box);return;}
+    const base='/preview/'+encodeURIComponent(id)+'/';
+    const cache=new Map();
+    async function file(name, asText=false){
+      if(cache.has(name))return cache.get(name);
+      const r=await fetch(base+name);
+      if(!r.ok)throw new Error('This capture has no available '+name+'.');
+      const content=await r.text();
+      let value=content;
+      if(!asText){try{value=JSON.parse(content);}catch{throw new Error('The service did not return a valid '+name+'.');}}
+      else if(!content.trim().startsWith('<?xml') && !/<(?:urlset|sitemapindex)\b/.test(content))throw new Error('No XML sitemap is available for this capture.');
+      cache.set(name,value);return value;
+    }
+    const listOf=v=>Array.isArray(v)?v:Object.entries(v||{}).map(([path,data])=>typeof data==='object'?{path,...data}:{path,value:data});
+    let selected='Overview';
+    async function render(label){
+      selected=label;
+      tabs.forEach(t=>{const active=t.dataset.tab===label;t.classList.toggle('active',active);t.setAttribute('aria-selected',String(active));});
+      box.replaceChildren();box.setAttribute('aria-busy','true');box.textContent='Loading '+label.toLowerCase()+'…';
+      try{
+        if(label==='Overview'){
+          box.innerHTML='<div class="preview-controls" role="group" aria-label="Preview size"><b>Captured website</b><button class="btn" data-width="100%" aria-pressed="true">Desktop</button><button class="btn" data-width="768px" aria-pressed="false">Tablet</button><button class="btn" data-width="390px" aria-pressed="false">Mobile</button></div><p class="preview-note">Preview uses captured files. Remote services and protected features may be unavailable.</p><div class="preview-viewport"><iframe class="project-preview-frame" title="Captured website" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe></div>';
+          $('iframe',box).src=base;
+          $$('[data-width]',box).forEach(btn=>btn.addEventListener('click',()=>{
+            $('.preview-viewport',box).style.width=btn.dataset.width;
+            $$('[data-width]',box).forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
+          }));
+        }else if(label==='Export'){
+          box.innerHTML='<div class="export-box"><div><h3>Export this capture</h3><p>Download the files collected from '+escapeHTML(hostOf(project.source_url))+'.</p></div><a class="btn primary" href="/api/jobs/'+encodeURIComponent(id)+'/download">Download ZIP ↓</a></div>';
+        }else{
+          let value;
+          if(label==='Pages'||label==='Assets'){
+            const manifest=await file('webloom-project.json');
+            const all=listOf(manifest.files);
+            value=label==='Pages'?listOf(manifest.pages||all.filter(x=>/\.html?$/i.test(x.path||x.name||''))):listOf(manifest.assets||all.filter(x=>! /\.html?$/i.test(x.path||x.name||'')));
+          }else value=await file(label==='Metadata'?'metadata.json':label==='Links'?'links.json':'sitemap.xml',label==='Sitemap');
+          if(selected!==label)return;
+          box.replaceChildren();
+          const heading=document.createElement('h2');heading.textContent=label;box.append(heading);
+          if(label==='Pages'||label==='Assets'){
+            const count=document.createElement('p');count.textContent=value.length+' recorded '+label.toLowerCase();box.append(count);
+            const list=document.createElement('div');list.className='data-list';
+            value.forEach(item=>{const row=document.createElement('div');row.className='data-row';const name=document.createElement('b');name.textContent=typeof item==='string'?item:item.path||item.url||item.name||'Unnamed file';const size=document.createElement('span');size.textContent=item.bytes!=null?fmtBytes(item.bytes):item.size!=null?fmtBytes(item.size):'';row.append(name,size);list.append(row);});box.append(list);
+          }else{
+            const code=document.createElement('pre');code.className='code-panel';code.textContent=typeof value==='string'?value:JSON.stringify(value,null,2);box.append(code);
+          }
+        }
+      }catch(e){if(selected===label){box.replaceChildren();showError(e.message,box);}}
+      finally{if(selected===label)box.setAttribute('aria-busy','false');}
+    }
+    $('.project-nav').setAttribute('role','tablist');
+    tabs.forEach((tab,index)=>{
+      const label=tab.textContent.trim();tab.dataset.tab=label;tab.href='#'+label.toLowerCase();tab.setAttribute('role','tab');
+      tab.onclick=e=>{e.preventDefault();render(label);};
+      tab.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();tabs[(index+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length].focus();}};
+    });
+    box.setAttribute('role','tabpanel');
+    await render('Overview');
   }
 
   async function billingPage(){
@@ -159,18 +217,18 @@ document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.
         btn.addEventListener("click",async()=>{
           const old=btn.textContent;btn.disabled=true;btn.textContent="Opening checkout…";
           try{const d=await apiPost("/api/billing/checkout");location.href=d.url;}
-          catch(e){btn.disabled=false;btn.textContent=old;alert(e.message);}
+          catch(e){btn.disabled=false;btn.textContent=old;showError(e.message);}
         });
       }
       if(/manage billing/i.test(btn.textContent)){
         btn.addEventListener("click",async()=>{
-          try{const d=await apiPost("/api/billing/portal");location.href=d.url;}catch(e){alert(e.message);}
+          try{const d=await apiPost("/api/billing/portal");location.href=d.url;}catch(e){showError(e.message);}
         });
       }
     });
     if(u && path==="/billing"){
       const notice=$(".notice");
-      if(notice) notice.textContent=u.role==="owner"?"Owner access is active. Billing is optional for this account.":u.plan==="pro"?"WebLoom Pro is active on this account.":"Your free capture is ready. Upgrade when you need unlimited captures.";
+      if(notice) notice.textContent=u.role==="owner"?"Owner access is active. Billing is optional for this account.":u.plan==="pro"?"WebLoom Pro is active on this account.":u.free_capture_used?"Your free capture has been used. Upgrade for more captures.":"Your free capture is ready. Upgrade when you need more captures.";
     }
   }
 
@@ -258,7 +316,7 @@ document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.
   if(path==="/signin") authPage("signin");
   if(path==="/signup") authPage("signup");
   recoveryPage();
-  if(path==="/dashboard") dashboard(); else hydrateUser();
+  if(path==="/dashboard") dashboard(); else if(!/^\/(project|billing|pricing|account|settings)/.test(path)) hydrateUser();
   projectPage();
   billingPage();
   accountPage();

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffffff"><meta name="robots" content="noindex,nofollow"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/__spa_ui/static/webloom-app.css"><title>New capture · WebLoom</title></head><body><div class="shell"><aside class="sidebar"><a class="brand" href="/"><span class="brand-mark"></span><span>WebLoom</span></a><div class="nav-label">Workspace</div><nav class="side-nav">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffffff"><meta name="robots" content="noindex,nofollow"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/__spa_ui/static/webloom-app.css"><title>New capture · WebLoom</title><link rel="stylesheet" href="/assets/webloom-motion.css"></head><body><div class="shell"><aside class="sidebar"><a class="brand" href="/"><span class="brand-mark"></span><span>WebLoom</span></a><div class="nav-label">Workspace</div><nav class="side-nav">
 <a class="" href="/dashboard"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>Overview</a>
 <a class="active" href="/new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New capture</a>
 <a class="" href="/project"><svg viewBox="0 0 24 24"><path d="M4 6h6l2 2h8v10H4z"/></svg>Projects</a></nav>
@@ -17,59 +17,27 @@
 </div></section>
 <section class="card visual-grid reveal motion-surface" data-scrub style="margin-top:18px">
 <div class="visual-copy"><span class="badge">What happens next</span><h2 style="margin-top:12px">The capture builds itself in front of you.</h2><p>WebLoom maps reachable pages, pulls referenced frontend files into one workspace, then gives you a live preview before export.</p><div class="mini-points"><div class="mini-point"><span class="wl-icon small wl-links" aria-hidden="true"></span><span>Map internal links and reachable routes.</span></div><div class="mini-point"><span class="wl-icon small wl-preview" aria-hidden="true"></span><span>Open the rebuilt frontend in a live preview.</span></div><div class="mini-point"><span class="wl-icon small wl-export" aria-hidden="true"></span><span>Export the organized project when it looks right.</span></div></div></div>
-<div class="stage-card" data-depth="1.15"><div class="stage-toolbar"><span class="stage-dots"><i></i><i></i><i></i></span><span class="stage-url">public-site.example</span><span class="stage-status">Mapping</span></div><div class="stage-body"><div class="stage-browser"><div class="stage-browser-bar"></div><div class="stage-browser-page"></div></div><div class="stage-file-panel"><div class="stage-file"><i></i>pages /</div><div class="stage-file"><i></i>assets /</div><div class="stage-file"><i></i>metadata.json</div><div class="stage-file"><i></i>sitemap.xml</div></div><div class="stage-scan"></div><span class="stage-node a"></span><span class="stage-node b"></span><span class="stage-node c"></span><span class="stage-line a"></span><span class="stage-line b"></span><span class="stage-float one">Routes found</span><span class="stage-float two">Preview building</span></div></div>
+<div class="stage-card" data-depth="1.15"><div class="stage-toolbar"><span class="stage-dots"><i></i><i></i><i></i></span><span class="stage-url">public-site.example</span><span class="stage-status">Workflow illustration</span></div><div class="stage-body"><div class="stage-browser"><div class="stage-browser-bar"></div><div class="stage-browser-page"></div></div><div class="stage-file-panel"><div class="stage-file"><i></i>pages /</div><div class="stage-file"><i></i>assets /</div><div class="stage-file"><i></i>metadata.json</div><div class="stage-file"><i></i>sitemap.xml</div></div><div class="stage-scan"></div><span class="stage-node a"></span><span class="stage-node b"></span><span class="stage-node c"></span><span class="stage-line a"></span><span class="stage-line b"></span><span class="stage-float one">Routes found</span><span class="stage-float two">Preview building</span></div></div>
 </section></div></main></div><script src="/__spa_ui/static/webloom-app.js"></script><script>
-  const params = new URLSearchParams(location.search);
-  const field = document.getElementById("captureUrl");
-  if (field && params.get("url")) field.value = params.get("url");
-  document.getElementById("startCapture")?.addEventListener("click", async () => {
-    const value = field?.value.trim();
-    if (!value) { field?.focus(); return; }
-    const button = document.getElementById("startCapture");
-    const original = button.textContent;
-    button.disabled = true;
-    button.textContent = "Capturing…";
-    const progress = document.getElementById("captureProgress");
-    const progressBar = document.getElementById("captureProgressBar");
-    const progressTitle = document.getElementById("captureProgressTitle");
-    const progressMeta = document.getElementById("captureProgressMeta");
-    const stages = [
-      ["Connecting to the site…","Checking the public entry page."],
-      ["Mapping the frontend…","Following reachable routes and references."],
-      ["Collecting files…","Saving pages, assets, links and metadata."],
-      ["Packaging the project…","Preparing preview and export files."]
-    ];
-    let stage = 0;
-    let timer = null;
-    if (progress) {
-      progress.hidden = false;
-      progressBar.style.width = "12%";
-      timer = setInterval(() => {
-        stage = Math.min(stages.length - 1, stage + 1);
-        progressTitle.textContent = stages[stage][0];
-        progressMeta.textContent = stages[stage][1];
-        progressBar.style.width = [12,38,68,88][stage] + "%";
-      }, 4200);
-    }
-    try {
-      const response = await fetch("/api/clone", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({url:value})
-      });
-      const data = await response.json();
-      if (!response.ok || !data?.job?.id) throw new Error(data?.error || data?.job?.error || "Capture could not be started.");
-      if (progressBar) progressBar.style.width = "100%";
-      if (progressTitle) progressTitle.textContent = "Project ready.";
-      if (progressMeta) progressMeta.textContent = "Opening your workspace…";
-      clearInterval(timer);
-      setTimeout(() => { location.href = "/project/" + data.job.id; }, 260);
-    } catch (error) {
-      clearInterval(timer);
-      button.disabled = false;
-      button.textContent = original;
-      if (progress) progress.hidden = true;
-      alert(error.message || "Capture could not be started.");
-    }
+  const params=new URLSearchParams(location.search);
+  const field=document.getElementById('captureUrl');
+  field.value=params.get('url')||'';
+  const button=document.getElementById('startCapture');
+  const status=document.createElement('p');status.className='form-status';status.setAttribute('role','status');button.closest('.urlbar').after(status);
+  field.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();button.click();}});
+  button.addEventListener('click',async()=>{
+    let url;try{url=new URL(field.value.trim());if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw Error();}catch{status.textContent='Enter a public URL starting with https:// or http://.';field.focus();return;}
+    status.textContent='';button.disabled=true;button.textContent='Starting capture…';
+    const progress=document.getElementById('captureProgress');progress.hidden=false;progress.classList.add('indeterminate');
+    document.getElementById('captureProgressTitle').textContent='Waiting for the capture service…';
+    document.getElementById('captureProgressMeta').textContent='Your project opens when the server confirms it.';
+    try{
+      const response=await fetch('/api/clone',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url.href})});
+      if(!response.headers.get('content-type')?.includes('application/json'))throw Error('The capture service is unavailable. Please try again later.');
+      const data=await response.json();
+      if(!response.ok||!data.job?.id)throw Error(data.error||'The server did not create a capture.');
+      if(['failed','error'].includes(data.job.status))throw Error(data.job.error||'Capture failed.');
+      location.href='/project/'+encodeURIComponent(data.job.id);
+    }catch(e){status.textContent=e.message;status.classList.add('error');progress.hidden=true;button.disabled=false;button.textContent='Retry capture →';}
   });
-  </script></body></html>
+  </script><script src="/assets/webloom-motion.js"></script></body></html>
