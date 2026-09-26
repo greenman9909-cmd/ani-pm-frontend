@@ -1,9 +1,19 @@
 {
   "version": 2,
   "builds": [
-    { "src": "index.html", "use": "@vercel/static" }
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "app.html", "use": "@vercel/static" }
   ],
   "routes": [
+    { "src": "/signin/?", "dest": "/app.html" },
+    { "src": "/dashboard/?", "dest": "/app.html" },
+    { "src": "/new/?", "dest": "/app.html" },
+    { "src": "/history/?", "dest": "/app.html" },
+    { "src": "/billing/?", "dest": "/app.html" },
+    { "src": "/settings/?", "dest": "/app.html" },
+    { "src": "/privacy/?", "dest": "/app.html" },
+    { "src": "/terms/?", "dest": "/app.html" },
+    { "src": "/project/(.*)", "dest": "/app.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
