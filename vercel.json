@@ -1,96 +1,23 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
+  "fluid": true,
   "builds": [
     {
-      "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "assets/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "backend-unavailable.json",
-      "use": "@vercel/static"
+      "src": "web_app.py",
+      "use": "@vercel/python"
     }
   ],
+  "functions": {
+    "web_app.py": {
+      "maxDuration": 300,
+      "excludeFiles": "{tests/**,android/**,test-output/**,SPA-Ripper.apk}"
+    }
+  },
   "routes": [
     {
-      "src": "/(api|preview)(/.*)?",
-      "dest": "/backend-unavailable.json",
-      "status": 503,
-      "headers": {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store"
-      }
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/__spa_ui/static/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/dashboard/?",
-      "dest": "/dashboard.html"
-    },
-    {
-      "src": "/new/?",
-      "dest": "/new.html"
-    },
-    {
-      "src": "/project(?:/.*)?",
-      "dest": "/project.html"
-    },
-    {
-      "src": "/pricing/?",
-      "dest": "/pricing.html"
-    },
-    {
-      "src": "/billing/?",
-      "dest": "/billing.html"
-    },
-    {
-      "src": "/account/?",
-      "dest": "/account.html"
-    },
-    {
-      "src": "/settings/?",
-      "dest": "/settings.html"
-    },
-    {
-      "src": "/admin/?",
-      "dest": "/admin.html"
-    },
-    {
-      "src": "/signin/?",
-      "dest": "/signin.html"
-    },
-    {
-      "src": "/forgot/?",
-      "dest": "/forgot.html"
-    },
-    {
-      "src": "/signup/?",
-      "dest": "/signup.html"
-    },
-    {
-      "src": "/terms/?",
-      "dest": "/terms.html"
-    },
-    {
-      "src": "/privacy/?",
-      "dest": "/privacy.html"
-    },
-    {
-      "src": "/?",
-      "dest": "/index.html"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "web_app.py"
     }
   ]
 }
