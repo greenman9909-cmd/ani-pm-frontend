@@ -19,5 +19,8 @@
       "src": "/(.*)",
       "dest": "web_app.py"
     }
-  ]
+  ],
+  "env": {
+    "WEBLOOM_PREVIEW": "1"
+  }
 }
