@@ -9,6 +9,7 @@
     { "src": "/dashboard/?", "dest": "/dashboard.html" },
     { "src": "/new/?", "dest": "/new.html" },
     { "src": "/project/?", "dest": "/project.html" },
+    { "src": "/pricing/?", "dest": "/pricing.html" },
     { "src": "/billing/?", "dest": "/billing.html" },
     { "src": "/account/?", "dest": "/account.html" },
     { "src": "/settings/?", "dest": "/settings.html" },
